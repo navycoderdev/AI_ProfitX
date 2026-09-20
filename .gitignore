@@ -8,6 +8,8 @@ __pycache__/
 logs/
 data/*.db
 data/*.db-*
-reports/
-models/artifacts/
+reports/*
+!reports/brain_v1_oos.json
+models/artifacts/*
+!models/artifacts/Brain-v1.json
 doc/mt5.txt

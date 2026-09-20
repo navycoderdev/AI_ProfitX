@@ -51,13 +51,19 @@ class ControlCenter:
             inference = session.scalar(select(ModelInferenceLog).order_by(ModelInferenceLog.id.desc()))
             snapshot = session.scalar(select(MarketSnapshot).where(MarketSnapshot.snapshot_id == decision.market_snapshot_id)) if decision else None
             candidates = list(session.scalars(select(ModelVersion).where(ModelVersion.stage.in_(("CANDIDATE", "VALIDATING", "PAPER", "SHADOW")))))
+            simulations = self._oos_simulations(session)
         production = self.registry.production()
         return {"active_brain": production["model_id"] if production else None, "model_status": production["status"] if production else None,
                 "latest_decision": None if not decision else {"direction": decision.direction, "confidence": decision.confidence,
                     "model_version": decision.model_version, "feature_version": decision.feature_version,
                     "regime": snapshot.regime if snapshot else None, "timestamp": decision.timestamp},
                 "last_inference": inference.timestamp if inference else None,
-                "candidates": [{"model_id": item.version, "status": item.stage} for item in candidates]}
+                "candidates": [{"model_id": item.version, "status": item.stage,
+                    "validation_metrics": json.loads(item.metadata_json).get("validation_metrics"),
+                    "out_of_sample_metrics": json.loads(item.metadata_json).get("out_of_sample_metrics"),
+                    "confidence_policy": json.loads(item.metadata_json).get("confidence_policy"),
+                    "feature_importance": json.loads(item.metadata_json).get("feature_importance"),
+                    "oos_simulation": simulations.get(item.version)} for item in candidates]}
     def positions_view(self) -> list[dict]: return self.positions()
     def trade_memory(self, limit: int = 100) -> list[dict]:
         with self.sessions() as session:
@@ -69,9 +75,22 @@ class ControlCenter:
                  "mfe": (trades[item.trade_id].outcome or {}).get("mfe") if item.trade_id in trades else None,
                  "mae": (trades[item.trade_id].outcome or {}).get("mae") if item.trade_id in trades else None} for item in decisions]
     def model_lab(self) -> dict:
-        with self.sessions() as session: rows = list(session.scalars(select(ModelVersion).order_by(ModelVersion.id)))
-        models = [{"model_id": item.version, "status": item.stage, **json.loads(item.metadata_json)} for item in rows]
+        with self.sessions() as session:
+            rows = list(session.scalars(select(ModelVersion).order_by(ModelVersion.id)))
+            simulations = self._oos_simulations(session)
+        models = [{"model_id": item.version, "status": item.stage, **json.loads(item.metadata_json),
+                   "oos_simulation": simulations.get(item.version)} for item in rows]
         return {"production_champion": self.registry.production(), "models": models}
+
+    @staticmethod
+    def _oos_simulations(session) -> dict:
+        rows = session.scalars(select(BacktestRun).where(BacktestRun.symbol == "ALL").order_by(BacktestRun.created_at.desc())).all()
+        result = {}
+        for row in rows:
+            if row.results.get("trade_scope") == "OFFLINE_OOS_SIMULATION_TRADES" and row.strategy_version not in result:
+                result[row.strategy_version] = {"run_id": row.run_id, "simulation_timestamp": row.created_at,
+                                                **row.results}
+        return result
     def risk_center(self) -> dict:
         with self.sessions() as session:
             events = list(session.scalars(select(AuditLog).where(AuditLog.action.like("risk.%")).order_by(AuditLog.id.desc()).limit(100)))

@@ -46,7 +46,7 @@ class BrainV1Dataset:
                 FeatureSnapshot.snapshot_id == DatasetRow.feature_snapshot_id).where(DatasetRow.dataset_id == manifest.dataset_id)
                 .order_by(DatasetRow.decision_at)).all()
             bars = list(session.scalars(select(RawMarketBar).where(RawMarketBar.timeframe == "M5").order_by(RawMarketBar.symbol, RawMarketBar.timestamp)))
-        close = {(bar.symbol, bar.timestamp): bar.close for bar in bars}; grouped = defaultdict(list)
+        market = {(bar.symbol, bar.timestamp): bar for bar in bars}; grouped = defaultdict(list)
         for member, snapshot in joined: grouped[member.symbol].append((member, snapshot))
         rows, exclusions, feature_names = [], Counter(), None
         for symbol, items in grouped.items():
@@ -59,11 +59,14 @@ class BrainV1Dataset:
             future_member, future_snapshot = items[future_index]
             if future_member.split != member.split: exclusions[("LABEL_HORIZON_CROSSES_SPLIT", symbol, member.split)] += 1; continue
             target_at = future_snapshot.decision_at
-            future = close.get((symbol, future_snapshot.raw_data_cutoff)); entry = close.get((symbol, snapshot.raw_data_cutoff))
-            if future is None or entry is None: exclusions[("LABEL_HORIZON_UNAVAILABLE", symbol, member.split)] += 1; continue
+            future_bar = market.get((symbol, future_snapshot.raw_data_cutoff)); cutoff_bar = market.get((symbol, snapshot.raw_data_cutoff))
+            if future_bar is None or cutoff_bar is None: exclusions[("LABEL_HORIZON_UNAVAILABLE", symbol, member.split)] += 1; continue
+            future, entry = future_bar.close, cutoff_bar.close
             target = "LONG" if (future-entry)/entry >= LABEL_SPEC_V1["long_threshold"] else "SHORT" if (future-entry)/entry <= LABEL_SPEC_V1["short_threshold"] else "NO_TRADE"
             rows.append({"symbol": symbol, "timestamp": snapshot.decision_at, "raw_data_cutoff": snapshot.raw_data_cutoff, "target_timestamp": target_at,
                 "feature_snapshot_id": snapshot.snapshot_id, "feature_version": snapshot.feature_version, "features": features,
-                "target": target, "split": member.split})
+                "target": target, "split": member.split, "target_raw_data_cutoff": future_snapshot.raw_data_cutoff,
+                "entry_open": market.get((symbol, snapshot.decision_at)).open if market.get((symbol, snapshot.decision_at)) else None,
+                "exit_close": future_bar.close})
         counts = {split: dict(Counter(row["target"] for row in rows if row["split"] == split)) for split in ("TRAIN", "VALIDATION", "OOS")}
         return rows, feature_names or (), {"manifest": manifest, "class_distribution": counts, "exclusions": {"|".join(key): value for key, value in exclusions.items()}}

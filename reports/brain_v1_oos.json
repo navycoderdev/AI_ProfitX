@@ -1,0 +1,103 @@
+{
+  "artifact_hash": "befeb85b2dba9dfe94bb3d6a134d6553fb1df8c9ec6949713fd6233ff9acce8f",
+  "breakeven": 0,
+  "confidence_policy": {
+    "threshold": 0.4,
+    "version": "confidence-policy-v1"
+  },
+  "cost_assumptions": {
+    "commission": 0.0,
+    "max_drawdown_basis": "closed_trade_equity_starting_10000_usd",
+    "point_size": 1e-05,
+    "position_units": 1000.0,
+    "slippage_points_each_side": 2.0,
+    "spread_points": 1.0,
+    "usd_jpy_conversion": "exit_close"
+  },
+  "dataset_hash": "05ce1447a4251693dd548ab57007ac71558d4be6cd8f8e6e9e77ab18b6ce78f5",
+  "dataset_version": "research-dataset-v1",
+  "execution_model": "next_M5_open_to_label_horizon_close_one_position_per_symbol",
+  "gross_pnl_usd": -17.396411831725434,
+  "losses": 116,
+  "max_drawdown": 0.004543202015921179,
+  "model_version": "Brain-v1",
+  "net_pnl_usd": -17.4736231557594,
+  "per_symbol": {
+    "EURUSD": {
+      "breakeven": 0,
+      "coverage_status": "NO_OOS_ROWS",
+      "gross_pnl_usd": 0,
+      "losses": 0,
+      "max_drawdown": 0.0,
+      "net_pnl_usd": 0,
+      "prediction_count": 0,
+      "prediction_counts": {
+        "LONG": 0,
+        "NO_TRADE": 0,
+        "SHORT": 0
+      },
+      "profit_factor": null,
+      "simulated_trade_count": 0,
+      "skipped_overlapping_signals": 0,
+      "slippage_usd": 0,
+      "transaction_costs_usd": 0,
+      "wins": 0
+    },
+    "GBPUSD": {
+      "breakeven": 0,
+      "coverage_status": "NO_OOS_ROWS",
+      "gross_pnl_usd": 0,
+      "losses": 0,
+      "max_drawdown": 0.0,
+      "net_pnl_usd": 0,
+      "prediction_count": 0,
+      "prediction_counts": {
+        "LONG": 0,
+        "NO_TRADE": 0,
+        "SHORT": 0
+      },
+      "profit_factor": null,
+      "simulated_trade_count": 0,
+      "skipped_overlapping_signals": 0,
+      "slippage_usd": 0,
+      "transaction_costs_usd": 0,
+      "wins": 0
+    },
+    "USDJPY": {
+      "breakeven": 0,
+      "coverage_status": "AVAILABLE",
+      "gross_pnl_usd": -17.396411831725434,
+      "losses": 116,
+      "max_drawdown": 0.004543202015921179,
+      "net_pnl_usd": -17.4736231557594,
+      "prediction_count": 4352,
+      "prediction_counts": {
+        "LONG": 2067,
+        "NO_TRADE": 2285,
+        "SHORT": 0
+      },
+      "profit_factor": 0.856013774105825,
+      "simulated_trade_count": 240,
+      "skipped_overlapping_signals": 1827,
+      "slippage_usd": 0.061769059227172775,
+      "transaction_costs_usd": 0.015442264806793194,
+      "wins": 124
+    }
+  },
+  "prediction_count": 4352,
+  "prediction_counts": {
+    "LONG": 2067,
+    "NO_TRADE": 2285,
+    "SHORT": 0
+  },
+  "profit_factor": 0.856013774105825,
+  "run_id": "3a683cfc-56aa-4f5a-9d9d-a6e62f037403",
+  "runtime_paper_trades": 0,
+  "simulated_trade_count": 240,
+  "simulation_timestamp": "2026-09-20T11:59:02.378514",
+  "skipped_overlapping_signals": 1827,
+  "slippage_usd": 0.061769059227172775,
+  "trade_scope": "OFFLINE_OOS_SIMULATION_TRADES",
+  "transaction_costs_usd": 0.015442264806793194,
+  "wins": 124
+}

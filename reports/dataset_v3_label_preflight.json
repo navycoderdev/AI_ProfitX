@@ -1,0 +1,103 @@
+{
+  "class_distribution": {
+    "EURUSD": {
+      "OOS": {
+        "LONG": 143,
+        "NO_TRADE": 1074,
+        "SHORT": 224
+      },
+      "TRAIN": {
+        "LONG": 710,
+        "NO_TRADE": 5405,
+        "SHORT": 652
+      },
+      "VALIDATION": {
+        "LONG": 124,
+        "NO_TRADE": 1160,
+        "SHORT": 157
+      }
+    },
+    "GBPUSD": {
+      "OOS": {
+        "LONG": 182,
+        "NO_TRADE": 984,
+        "SHORT": 275
+      },
+      "TRAIN": {
+        "LONG": 766,
+        "NO_TRADE": 5220,
+        "SHORT": 781
+      },
+      "VALIDATION": {
+        "LONG": 177,
+        "NO_TRADE": 1058,
+        "SHORT": 206
+      }
+    },
+    "USDJPY": {
+      "OOS": {
+        "LONG": 446,
+        "NO_TRADE": 648,
+        "SHORT": 347
+      },
+      "TRAIN": {
+        "LONG": 1288,
+        "NO_TRADE": 4441,
+        "SHORT": 1038
+      },
+      "VALIDATION": {
+        "LONG": 442,
+        "NO_TRADE": 564,
+        "SHORT": 435
+      }
+    },
+    "XAUUSD": {
+      "OOS": {
+        "LONG": 544,
+        "NO_TRADE": 187,
+        "SHORT": 590
+      },
+      "TRAIN": {
+        "LONG": 2735,
+        "NO_TRADE": 1018,
+        "SHORT": 2462
+      },
+      "VALIDATION": {
+        "LONG": 474,
+        "NO_TRADE": 242,
+        "SHORT": 587
+      }
+    }
+  },
+  "exclusions": {
+    "LABEL_HORIZON_CROSSES_SPLIT|EURUSD|TRAIN": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|EURUSD|VALIDATION": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|GBPUSD|TRAIN": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|GBPUSD|VALIDATION": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|USDJPY|TRAIN": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|USDJPY|VALIDATION": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|XAUUSD|TRAIN": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|XAUUSD|VALIDATION": 12,
+    "LABEL_HORIZON_UNAVAILABLE|EURUSD|OOS": 12,
+    "LABEL_HORIZON_UNAVAILABLE|GBPUSD|OOS": 12,
+    "LABEL_HORIZON_UNAVAILABLE|USDJPY|OOS": 12,
+    "LABEL_HORIZON_UNAVAILABLE|XAUUSD|OOS": 12
+  },
+  "included_cross_split_labels": 0,
+  "label_policy": {
+    "cost_assumptions": {
+      "point_size": 1e-05,
+      "slippage_points_each_side": 2.0,
+      "spread_points": 1.0
+    },
+    "horizon_bars": 12,
+    "long_threshold": 0.0005,
+    "no_trade_zone": "(-0.00050, 0.00050)",
+    "price_reference": "M5_CLOSE",
+    "short_threshold": -0.0005,
+    "timeframe": "M5",
+    "version": "label-spec-v1"
+  },
+  "pathological_classes": [],
+  "usable_for_training": true
+}

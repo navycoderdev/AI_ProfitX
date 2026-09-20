@@ -1,0 +1,146 @@
+{
+  "broker_symbol": "XAUUSD",
+  "canonical_symbol": "XAUUSD",
+  "contract_metadata": {
+    "currency_profit": "USD",
+    "digits": 2,
+    "point": 0.01,
+    "spread": 60,
+    "spread_float": true,
+    "trade_contract_size": 100.0,
+    "trade_mode": 4,
+    "trade_tick_size": 0.01,
+    "trade_tick_value": 0.1
+  },
+  "observed_early_closure_dates": [
+    "2026-09-07"
+  ],
+  "observed_m1_daily_closure_count": 27,
+  "quality_gate_passed": true,
+  "raw_bars_modified": false,
+  "timeframes": {
+    "H1": {
+      "broker_symbol": "XAUUSD",
+      "count": 747,
+      "duplicates": 0,
+      "end": "2026-09-17T22:00:00",
+      "invalid_ohlc": 0,
+      "original_quality_status": "WARNING",
+      "original_reason_codes": [
+        "EXPECTED_MARKET_CLOSURE",
+        "POSSIBLE_DATA_GAP"
+      ],
+      "out_of_order": 0,
+      "outlier_cross_timeframe_mismatches": [],
+      "quality_gate_passed": true,
+      "range_outliers": 0,
+      "reviewed_daily_broker_closures": 27,
+      "start": "2026-08-03T01:00:00",
+      "total_gaps": 33,
+      "unresolved_gaps": []
+    },
+    "H4": {
+      "broker_symbol": "XAUUSD",
+      "count": 205,
+      "duplicates": 0,
+      "end": "2026-09-18T00:00:00",
+      "invalid_ohlc": 0,
+      "original_quality_status": "PASS",
+      "original_reason_codes": [
+        "EXPECTED_MARKET_CLOSURE"
+      ],
+      "out_of_order": 0,
+      "outlier_cross_timeframe_mismatches": [],
+      "quality_gate_passed": true,
+      "range_outliers": 0,
+      "reviewed_daily_broker_closures": 0,
+      "start": "2026-08-03T00:00:00",
+      "total_gaps": 6,
+      "unresolved_gaps": []
+    },
+    "M1": {
+      "broker_symbol": "XAUUSD",
+      "count": 44790,
+      "duplicates": 0,
+      "end": "2026-09-17T22:59:00",
+      "invalid_ohlc": 0,
+      "original_quality_status": "WARNING",
+      "original_reason_codes": [
+        "EXPECTED_MARKET_CLOSURE",
+        "POSSIBLE_DATA_GAP",
+        "RANGE_OUTLIER"
+      ],
+      "out_of_order": 0,
+      "outlier_cross_timeframe_mismatches": [],
+      "quality_gate_passed": true,
+      "range_outliers": 71,
+      "reviewed_daily_broker_closures": 27,
+      "start": "2026-08-03T01:00:00",
+      "total_gaps": 33,
+      "unresolved_gaps": []
+    },
+    "M15": {
+      "broker_symbol": "XAUUSD",
+      "count": 2986,
+      "duplicates": 0,
+      "end": "2026-09-17T22:45:00",
+      "invalid_ohlc": 0,
+      "original_quality_status": "WARNING",
+      "original_reason_codes": [
+        "EXPECTED_MARKET_CLOSURE",
+        "POSSIBLE_DATA_GAP",
+        "RANGE_OUTLIER"
+      ],
+      "out_of_order": 0,
+      "outlier_cross_timeframe_mismatches": [],
+      "quality_gate_passed": true,
+      "range_outliers": 7,
+      "reviewed_daily_broker_closures": 27,
+      "start": "2026-08-03T01:00:00",
+      "total_gaps": 33,
+      "unresolved_gaps": []
+    },
+    "M30": {
+      "broker_symbol": "XAUUSD",
+      "count": 1493,
+      "duplicates": 0,
+      "end": "2026-09-17T22:30:00",
+      "invalid_ohlc": 0,
+      "original_quality_status": "WARNING",
+      "original_reason_codes": [
+        "EXPECTED_MARKET_CLOSURE",
+        "POSSIBLE_DATA_GAP",
+        "RANGE_OUTLIER"
+      ],
+      "out_of_order": 0,
+      "outlier_cross_timeframe_mismatches": [],
+      "quality_gate_passed": true,
+      "range_outliers": 4,
+      "reviewed_daily_broker_closures": 27,
+      "start": "2026-08-03T01:00:00",
+      "total_gaps": 33,
+      "unresolved_gaps": []
+    },
+    "M5": {
+      "broker_symbol": "XAUUSD",
+      "count": 8958,
+      "duplicates": 0,
+      "end": "2026-09-17T22:55:00",
+      "invalid_ohlc": 0,
+      "original_quality_status": "WARNING",
+      "original_reason_codes": [
+        "EXPECTED_MARKET_CLOSURE",
+        "POSSIBLE_DATA_GAP",
+        "RANGE_OUTLIER"
+      ],
+      "out_of_order": 0,
+      "outlier_cross_timeframe_mismatches": [],
+      "quality_gate_passed": true,
+      "range_outliers": 19,
+      "reviewed_daily_broker_closures": 27,
+      "start": "2026-08-03T01:00:00",
+      "total_gaps": 33,
+      "unresolved_gaps": []
+    }
+  }
+}

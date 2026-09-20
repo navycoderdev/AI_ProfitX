@@ -2,6 +2,7 @@
 from collections import Counter
 from bisect import bisect_right
 from datetime import datetime, timedelta, timezone
+from typing import Callable
 
 from data.candle_builder import TIMEFRAME_SECONDS
 from data.storage import RawMarketDataRepository
@@ -34,10 +35,10 @@ def feature_definitions() -> list[dict]:
 
 
 class ResearchDatasetV1Builder:
-    def __init__(self, sessions) -> None:
+    def __init__(self, sessions, spec: DatasetSpec | None = None) -> None:
         self.sessions = sessions; self.raw = RawMarketDataRepository(sessions); self.snapshots = FeatureSnapshotService(sessions)
         self.registry = FeatureRegistry(sessions); self.governance = DatasetGovernanceRepository(sessions)
-        self.engine = FeatureEngine(); self.spec = DatasetSpec(version="research-dataset-v2", split_policy_version="chronological-time-v2")
+        self.engine = FeatureEngine(); self.spec = spec or DatasetSpec(version="research-dataset-v2", split_policy_version="chronological-time-v2")
 
     def register_features(self) -> list[object]:
         return [self.registry.register(item["name"], item["version"], item) for item in feature_definitions()]
@@ -56,7 +57,9 @@ class ResearchDatasetV1Builder:
     def split_for_time(decision_at: datetime, boundaries: tuple[datetime, datetime]) -> str:
         return "TRAIN" if decision_at < boundaries[0] else "VALIDATION" if decision_at < boundaries[1] else "OOS"
 
-    def build_and_freeze(self, symbols: tuple[str, ...] = ("EURUSD", "GBPUSD", "USDJPY")) -> dict:
+    def build_and_freeze(self, symbols: tuple[str, ...] = ("EURUSD", "GBPUSD", "USDJPY"),
+                         pre_freeze_gate: Callable[[list[dict]], dict] | None = None,
+                         window_start: datetime | None = None, window_end: datetime | None = None) -> dict:
         definitions = self.register_features(); audit = dependency_audit(definitions)
         if audit["freeze_blocked"]: raise RuntimeError("Feature dependency metadata is incomplete; Dataset v1 cannot freeze.")
         manifest = self.governance.register_not_built(self.spec)
@@ -70,6 +73,9 @@ class ResearchDatasetV1Builder:
                         for symbol in symbols for mask in self.governance.masks(symbol)}
         for symbol in symbols:
             base = self.raw.bars_as_of(symbol, "M5", __import__("datetime").datetime.max.replace(tzinfo=__import__("datetime").timezone.utc))
+            if window_start or window_end:
+                base = [bar for bar in base if (window_start is None or bar.timestamp >= window_start) and
+                        (window_end is None or bar.timestamp <= window_end)]
             contexts = {tf: self.raw.bars_as_of(symbol, tf, __import__("datetime").datetime.max.replace(tzinfo=__import__("datetime").timezone.utc))
                         for tf in self.spec.context_timeframes}
             context_times = {tf: [item.timestamp for item in rows] for tf, rows in contexts.items()}
@@ -108,6 +114,7 @@ class ResearchDatasetV1Builder:
             row["split"] = self.split_for_time(datetime.fromisoformat(row["decision_time"]), boundaries)
             split_counts[row["split"]] += 1
             symbol_counts[row["symbol"]][row["split"]] += 1
+        label_audit = pre_freeze_gate(candidates) if pre_freeze_gate else None
         # SQLite and production DBs both remain stable under bounded transactions; do not retain a giant ORM unit of work.
         for offset in range(0, len(snapshot_batch), 250):
             batch = snapshot_batch[offset:offset + 250]
@@ -139,4 +146,5 @@ class ResearchDatasetV1Builder:
             "content_hash": frozen.content_hash, "counts": counts,
             "split_boundaries": {"validation_start": boundaries[0].isoformat(), "oos_start": boundaries[1].isoformat()},
             "per_symbol": {symbol: {split: symbol_counts[symbol][split] for split in ("TRAIN", "VALIDATION", "OOS")} for symbol in symbols},
-            "feature_count": len(definitions), "leakage_status": "PASS", "dependency_audit": audit}
+            "feature_count": len(definitions), "leakage_status": "PASS", "dependency_audit": audit,
+            "label_audit": label_audit}

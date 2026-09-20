@@ -68,6 +68,7 @@ class BrainV1Dataset:
                 "feature_snapshot_id": snapshot.snapshot_id, "feature_version": snapshot.feature_version, "features": features,
                 "target": target, "split": member.split, "target_raw_data_cutoff": future_snapshot.raw_data_cutoff,
                 "entry_open": market.get((symbol, snapshot.decision_at)).open if market.get((symbol, snapshot.decision_at)) else None,
+                "entry_spread_points": market.get((symbol, snapshot.decision_at)).spread if market.get((symbol, snapshot.decision_at)) else None,
                 "exit_close": future_bar.close})
         counts = {split: dict(Counter(row["target"] for row in rows if row["split"] == split)) for split in ("TRAIN", "VALIDATION", "OOS")}
         return rows, feature_names or (), {"manifest": manifest, "class_distribution": counts, "exclusions": {"|".join(key): value for key, value in exclusions.items()}}

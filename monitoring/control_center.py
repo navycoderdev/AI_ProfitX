@@ -80,7 +80,10 @@ class ControlCenter:
             simulations = self._oos_simulations(session)
         models = [{"model_id": item.version, "status": item.stage, **json.loads(item.metadata_json),
                    "oos_simulation": simulations.get(item.version)} for item in rows]
-        return {"production_champion": self.registry.production(), "models": models}
+        return {"production_champion": self.registry.production(), "models": models,
+            "supported_research_universe": ["EURUSD", "GBPUSD", "USDJPY", "XAUUSD"],
+            "unavailable_on_current_broker": {"BTCUSD": "UNAVAILABLE_ON_CURRENT_BROKER",
+                "ETHUSD": "UNAVAILABLE_ON_CURRENT_BROKER"}}
 
     @staticmethod
     def _oos_simulations(session) -> dict:
@@ -159,6 +162,9 @@ class ControlCenter:
             "source_end": manifest.source_end if manifest else None, "leakage_status": "PASS" if manifest and manifest.state == "FROZEN" else "NOT_RUN",
             "feature_count": len(definitions), "feature_snapshots": active_snapshot_count, "feature_snapshot_examples": examples}
         return {"total_candles": sum(item["count"] for item in coverage), "symbols": sorted({item["symbol"] for item in coverage}),
+            "supported_research_universe": ["EURUSD", "GBPUSD", "USDJPY", "XAUUSD"],
+            "unavailable_on_current_broker": {"BTCUSD": "UNAVAILABLE_ON_CURRENT_BROKER",
+                "ETHUSD": "UNAVAILABLE_ON_CURRENT_BROKER"},
             "timeframes": sorted({item["timeframe"] for item in coverage}), "aggregate": aggregate, "coverage": coverage,
             "dataset": dataset, "dependency_audit": dependency_audit(definitions)}
 

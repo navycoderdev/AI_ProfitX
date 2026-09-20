@@ -12,6 +12,13 @@ reports/*
 !reports/brain_v1_oos.json
 !reports/dataset_v2_freeze.json
 !reports/market_universe_probe.json
+!reports/xauusd_history_audit.json
+!reports/contract_economics.json
+!reports/dataset_v3_label_preflight.json
+!reports/dataset_v3_freeze.json
+!reports/brain_v2_evaluation.json
+!reports/brain_v2_oos_simulation.json
 models/artifacts/*
 !models/artifacts/Brain-v1.json
+!models/artifacts/Brain-v2.json
 doc/mt5.txt

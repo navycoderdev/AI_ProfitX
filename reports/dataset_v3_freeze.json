@@ -1,0 +1,137 @@
+{
+  "boundaries": {
+    "oos_min": "2026-09-10T22:00:00",
+    "train_max": "2026-09-03T20:50:00",
+    "validation_max": "2026-09-10T21:55:00",
+    "validation_min": "2026-09-03T20:55:00"
+  },
+  "closed_candle_alignment": "PASS",
+  "common_window": {
+    "end": "2026-09-17T22:55:00+00:00",
+    "start": "2026-08-03T01:00:00+00:00"
+  },
+  "contract_assumption_source": "reports/contract_economics.json",
+  "dataset_hash": "790d8e18de1f8d8fa9e159a26b2cf8628fc813aa2a094b6909e84849f15f7de4",
+  "dataset_id": "b1cadfe7-d0a5-4f9b-822b-5a29b4149942",
+  "dataset_version": "research-dataset-v3",
+  "feature_dependencies": "PASS",
+  "label_distribution": {
+    "EURUSD": {
+      "OOS": {
+        "LONG": 143,
+        "NO_TRADE": 1074,
+        "SHORT": 224
+      },
+      "TRAIN": {
+        "LONG": 710,
+        "NO_TRADE": 5405,
+        "SHORT": 652
+      },
+      "VALIDATION": {
+        "LONG": 124,
+        "NO_TRADE": 1160,
+        "SHORT": 157
+      }
+    },
+    "GBPUSD": {
+      "OOS": {
+        "LONG": 182,
+        "NO_TRADE": 984,
+        "SHORT": 275
+      },
+      "TRAIN": {
+        "LONG": 766,
+        "NO_TRADE": 5220,
+        "SHORT": 781
+      },
+      "VALIDATION": {
+        "LONG": 177,
+        "NO_TRADE": 1058,
+        "SHORT": 206
+      }
+    },
+    "USDJPY": {
+      "OOS": {
+        "LONG": 446,
+        "NO_TRADE": 648,
+        "SHORT": 347
+      },
+      "TRAIN": {
+        "LONG": 1288,
+        "NO_TRADE": 4441,
+        "SHORT": 1038
+      },
+      "VALIDATION": {
+        "LONG": 442,
+        "NO_TRADE": 564,
+        "SHORT": 435
+      }
+    },
+    "XAUUSD": {
+      "OOS": {
+        "LONG": 544,
+        "NO_TRADE": 187,
+        "SHORT": 590
+      },
+      "TRAIN": {
+        "LONG": 2735,
+        "NO_TRADE": 1018,
+        "SHORT": 2462
+      },
+      "VALIDATION": {
+        "LONG": 474,
+        "NO_TRADE": 242,
+        "SHORT": 587
+      }
+    }
+  },
+  "label_exclusions": {
+    "LABEL_HORIZON_CROSSES_SPLIT|EURUSD|TRAIN": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|EURUSD|VALIDATION": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|GBPUSD|TRAIN": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|GBPUSD|VALIDATION": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|USDJPY|TRAIN": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|USDJPY|VALIDATION": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|XAUUSD|TRAIN": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|XAUUSD|VALIDATION": 12,
+    "LABEL_HORIZON_UNAVAILABLE|EURUSD|OOS": 12,
+    "LABEL_HORIZON_UNAVAILABLE|GBPUSD|OOS": 12,
+    "LABEL_HORIZON_UNAVAILABLE|USDJPY|OOS": 12,
+    "LABEL_HORIZON_UNAVAILABLE|XAUUSD|OOS": 12
+  },
+  "label_split_crossings_included": 0,
+  "leakage": "PASS",
+  "manifest_reconciliation": "PASS",
+  "old_dataset_v2_hash": "6696b911e993bb43c000377039e7d40bc660fc17d8f4e89fc5711f69d8cefefe",
+  "per_symbol": {
+    "EURUSD": {
+      "OOS": 1453,
+      "TRAIN": 6779,
+      "VALIDATION": 1453
+    },
+    "GBPUSD": {
+      "OOS": 1453,
+      "TRAIN": 6779,
+      "VALIDATION": 1453
+    },
+    "USDJPY": {
+      "OOS": 1453,
+      "TRAIN": 6779,
+      "VALIDATION": 1453
+    },
+    "XAUUSD": {
+      "OOS": 1333,
+      "TRAIN": 6227,
+      "VALIDATION": 1315
+    }
+  },
+  "quality_gate": "PASS_REVIEWED_XAUUSD",
+  "split_counts": {
+    "OOS": 5692,
+    "TRAIN": 26564,
+    "VALIDATION": 5674
+  },
+  "state": "FROZEN",
+  "symbol_order_invariance": "PASS",
+  "total_usable_rows": 37930
+}

@@ -226,6 +226,52 @@ class TradeMemory(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 
 
+class ShadowDecision(Base):
+    """Forward observation only; never an execution or TradeMemory record."""
+    __tablename__ = "shadow_decisions"
+    __table_args__ = (UniqueConstraint("model_version", "symbol", "decision_at", name="uq_shadow_model_symbol_time"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    decision_id: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    decision_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    symbol: Mapped[str] = mapped_column(String(40), index=True)
+    timeframe: Mapped[str] = mapped_column(String(10), default="M5")
+    model_version: Mapped[str] = mapped_column(String(100))
+    artifact_hash: Mapped[str] = mapped_column(String(64))
+    dataset_version: Mapped[str] = mapped_column(String(80))
+    dataset_hash: Mapped[str] = mapped_column(String(64))
+    feature_set_version: Mapped[str] = mapped_column(String(50))
+    feature_snapshot_id: Mapped[str] = mapped_column(String(36))
+    raw_data_cutoff: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    probabilities: Mapped[dict] = mapped_column(JSON)
+    raw_prediction: Mapped[str] = mapped_column(String(12))
+    final_decision: Mapped[str] = mapped_column(String(12))
+    confidence: Mapped[float] = mapped_column(Float)
+    confidence_threshold: Mapped[float] = mapped_column(Float)
+    market_context: Mapped[dict] = mapped_column(JSON, default=dict)
+    risk_status: Mapped[str] = mapped_column(String(12))
+    risk_reason_codes: Mapped[list] = mapped_column(JSON, default=list)
+    entry_reference: Mapped[float | None] = mapped_column(Float, nullable=True)
+    proposed_stop: Mapped[float | None] = mapped_column(Float, nullable=True)
+    proposed_target: Mapped[float | None] = mapped_column(Float, nullable=True)
+    environment: Mapped[str] = mapped_column(String(20), default="SHADOW")
+    order_submitted: Mapped[bool] = mapped_column(Boolean, default=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+
+
+class ShadowOutcome(Base):
+    __tablename__ = "shadow_outcomes"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    decision_id: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    resolved_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    horizon_bar_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    entry_close: Mapped[float] = mapped_column(Float)
+    horizon_close: Mapped[float] = mapped_column(Float)
+    realized_label: Mapped[str] = mapped_column(String(12))
+    hypothetical_pnl_usd: Mapped[float | None] = mapped_column(Float, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+
+
 class TradeMemoryEvent(Base):
     __tablename__ = "trade_memory_events"
 

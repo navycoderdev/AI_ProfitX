@@ -46,6 +46,10 @@ def control_research_data(request: Request) -> dict: return request.app.state.co
 @router.get("/control/backtest-runs")
 def control_backtest_runs(request: Request) -> list[dict]: return request.app.state.control_center.backtest_runs()
 
+@router.get("/control/live-shadow")
+def control_live_shadow(request: Request, limit: int = 100) -> dict:
+    return request.app.state.control_center.live_shadow(limit)
+
 
 @router.post("/control/emergency-stop")
 def emergency_stop(request: Request, payload: dict) -> dict:

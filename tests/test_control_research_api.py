@@ -57,6 +57,17 @@ def test_research_data_api_populated_preserves_warning(tmp_path, monkeypatch):
     assert body["dataset"]["dataset_state"] == "NOT_BUILT" and body["dataset"]["content_hash"] is None
 
 
+def test_live_shadow_api_reports_empty_persisted_state(tmp_path, monkeypatch):
+    isolated_center(tmp_path, monkeypatch)
+    response = request("/api/control/live-shadow")
+    assert response.status_code == 200
+    body = response.json()
+    assert body["service"]["status"] == "NOT_STARTED"
+    assert body["counts"]["total"] == body["counts"]["orders_submitted"] == 0
+    assert set(body["per_symbol"]) == {"EURUSD", "GBPUSD", "USDJPY", "XAUUSD"}
+    assert body["decisions"] == []
+
+
 def test_research_data_api_exposes_quality_reason_codes(tmp_path, monkeypatch):
     sessions = isolated_center(tmp_path, monkeypatch); write_quality(tmp_path, "WARNING")
     quality_file = tmp_path / "reports" / "data_quality" / "aggregate_test.json"

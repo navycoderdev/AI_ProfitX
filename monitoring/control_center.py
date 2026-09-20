@@ -6,7 +6,7 @@ from typing import Callable
 
 from config.settings import Settings
 from database.models import (AuditLog, BacktestRun, DatasetManifest, DatasetRow, DecisionMemory, FeatureDefinition, FeatureSnapshot, MarketSnapshot, ModelInferenceLog, ModelVersion, RawMarketBar, RawMarketTick, RegimeHistory,
-                             TradeMemory)
+                             ShadowDecision, ShadowOutcome, SystemControlState, TradeMemory)
 from database.session import check_database
 from models.registry import ModelRegistry
 from monitoring.alerts import AlertService
@@ -173,3 +173,41 @@ class ControlCenter:
         return [{"run_id": row.run_id, "strategy_version": row.strategy_version, "symbol": row.symbol, "timeframe": row.timeframe,
             "configuration": row.configuration, "metrics": row.results.get("metrics", {}), "metadata": row.results.get("metadata", {}),
             "created_at": row.created_at} for row in rows]
+
+    def live_shadow(self, limit: int = 100) -> dict:
+        from ai.shadow import ARTIFACT_SHA256, MODEL_VERSION, STATUS_KEY, SYMBOLS
+        from collections import Counter
+        with self.sessions() as session:
+            state = session.get(SystemControlState, STATUS_KEY)
+            rows = session.scalars(select(ShadowDecision).where(ShadowDecision.model_version == MODEL_VERSION)
+                .order_by(ShadowDecision.decision_at.desc()).limit(max(1, min(limit, 500)))).all()
+            all_rows = session.scalars(select(ShadowDecision).where(ShadowDecision.model_version == MODEL_VERSION)).all()
+            outcomes = session.scalars(select(ShadowOutcome)).all()
+        resolved = {item.decision_id for item in outcomes}
+        class_counts = Counter(item.final_decision for item in all_rows)
+        risk_counts = Counter(item.risk_status for item in all_rows)
+        per_symbol = {symbol: {"total": sum(item.symbol == symbol for item in all_rows),
+            "LONG": sum(item.symbol == symbol and item.final_decision == "LONG" for item in all_rows),
+            "SHORT": sum(item.symbol == symbol and item.final_decision == "SHORT" for item in all_rows),
+            "NO_TRADE": sum(item.symbol == symbol and item.final_decision == "NO_TRADE" for item in all_rows)}
+            for symbol in SYMBOLS}
+        return {"service": state.value if state else {"status": "NOT_STARTED", "last_processed_closed_m5": {}},
+            "model_version": MODEL_VERSION, "artifact_hash": ARTIFACT_SHA256,
+            "counts": {"total": len(all_rows), **{label: class_counts[label] for label in ("LONG", "SHORT", "NO_TRADE")},
+                "risk_pass": risk_counts["PASS"], "risk_block": risk_counts["BLOCK"],
+                "orders_submitted": sum(item.order_submitted for item in all_rows)},
+            "per_symbol": per_symbol,
+            "outcomes": {"pending": sum(item.decision_id not in resolved for item in all_rows),
+                "resolved": sum(item.decision_id in resolved for item in all_rows)},
+            "decisions": [{"decision_id": item.decision_id, "decision_time": item.decision_at,
+                "symbol": item.symbol, "timeframe": item.timeframe, "model_version": item.model_version,
+                "artifact_hash": item.artifact_hash, "dataset_version": item.dataset_version,
+                "dataset_hash": item.dataset_hash, "feature_set_version": item.feature_set_version,
+                "feature_snapshot_id": item.feature_snapshot_id, "probabilities": item.probabilities,
+                "raw_prediction": item.raw_prediction, "final_decision": item.final_decision,
+                "confidence": item.confidence, "confidence_threshold": item.confidence_threshold,
+                "market_context": item.market_context, "risk_status": item.risk_status,
+                "risk_reason_codes": item.risk_reason_codes, "entry_reference": item.entry_reference,
+                "proposed_stop": item.proposed_stop, "proposed_target": item.proposed_target,
+                "environment": item.environment, "order_submitted": item.order_submitted,
+                "outcome_status": "RESOLVED" if item.decision_id in resolved else "PENDING"} for item in rows]}

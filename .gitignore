@@ -1,0 +1,13 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+*.db
+logs/
+data/*.db
+data/*.db-*
+reports/
+models/artifacts/
+doc/mt5.txt

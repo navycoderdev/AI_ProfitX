@@ -1,0 +1,16 @@
+Phase 1: Requirements + system architecture
+Phase 2: Database/schema + configuration system
+Phase 3: MT5 connector
+Phase 4: Historical/live market-data pipeline
+Phase 5: Backtesting engine
+Phase 6: Rule-based baseline strategy
+Phase 7: Risk + execution engine
+Phase 8: Trade-memory/journal system
+Phase 9: AI feature/regime models
+Phase 10: ML signal/decision models
+Phase 11: model evaluation + version registry
+Phase 12: paper/shadow trading → controlled live deployment.
+
+
+
+note : AI can learn continuously; production behavior cannot change continuously.

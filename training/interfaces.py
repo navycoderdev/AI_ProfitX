@@ -1,0 +1,6 @@
+from typing import Protocol
+
+
+class TrainingPipeline(Protocol):
+    def build_dataset(self, specification: dict) -> str: ...
+    def train_candidate(self, dataset_version: str) -> str: ...

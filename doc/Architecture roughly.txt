@@ -1,0 +1,39 @@
+Architecture roughly aisi hogi:
+
+MT5
+ ↓
+Market Data Collector
+ ↓
+Feature Engine
+ ↓
+Market Regime Detector
+ ↓
+AI Signal Engine
+ ↓
+Risk Engine ─────────────→ REJECT / NO TRADE
+ ↓
+Execution Engine
+ ↓
+MT5 Order
+ ↓
+Trade Monitor
+ ↓
+Trade Closed
+ ↓
+Trade Memory Database
+ ↓
+Performance / Decision Analyzer
+ ↓
+Training Dataset Builder
+ ↓
+Candidate AI Model
+ ↓
+Backtest
+ ↓
+Walk-Forward / Out-of-Sample
+ ↓
+Paper / Shadow Trading
+ ↓
+Promotion Gate
+ ↓
+New Production Brain Version

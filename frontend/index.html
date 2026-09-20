@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080d18">
+  <title>Profitex Control Center</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <div class="brand"><span class="brand-mark">◈</span><span>Profitex</span><small>CONTROL CENTER</small></div>
+      <nav id="navigation" class="nav-list">
+        <a class="nav-link active" href="#overview" data-section="overview">⌂ <span>Dashboard</span></a>
+        <a class="nav-link" href="#live-market" data-section="live-market">⌁ <span>Live Market</span></a>
+        <a class="nav-link" href="#ai-brain" data-section="ai-brain">◉ <span>AI Brain</span></a>
+        <a class="nav-link" href="#positions" data-section="positions">▣ <span>Positions</span></a>
+        <a class="nav-link" href="#trade-memory" data-section="trade-memory">◫ <span>Trade Memory</span></a>
+        <a class="nav-link" href="#model-lab" data-section="model-lab">⬡ <span>Model Lab</span></a>
+        <a class="nav-link" href="#risk-center" data-section="risk-center">⚠ <span>Risk Center</span></a>
+        <a class="nav-link" href="#system-health" data-section="system-health">◌ <span>System Health</span></a>
+        <a class="nav-link" href="#audit-logs" data-section="audit-logs">≡ <span>Audit Logs</span></a>
+        <a class="nav-link" href="#settings" data-section="settings">⚙ <span>Settings</span></a>
+      </nav>
+      <div class="sidebar-foot"><span id="sidebar-mode" class="mode-chip">BACKTEST</span><span>v0.1 Control Plane</span></div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar">
+        <button id="menu-toggle" class="icon-button" aria-label="Toggle navigation">☰</button>
+        <div class="top-statuses">
+          <span id="top-mt5" class="status-pill muted">● MT5 checking</span>
+          <span id="top-mode" class="mode-chip">BACKTEST</span>
+          <span id="top-brain" class="status-pill">Brain: --</span>
+          <span id="top-database" class="status-pill muted">DB: checking</span>
+          <span id="top-emergency" class="status-pill safe">Emergency: clear</span>
+        </div>
+        <div class="top-actions"><span id="refresh-status" class="refresh-status">Loading…</span><button id="refresh-now" class="icon-button" title="Refresh dashboard" aria-label="Refresh dashboard">↻</button></div>
+      </header>
+      <main id="main-content" class="main-content" tabindex="-1">
+        <div id="global-error" class="global-error" hidden role="alert"></div>
+        <section id="overview" class="view active" aria-labelledby="overview-title">
+          <div class="page-heading"><div><p class="eyebrow">OPERATIONS / OVERVIEW</p><h1 id="overview-title">Trading Command Overview</h1><p>Live operational facts from the current backend state.</p></div><button id="emergency-stop" class="emergency-button">■ Emergency Stop</button></div>
+          <div id="overview-cards" class="metric-grid" aria-live="polite"></div>
+          <div class="two-columns">
+            <article class="panel equity-panel"><div class="panel-head"><h2>Account & Equity</h2><span class="tag">NO FABRICATED HISTORY</span></div><div id="equity-empty" class="empty-state">Historical equity data is not available from the current backend response.</div></article>
+            <article class="panel"><div class="panel-head"><h2>System & Risk</h2></div><div id="overview-system" class="status-list skeleton-list"></div></article>
+          </div>
+          <div class="two-columns"><article class="panel"><div class="panel-head"><h2>Recent Activity</h2></div><div id="recent-activity" class="activity-list"></div></article><article class="panel"><div class="panel-head"><h2>Recent Trades / Positions</h2></div><div id="recent-trades" class="activity-list"></div></article></div>
+        </section>
+
+        <section id="live-market" class="view" aria-labelledby="market-title"><div class="page-heading"><div><p class="eyebrow">MARKET DATA</p><h1 id="market-title">Live Market</h1></div><span id="market-state" class="status-pill muted">Checking feed</span></div><div id="market-disconnected" class="disconnected-banner" hidden>MT5 DISCONNECTED — no live prices are being displayed.</div><div class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>Symbol</th><th>Bid</th><th>Ask</th><th>Spread</th><th>Timeframe</th><th>Regime</th><th>Volatility</th><th>Last Tick</th><th>Feed</th></tr></thead><tbody id="market-table"></tbody></table></div></div></section>
+
+        <section id="ai-brain" class="view" aria-labelledby="brain-title"><div class="page-heading"><div><p class="eyebrow">MODEL OPERATIONS</p><h1 id="brain-title">AI Brain</h1></div></div><div class="brain-flow" aria-label="Informational AI decision pipeline"><span>Market Data</span><b>→</b><span>Feature Engine</span><b>→</b><span>Regime</span><b>→</b><span>AI Brain</span><b>→</b><span>Risk Engine</span><b>→</b><span>Execution</span></div><div id="brain-cards" class="metric-grid"></div><article class="panel"><div class="panel-head"><h2>Candidate Brains</h2></div><div id="candidate-models" class="model-list"></div></article></section>
+
+        <section id="positions" class="view" aria-labelledby="positions-title"><div class="page-heading"><div><p class="eyebrow">EXECUTION</p><h1 id="positions-title">Open Positions</h1></div></div><div class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>Symbol</th><th>Side</th><th>Volume</th><th>Entry</th><th>Current</th><th>SL</th><th>TP</th><th>Floating P&amp;L</th><th>Model</th><th>Strategy</th><th>Trade ID</th><th>Status</th></tr></thead><tbody id="positions-table"></tbody></table></div></div></section>
+
+        <section id="trade-memory" class="view" aria-labelledby="memory-title"><div class="page-heading"><div><p class="eyebrow">EXPERIENCE MEMORY</p><h1 id="memory-title">Trade Memory</h1></div><label class="search-label">Filter <input id="memory-filter" type="search" placeholder="Trade, model, decision"></label></div><div class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>Trade ID</th><th>Decision</th><th>Confidence</th><th>Regime</th><th>Entry</th><th>Exit</th><th>P&amp;L</th><th>R</th><th>MFE</th><th>MAE</th><th>Exit Reason</th><th>Brain</th></tr></thead><tbody id="memory-table"></tbody></table></div></div></section>
+
+        <section id="model-lab" class="view" aria-labelledby="lab-title"><div class="page-heading"><div><p class="eyebrow">MODEL GOVERNANCE</p><h1 id="lab-title">Model Lab</h1></div></div><div id="model-champion" class="champion-card"></div><article class="panel"><div class="panel-head"><h2>Model Lifecycle & Lineage</h2></div><div id="model-lifecycle" class="lifecycle"></div><div id="model-table" class="model-list"></div></article></section>
+
+        <section id="risk-center" class="view" aria-labelledby="risk-title"><div class="page-heading"><div><p class="eyebrow">INDEPENDENT CONTROLS</p><h1 id="risk-title">Risk Center</h1></div></div><div id="risk-summary" class="metric-grid"></div><article class="panel"><div class="panel-head"><h2>Risk Events</h2></div><div id="risk-events" class="activity-list"></div></article></section>
+
+        <section id="system-health" class="view" aria-labelledby="health-title"><div class="page-heading"><div><p class="eyebrow">PLATFORM HEALTH</p><h1 id="health-title">System Health</h1></div></div><div id="health-grid" class="health-grid"></div></section>
+
+        <section id="audit-logs" class="view" aria-labelledby="audit-title"><div class="page-heading"><div><p class="eyebrow">APPEND-ONLY RECORD</p><h1 id="audit-title">Audit Log</h1></div><label class="search-label">Search <input id="audit-filter" type="search" placeholder="Action or details"></label></div><div class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>Timestamp</th><th>Event</th><th>Component</th><th>Operator</th><th>Severity</th><th>Details</th></tr></thead><tbody id="audit-table"></tbody></table></div></div></section>
+
+        <section id="settings" class="view" aria-labelledby="settings-title"><div class="page-heading"><div><p class="eyebrow">READ-ONLY SAFETY SETTINGS</p><h1 id="settings-title">Settings</h1><p>This Control Center does not enable LIVE trading, alter model weights, or bypass risk.</p></div></div><div id="settings-content" class="panel settings-list"></div></section>
+        <section id="research-data" class="view"><div class="page-heading"><div><p class="eyebrow">HISTORICAL RESEARCH</p><h1>Research Data</h1></div></div><div id="research-cards" class="metric-grid"></div><article class="panel"><div class="panel-head"><h2>Dataset v1 Governance</h2></div><div id="dataset-governance" class="settings-list"></div></article><article class="panel table-panel"><div class="panel-head"><h2>Feature Snapshot Examples</h2></div><div class="table-wrap"><table><thead><tr><th>Symbol</th><th>Decision UTC</th><th>Split</th><th>Raw Cutoff</th><th>Sample Features</th></tr></thead><tbody id="snapshot-examples"></tbody></table></div></article><article class="panel table-panel"><div class="panel-head"><h2>Coverage</h2><span id="research-readiness" class="status-pill warn">UNRESOLVED</span></div><div class="table-wrap"><table><thead><tr><th>Symbol</th><th>TF</th><th>Candles</th><th>First UTC</th><th>Last UTC</th><th>Quality</th><th>Reasons</th><th>Gaps</th></tr></thead><tbody id="research-table"></tbody></table></div></article></section>
+        <section id="backtests" class="view"><div class="page-heading"><div><p class="eyebrow">HISTORICAL RESEARCH</p><h1>Backtest Runs</h1></div></div><div class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>Run ID</th><th>Strategy</th><th>Symbol</th><th>TF</th><th>Trades</th><th>Net P&amp;L</th><th>Profit Factor</th><th>Drawdown</th><th>Costs</th><th>Created</th><th>Verification</th></tr></thead><tbody id="backtest-table"></tbody></table></div></div></section>
+      </main>
+    </div>
+  </div>
+  <dialog id="emergency-dialog"><form method="dialog"><h2>Emergency Stop</h2><p>This calls the existing backend emergency-stop endpoint and blocks new orders. Existing positions follow the backend-configured emergency policy.</p><label>Operator ID<input id="stop-operator" required></label><label>Reason<textarea id="stop-reason" required></textarea></label><div class="dialog-actions"><button value="cancel">Cancel</button><button id="confirm-stop" value="default" class="emergency-button">Confirm Emergency Stop</button></div></form></dialog>
+  <script type="module" src="/assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+mt5-ai-trader/
+├── config/
+├── mt5/
+│   ├── connector
+│   ├── market_data
+│   ├── order_manager
+│   └── position_manager
+├── data/
+│   ├── collector
+│   ├── storage
+│   └── quality
+├── features/
+├── regimes/
+├── strategies/
+├── ai/
+│   ├── inference
+│   ├── training
+│   ├── model_registry
+│   └── evaluation
+├── risk/
+├── execution/
+├── memory/
+├── backtesting/
+├── validation/
+├── monitoring/
+├── dashboard/
+├── database/
+├── tests/
+└── logs/

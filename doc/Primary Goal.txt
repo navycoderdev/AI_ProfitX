@@ -1,0 +1,74 @@
+                    ┌──────────────────┐
+                    │       MT5        │
+                    │ Market + Account │
+                    └────────┬─────────┘
+                             ↓
+                 ┌─────────────────────┐
+                 │ Market Data Engine  │
+                 └─────────┬───────────┘
+                           ↓
+                 ┌─────────────────────┐
+                 │ Feature Engineering │
+                 └─────────┬───────────┘
+                           ↓
+                 ┌─────────────────────┐
+                 │   Regime Detector   │
+                 └─────────┬───────────┘
+                           ↓
+          ┌────────────────────────────────┐
+          │       AI Trading Brain         │
+          │ LONG / SHORT / NO-TRADE        │
+          │ Confidence + SL/TP proposal    │
+          └──────────────┬─────────────────┘
+                         ↓
+                 ┌─────────────────────┐
+                 │ HARD RISK ENGINE    │
+                 │ AI cannot override  │
+                 └───────┬───────┬─────┘
+                         │       │
+                      ACCEPT   REJECT
+                         ↓
+                 ┌─────────────────────┐
+                 │ Execution Engine    │
+                 └─────────┬───────────┘
+                           ↓
+                          MT5
+                           ↓
+                 ┌─────────────────────┐
+                 │ Position Monitor    │
+                 └─────────┬───────────┘
+                           ↓
+                     Trade Closed
+                           ↓
+                 ┌─────────────────────┐
+                 │ Experience Memory   │
+                 └─────────┬───────────┘
+                           ↓
+                 ┌─────────────────────┐
+                 │ Performance Analyzer│
+                 └─────────┬───────────┘
+                           ↓
+                 ┌─────────────────────┐
+                 │ Training Pipeline   │
+                 └─────────┬───────────┘
+                           ↓
+                    Candidate Brain
+                           ↓
+             Backtest → Walk Forward
+                           ↓
+               Out-of-Sample Testing
+                           ↓
+                    Stress Testing
+                           ↓
+                  Paper/Shadow Mode
+                           ↓
+                    Promotion Gate
+                           ↓
+                    Brain v2/v3/...
+
+
+
+
+Recommended technology : 
+
+Core trading/ML backend ke liye Python practical rahega, MT5 integration ke liye MetaTrader 5 Python interface/MQL5 bridge as required, relational storage ke liye PostgreSQL, fast transient state ke liye Redis optional, ML layer me scikit-learn/XGBoost/PyTorch as appropriate, API layer FastAPI, dashboard React/Next.js, aur deployment initially local/VPS par Docker-based services me rakha ja sakta hai.                    

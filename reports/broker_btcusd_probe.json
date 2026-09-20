@@ -1,0 +1,138 @@
+{
+  "broker": {
+    "company": "MetaQuotes Ltd.",
+    "currency": "USD",
+    "server": "MetaQuotes-Demo",
+    "terminal_connected": true,
+    "terminal_trade_allowed": false,
+    "trade_mode": 0
+  },
+  "broker_gate": "BLOCKED_WRONG_ACCOUNT",
+  "btc_gate": "NOT_EVALUATED_WRONG_ACCOUNT",
+  "credentials_in_report": false,
+  "observed_at": "2026-09-20T18:16:16.582214+00:00",
+  "orders_submitted": 0,
+  "source": "MT5_account_symbol_info_and_read_only_calculations",
+  "symbol_mapping": {
+    "BTCUSD": {
+      "broker_symbol": null,
+      "reason": "ValueError"
+    },
+    "ETHUSD": {
+      "broker_symbol": null,
+      "reason": "ValueError"
+    },
+    "EURUSD": {
+      "broker_symbol": "EURUSD",
+      "metadata": {
+        "currency_base": "EUR",
+        "currency_margin": "EUR",
+        "currency_profit": "USD",
+        "description": "Euro vs US Dollar",
+        "digits": 5,
+        "name": "EURUSD",
+        "path": "Forex\\EURUSD",
+        "point": 1e-05,
+        "session_buy_orders": 0,
+        "session_deals": 0,
+        "session_sell_orders": 0,
+        "spread": 3,
+        "spread_float": true,
+        "trade_calc_mode": 0,
+        "trade_contract_size": 100000.0,
+        "trade_mode": 4,
+        "trade_tick_size": 1e-05,
+        "trade_tick_value": 1.0,
+        "trade_tick_value_loss": 1.0,
+        "trade_tick_value_profit": 1.0,
+        "volume_max": 500.0,
+        "volume_min": 0.01,
+        "volume_step": 0.01
+      }
+    },
+    "GBPUSD": {
+      "broker_symbol": "GBPUSD",
+      "metadata": {
+        "currency_base": "GBP",
+        "currency_margin": "GBP",
+        "currency_profit": "USD",
+        "description": "Pound Sterling vs US Dollar",
+        "digits": 5,
+        "name": "GBPUSD",
+        "path": "Forex\\GBPUSD",
+        "point": 1e-05,
+        "session_buy_orders": 0,
+        "session_deals": 0,
+        "session_sell_orders": 0,
+        "spread": 7,
+        "spread_float": true,
+        "trade_calc_mode": 0,
+        "trade_contract_size": 100000.0,
+        "trade_mode": 4,
+        "trade_tick_size": 1e-05,
+        "trade_tick_value": 1.0,
+        "trade_tick_value_loss": 1.0,
+        "trade_tick_value_profit": 1.0,
+        "volume_max": 500.0,
+        "volume_min": 0.01,
+        "volume_step": 0.01
+      }
+    },
+    "USDJPY": {
+      "broker_symbol": "USDJPY",
+      "metadata": {
+        "currency_base": "USD",
+        "currency_margin": "USD",
+        "currency_profit": "JPY",
+        "description": "US Dollar vs Yen",
+        "digits": 3,
+        "name": "USDJPY",
+        "path": "Forex\\USDJPY",
+        "point": 0.001,
+        "session_buy_orders": 0,
+        "session_deals": 0,
+        "session_sell_orders": 0,
+        "spread": 4,
+        "spread_float": true,
+        "trade_calc_mode": 0,
+        "trade_contract_size": 100000.0,
+        "trade_mode": 4,
+        "trade_tick_size": 0.001,
+        "trade_tick_value": 0.637389253617184,
+        "trade_tick_value_loss": 0.637405504633938,
+        "trade_tick_value_profit": 0.637389253617184,
+        "volume_max": 500.0,
+        "volume_min": 0.01,
+        "volume_step": 0.01
+      }
+    },
+    "XAUUSD": {
+      "broker_symbol": "XAUUSD",
+      "metadata": {
+        "currency_base": "XAU",
+        "currency_margin": "USD",
+        "currency_profit": "USD",
+        "description": "Gold vs US Dollar",
+        "digits": 2,
+        "name": "XAUUSD",
+        "path": "Metals\\XAUUSD",
+        "point": 0.01,
+        "session_buy_orders": 0,
+        "session_deals": 0,
+        "session_sell_orders": 0,
+        "spread": 60,
+        "spread_float": true,
+        "trade_calc_mode": 4,
+        "trade_contract_size": 100.0,
+        "trade_mode": 4,
+        "trade_tick_size": 0.01,
+        "trade_tick_value": 0.1,
+        "trade_tick_value_loss": 0.1,
+        "trade_tick_value_profit": 0.1,
+        "volume_max": 100.0,
+        "volume_min": 0.01,
+        "volume_step": 0.01
+      }
+    }
+  }
+}

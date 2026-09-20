@@ -20,6 +20,7 @@ reports/*
 !reports/brain_v2_oos_simulation.json
 !reports/shadow_runtime.json
 !reports/shadow_evidence.json
+!reports/broker_btcusd_probe.json
 models/artifacts/*
 !models/artifacts/Brain-v1.json
 !models/artifacts/Brain-v2.json

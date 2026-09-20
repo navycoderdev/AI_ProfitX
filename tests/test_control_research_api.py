@@ -1,6 +1,7 @@
 import asyncio
 import json
 from datetime import datetime, timezone
+from pathlib import Path
 
 import httpx
 
@@ -66,6 +67,15 @@ def test_live_shadow_api_reports_empty_persisted_state(tmp_path, monkeypatch):
     assert body["counts"]["total"] == body["counts"]["orders_submitted"] == 0
     assert set(body["per_symbol"]) == {"EURUSD", "GBPUSD", "USDJPY", "XAUUSD"}
     assert body["decisions"] == []
+
+
+def test_live_shadow_frontend_path_matches_canonical_running_router(tmp_path, monkeypatch):
+    isolated_center(tmp_path, monkeypatch)
+    script = (Path(__file__).resolve().parents[1] / "frontend" / "app.js").read_text(encoding="utf-8")
+    assert "const API = '/api';" in script
+    assert "request('/control/live-shadow')" in script
+    assert "/api/control/live-shadow" in app.openapi()["paths"]
+    assert request("/api/control/live-shadow").status_code == 200
 
 
 def test_research_data_api_exposes_quality_reason_codes(tmp_path, monkeypatch):

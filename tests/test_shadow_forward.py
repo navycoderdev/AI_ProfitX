@@ -116,6 +116,19 @@ def test_risk_pass_still_zero_orders_and_horizon_waits_for_twelve_closed_bars(tm
     assert gateway.orders == 0
 
 
+def test_actionable_risk_block_is_persisted_without_execution(tmp_path, monkeypatch):
+    service, sessions, gateway, now, start, _ = setup(tmp_path, monkeypatch, ProposalAction.LONG)
+    now[0] = start + timedelta(minutes=5, seconds=1)
+    service.poll_once()
+    with sessions() as session:
+        rows = session.scalars(select(ShadowDecision)).all()
+        assert len(rows) == 4
+        assert all(row.final_decision == "LONG" and row.risk_status == "BLOCK" for row in rows)
+        assert all("INVALID_STOP" in row.risk_reason_codes and not row.order_submitted for row in rows)
+        assert session.scalar(select(func.count(TradeMemory.id))) == 0
+    assert gateway.orders == 0
+
+
 def test_artifact_hash_mismatch_fails_before_any_decision(tmp_path):
     path = tmp_path / "Brain-v2.json"
     path.write_text('{"model": "tampered"}', encoding="utf-8")
@@ -136,3 +149,11 @@ def test_artifact_feature_order_and_policy_mismatch_fail_closed(tmp_path, monkey
         monkeypatch.setattr(shadow, "ARTIFACT_SHA256", sha256(path.read_bytes()).hexdigest())
         with pytest.raises(ValueError, match="schema, ordering, or lineage"):
             shadow.load_locked_model(None, path)
+
+
+def test_shadow_refuses_live_permission_or_paper_mode(tmp_path):
+    sessions = initialize_database(Settings(_env_file=None, database_url=f"sqlite:///{tmp_path / 'safe.db'}"))
+    for settings in (Settings(_env_file=None, trading_mode="SHADOW", allow_live_trading=True),
+                     Settings(_env_file=None, trading_mode="PAPER", allow_live_trading=False)):
+        with pytest.raises(ValueError, match="SHADOW mode and LIVE permission false"):
+            shadow.ShadowService(sessions, FakeGateway(datetime(2026, 9, 21, tzinfo=timezone.utc)), settings)

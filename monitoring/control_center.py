@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 from collections import defaultdict
 from datetime import datetime, timezone
@@ -11,7 +12,7 @@ from database.session import check_database
 from models.registry import ModelRegistry
 from monitoring.alerts import AlertService
 from monitoring.control import EmergencyStopService
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session, sessionmaker
 
 
@@ -24,9 +25,14 @@ class ControlCenter:
         self.positions, self.account, self.live_market_source = positions or (lambda: []), account or (lambda: {}), live_market
     def overview(self) -> dict:
         account, positions = self.account(), self.positions(); production = self.registry.production()
+        with self.sessions() as session:
+            shadow_state = session.get(SystemControlState, "brain_v2_shadow_service")
+            shadow_candidate = session.scalar(select(ModelVersion.stage).where(ModelVersion.version == "Brain-v2"))
         equity, high_water = float(account.get("equity", 0) or 0), float(account.get("high_water_equity", account.get("equity", 0)) or 0)
         return {"mt5_status": self.health().get("mt5"), "environment": self.settings.app_env.value, "mode": self.settings.trading_mode.value,
                 "active_model": production["model_id"] if production else None, "balance": account.get("balance"), "equity": account.get("equity"),
+                "shadow_candidate": "Brain-v2" if self.settings.trading_mode.value == "SHADOW" and shadow_state and shadow_candidate == "CANDIDATE" else None,
+                "shadow_candidate_status": shadow_candidate if shadow_state else None,
                 "margin": account.get("margin"), "daily_pnl": account.get("daily_pnl"), "open_exposure": sum(abs(float(item.get("volume", 0)) * float(item.get("price_current", item.get("price_open", 0)))) for item in positions),
                 "drawdown": (high_water - equity) / high_water if high_water else None, "risk_status": "EMERGENCY_STOP" if self.emergency.status().get("active") else "NORMAL"}
     def live_market(self) -> list[dict]:
@@ -183,15 +189,33 @@ class ControlCenter:
                 .order_by(ShadowDecision.decision_at.desc()).limit(max(1, min(limit, 500)))).all()
             all_rows = session.scalars(select(ShadowDecision).where(ShadowDecision.model_version == MODEL_VERSION)).all()
             outcomes = session.scalars(select(ShadowOutcome)).all()
+            paper_trades = session.scalar(select(func.count(TradeMemory.id)).join(DecisionMemory,
+                TradeMemory.decision_id == DecisionMemory.decision_id).where(DecisionMemory.environment == "PAPER")) or 0
         resolved = {item.decision_id for item in outcomes}
         class_counts = Counter(item.final_decision for item in all_rows)
         risk_counts = Counter(item.risk_status for item in all_rows)
         per_symbol = {symbol: {"total": sum(item.symbol == symbol for item in all_rows),
             "LONG": sum(item.symbol == symbol and item.final_decision == "LONG" for item in all_rows),
             "SHORT": sum(item.symbol == symbol and item.final_decision == "SHORT" for item in all_rows),
-            "NO_TRADE": sum(item.symbol == symbol and item.final_decision == "NO_TRADE" for item in all_rows)}
+            "NO_TRADE": sum(item.symbol == symbol and item.final_decision == "NO_TRADE" for item in all_rows),
+            "observation_status": "OBSERVING" if any(item.symbol == symbol for item in all_rows) else "WAITING_FOR_NEXT_CLOSED_M5"}
             for symbol in SYMBOLS}
-        return {"service": state.value if state else {"status": "NOT_STARTED", "last_processed_closed_m5": {}},
+        service = dict(state.value) if state else {"status": "NOT_STARTED", "last_processed_closed_m5": {}}
+        pid = service.get("observer_pid")
+        alive = self._process_alive(pid) if pid else None
+        service["process_alive"] = alive
+        if service.get("status") in {"STOPPED", "ERROR"}:
+            pass
+        elif pid and not alive:
+            service["status"] = "STOPPED"
+            service["stop_reason"] = service.get("stop_reason") or "OBSERVER_PROCESS_EXITED"
+        elif state and service.get("last_poll_at"):
+            poll = datetime.fromisoformat(service["last_poll_at"])
+            if poll.tzinfo is None: poll = poll.replace(tzinfo=timezone.utc)
+            service["status"] = ("ACTIVE_WAITING_FOR_NEXT_CLOSED_M5" if alive else "UNKNOWN_PROCESS_WAITING_FOR_NEXT_CLOSED_M5") if (datetime.now(timezone.utc) - poll).total_seconds() <= 150 else "STALE_NO_RECENT_POLL"
+        service.setdefault("stop_reason", None)
+        return {"service": service, "environment": "SHADOW", "runtime_paper_trades": paper_trades,
+            "live_permission": self.settings.allow_live_trading,
             "model_version": MODEL_VERSION, "artifact_hash": ARTIFACT_SHA256,
             "counts": {"total": len(all_rows), **{label: class_counts[label] for label in ("LONG", "SHORT", "NO_TRADE")},
                 "risk_pass": risk_counts["PASS"], "risk_block": risk_counts["BLOCK"],
@@ -211,3 +235,21 @@ class ControlCenter:
                 "proposed_stop": item.proposed_stop, "proposed_target": item.proposed_target,
                 "environment": item.environment, "order_submitted": item.order_submitted,
                 "outcome_status": "RESOLVED" if item.decision_id in resolved else "PENDING"} for item in rows]}
+
+    @staticmethod
+    def _process_alive(pid: int) -> bool:
+        try:
+            if os.name == "nt":
+                import ctypes
+                handle = ctypes.windll.kernel32.OpenProcess(0x1000, False, int(pid))
+                if not handle:
+                    return False
+                code = ctypes.c_ulong()
+                try:
+                    return bool(ctypes.windll.kernel32.GetExitCodeProcess(handle, ctypes.byref(code))) and code.value == 259
+                finally:
+                    ctypes.windll.kernel32.CloseHandle(handle)
+            os.kill(int(pid), 0)
+            return True
+        except (OSError, ValueError):
+            return False

@@ -1,0 +1,437 @@
+{
+  "blocking_symbols": [
+    "BTCUSD",
+    "ETHUSD"
+  ],
+  "brain_v2_state": "NOT_STARTED",
+  "broker_catalogue_size": 12375,
+  "broker_symbol_mapping": {
+    "BTCUSD": {
+      "broker_symbol": null,
+      "canonical_symbol": "BTCUSD",
+      "error": "No broker symbol resolves canonical symbol BTCUSD."
+    },
+    "ETHUSD": {
+      "broker_symbol": null,
+      "canonical_symbol": "ETHUSD",
+      "error": "No broker symbol resolves canonical symbol ETHUSD."
+    },
+    "EURUSD": {
+      "broker_symbol": "EURUSD",
+      "canonical_symbol": "EURUSD",
+      "metadata": {
+        "currency_profit": "USD",
+        "digits": 5,
+        "point": 1e-05,
+        "spread": 3,
+        "spread_float": true,
+        "trade_contract_size": 100000.0,
+        "trade_mode": 4,
+        "trade_tick_size": 1e-05,
+        "trade_tick_value": 1.0
+      }
+    },
+    "GBPUSD": {
+      "broker_symbol": "GBPUSD",
+      "canonical_symbol": "GBPUSD",
+      "metadata": {
+        "currency_profit": "USD",
+        "digits": 5,
+        "point": 1e-05,
+        "spread": 7,
+        "spread_float": true,
+        "trade_contract_size": 100000.0,
+        "trade_mode": 4,
+        "trade_tick_size": 1e-05,
+        "trade_tick_value": 1.0
+      }
+    },
+    "USDJPY": {
+      "broker_symbol": "USDJPY",
+      "canonical_symbol": "USDJPY",
+      "metadata": {
+        "currency_profit": "JPY",
+        "digits": 3,
+        "point": 0.001,
+        "spread": 4,
+        "spread_float": true,
+        "trade_contract_size": 100000.0,
+        "trade_mode": 4,
+        "trade_tick_size": 0.001,
+        "trade_tick_value": 0.637389253617184
+      }
+    },
+    "XAUUSD": {
+      "broker_symbol": "XAUUSD",
+      "canonical_symbol": "XAUUSD",
+      "metadata": {
+        "currency_profit": "USD",
+        "digits": 2,
+        "point": 0.01,
+        "spread": 60,
+        "spread_float": true,
+        "trade_contract_size": 100.0,
+        "trade_mode": 4,
+        "trade_tick_size": 0.01,
+        "trade_tick_value": 0.1
+      }
+    }
+  },
+  "crypto_catalogue_candidates": [
+    "ABTC",
+    "AEMD",
+    "AETH",
+    "AIXC",
+    "ARKA",
+    "ARKB",
+    "ATHR",
+    "BAGY",
+    "BBB",
+    "BCCC",
+    "BCOR",
+    "BDCI",
+    "BDCIU",
+    "BDCIW",
+    "BEGS",
+    "BETE",
+    "BETH",
+    "BFAP",
+    "BFJA",
+    "BFJL",
+    "BFOC",
+    "BITB",
+    "BITC",
+    "BITI",
+    "BITO",
+    "BITQ",
+    "BITS",
+    "BITU",
+    "BITX",
+    "BITY",
+    "BIXI",
+    "BIXIU",
+    "BIXIW",
+    "BLOX",
+    "BPI",
+    "BRRR",
+    "BTC",
+    "BTCC",
+    "BTCI",
+    "BTCK",
+    "BTCL",
+    "BTCO",
+    "BTCS",
+    "BTCT",
+    "BTCU",
+    "BTCW",
+    "BTCZ",
+    "BTF",
+    "BTGD",
+    "BTM",
+    "BTRN",
+    "CBOA",
+    "CBOJ",
+    "CBOL",
+    "CBOO",
+    "CBOY",
+    "CBTA",
+    "CBTJ",
+    "CBTL",
+    "CBTO",
+    "CBTY",
+    "CBXA",
+    "CBXJ",
+    "CBXL",
+    "CBXO",
+    "CBXY",
+    "CEPI",
+    "CRPT",
+    "DFII",
+    "EEE",
+    "EETH",
+    "EHY",
+    "ETCO",
+    "ETD",
+    "ETH",
+    "ETHA",
+    "ETHD",
+    "ETHE",
+    "ETHO",
+    "ETHT",
+    "ETHU",
+    "ETHV",
+    "ETHW",
+    "ETTY",
+    "ETU",
+    "EWN",
+    "EZET",
+    "EZPZ",
+    "FBTC",
+    "FDIG",
+    "FETH",
+    "GBTC",
+    "GDLC",
+    "HBTC",
+    "HODL",
+    "IBIT",
+    "ISBG",
+    "ISSB",
+    "KRYP",
+    "LFGY",
+    "LIFE",
+    "LYB",
+    "MAXI",
+    "MEI",
+    "MEOH",
+    "MNRS",
+    "NCI",
+    "NCIQ",
+    "NEHI",
+    "NETH25",
+    "OBTC",
+    "OWNB",
+    "QBF",
+    "QETH",
+    "RSSX",
+    "SATO",
+    "SBIT",
+    "SETH",
+    "SPBC",
+    "STCE",
+    "TETH",
+    "TTOP",
+    "TXBC",
+    "WETH",
+    "WGMI",
+    "WTIB",
+    "XBCI",
+    "XBTY",
+    "YBIT",
+    "YBTC",
+    "YETH"
+  ],
+  "dataset_v3_state": "NOT_STARTED",
+  "direct_crypto_candidates": {
+    "BTC": {
+      "currency_base": "USD",
+      "currency_profit": "USD",
+      "description": "Grayscale Bitcoin Mini Trust (BTC)",
+      "name": "BTC",
+      "path": "Nasdaq\\ETF\\BTC",
+      "point": 0.01,
+      "trade_contract_size": 1.0,
+      "trade_mode": 4,
+      "trade_tick_size": 0.01,
+      "trade_tick_value": 0.01
+    },
+    "ETH": {
+      "currency_base": "USD",
+      "currency_profit": "USD",
+      "description": "Grayscale Ethereum Mini Trust (ETH)",
+      "name": "ETH",
+      "path": "Nasdaq\\ETF\\ETH",
+      "point": 0.01,
+      "trade_contract_size": 1.0,
+      "trade_mode": 4,
+      "trade_tick_size": 0.01,
+      "trade_tick_value": 0.01
+    }
+  },
+  "local_raw_coverage": {
+    "BTCUSD": {
+      "H1": {
+        "count": 0,
+        "end": null,
+        "start": null
+      },
+      "H4": {
+        "count": 0,
+        "end": null,
+        "start": null
+      },
+      "M1": {
+        "count": 0,
+        "end": null,
+        "start": null
+      },
+      "M15": {
+        "count": 0,
+        "end": null,
+        "start": null
+      },
+      "M30": {
+        "count": 0,
+        "end": null,
+        "start": null
+      },
+      "M5": {
+        "count": 0,
+        "end": null,
+        "start": null
+      }
+    },
+    "ETHUSD": {
+      "H1": {
+        "count": 0,
+        "end": null,
+        "start": null
+      },
+      "H4": {
+        "count": 0,
+        "end": null,
+        "start": null
+      },
+      "M1": {
+        "count": 0,
+        "end": null,
+        "start": null
+      },
+      "M15": {
+        "count": 0,
+        "end": null,
+        "start": null
+      },
+      "M30": {
+        "count": 0,
+        "end": null,
+        "start": null
+      },
+      "M5": {
+        "count": 0,
+        "end": null,
+        "start": null
+      }
+    },
+    "EURUSD": {
+      "H1": {
+        "count": 817,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      },
+      "H4": {
+        "count": 205,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      },
+      "M1": {
+        "count": 48961,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      },
+      "M15": {
+        "count": 3265,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      },
+      "M30": {
+        "count": 1633,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      },
+      "M5": {
+        "count": 9793,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      }
+    },
+    "GBPUSD": {
+      "H1": {
+        "count": 817,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      },
+      "H4": {
+        "count": 205,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      },
+      "M1": {
+        "count": 48961,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      },
+      "M15": {
+        "count": 3265,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      },
+      "M30": {
+        "count": 1633,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      },
+      "M5": {
+        "count": 9793,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      }
+    },
+    "USDJPY": {
+      "H1": {
+        "count": 817,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      },
+      "H4": {
+        "count": 205,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      },
+      "M1": {
+        "count": 48958,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      },
+      "M15": {
+        "count": 3265,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      },
+      "M30": {
+        "count": 1633,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      },
+      "M5": {
+        "count": 9793,
+        "end": "2026-09-18T00:00:00",
+        "start": "2026-08-03T00:00:00"
+      }
+    },
+    "XAUUSD": {
+      "H1": {
+        "count": 0,
+        "end": null,
+        "start": null
+      },
+      "H4": {
+        "count": 0,
+        "end": null,
+        "start": null
+      },
+      "M1": {
+        "count": 0,
+        "end": null,
+        "start": null
+      },
+      "M15": {
+        "count": 0,
+        "end": null,
+        "start": null
+      },
+      "M30": {
+        "count": 0,
+        "end": null,
+        "start": null
+      },
+      "M5": {
+        "count": 0,
+        "end": null,
+        "start": null
+      }
+    }
+  },
+  "probed_at": "2026-09-20T12:54:31.156376+00:00",
+  "source": "connected_MT5_terminal",
+  "stop_before_dataset_v3_and_brain_v2": true
+}

@@ -11,6 +11,7 @@ data/*.db-*
 reports/*
 !reports/brain_v1_oos.json
 !reports/dataset_v2_freeze.json
+!reports/market_universe_probe.json
 models/artifacts/*
 !models/artifacts/Brain-v1.json
 doc/mt5.txt

@@ -133,10 +133,10 @@ class ControlCenter:
                 "reason_codes": details.get("reason_codes") or reason_codes_from_quality(details), "details": details})
         spec = DatasetSpec()
         with self.sessions() as session:
-            manifest = session.scalar(select(DatasetManifest).where(DatasetManifest.dataset_version == spec.version,
-                DatasetManifest.state == "FROZEN").order_by(DatasetManifest.frozen_at.desc()))
+            manifest = session.scalar(select(DatasetManifest).where(DatasetManifest.state == "FROZEN")
+                .order_by(DatasetManifest.frozen_at.desc()))
             if manifest is None:
-                manifest = session.scalar(select(DatasetManifest).where(DatasetManifest.dataset_version == spec.version).order_by(DatasetManifest.id.desc()))
+                manifest = session.scalar(select(DatasetManifest).order_by(DatasetManifest.id.desc()))
             definitions = list(session.scalars(select(FeatureDefinition).where(FeatureDefinition.active.is_(True))))
             active_snapshot_count = int(session.scalar(select(func.count(DatasetRow.id)).where(DatasetRow.dataset_id == manifest.dataset_id)) or 0) if manifest else None
             examples = []
@@ -146,10 +146,12 @@ class ControlCenter:
                     .order_by(DatasetRow.decision_at).limit(3)).all()
                 examples = [{"snapshot_id": snap.snapshot_id, "symbol": row.symbol, "decision_at": row.decision_at,
                     "split": row.split, "raw_data_cutoff": snap.raw_data_cutoff, "values": snap.values} for row, snap in example_rows]
-        dataset = {"dataset_version": spec.version, "dataset_state": manifest.state if manifest else "NOT_BUILT",
+        dataset = {"dataset_version": manifest.dataset_version if manifest else spec.version, "dataset_state": manifest.state if manifest else "NOT_BUILT",
             "execution_timeframe": spec.execution_timeframe, "context_timeframes": list(spec.context_timeframes),
             "decision_semantics": spec.decision_semantics, "alignment_policy": spec.alignment_policy,
-            "feature_set_version": spec.feature_set_version, "content_hash": manifest.content_hash if manifest else None,
+            "feature_set_version": manifest.feature_set_version if manifest else spec.feature_set_version,
+            "split_policy_version": manifest.split_policy_version if manifest else spec.split_policy_version,
+            "content_hash": manifest.content_hash if manifest else None,
             "candidate_rows": manifest.candidate_rows if manifest else None, "usable_rows": manifest.usable_rows if manifest else None,
             "excluded_rows": manifest.excluded_rows if manifest else None, "quarantined_rows": manifest.quarantined_rows if manifest else None,
             "train_rows": manifest.train_rows if manifest else None, "validation_rows": manifest.validation_rows if manifest else None,

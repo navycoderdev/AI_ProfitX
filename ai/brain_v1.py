@@ -14,9 +14,9 @@ LABEL_SPEC_V1 = {"version": "label-spec-v1", "horizon_bars": 12, "timeframe": "M
     "cost_assumptions": {"spread_points": 1.0, "slippage_points_each_side": 2.0, "point_size": 0.00001}}
 
 
-def assert_frozen_dataset(sessions, expected_hash: str) -> DatasetManifest:
+def assert_frozen_dataset(sessions, expected_hash: str, dataset_version: str = "research-dataset-v1") -> DatasetManifest:
     with sessions() as session:
-        manifest = session.scalar(select(DatasetManifest).where(DatasetManifest.dataset_version == "research-dataset-v1",
+        manifest = session.scalar(select(DatasetManifest).where(DatasetManifest.dataset_version == dataset_version,
             DatasetManifest.state == "FROZEN").order_by(DatasetManifest.frozen_at.desc()))
         if not manifest or manifest.content_hash != expected_hash:
             raise ValueError("Brain-v1 training requires the selected immutable frozen dataset hash.")
@@ -38,9 +38,10 @@ def _numeric(values: dict) -> dict[str, float]:
 
 class BrainV1Dataset:
     """Labels are computed separately from raw future closes and never written into FeatureSnapshot."""
-    def __init__(self, sessions, expected_hash: str) -> None: self.sessions, self.expected_hash = sessions, expected_hash
+    def __init__(self, sessions, expected_hash: str, dataset_version: str = "research-dataset-v1") -> None:
+        self.sessions, self.expected_hash, self.dataset_version = sessions, expected_hash, dataset_version
     def rows(self) -> tuple[list[dict], tuple[str, ...], dict]:
-        manifest = assert_frozen_dataset(self.sessions, self.expected_hash)
+        manifest = assert_frozen_dataset(self.sessions, self.expected_hash, self.dataset_version)
         with self.sessions() as session:
             joined = session.execute(select(DatasetRow, FeatureSnapshot).join(FeatureSnapshot,
                 FeatureSnapshot.snapshot_id == DatasetRow.feature_snapshot_id).where(DatasetRow.dataset_id == manifest.dataset_id)

@@ -1,6 +1,7 @@
 """Research Dataset v1 builder. It is deliberately feature-only: no labels or model training."""
 from collections import Counter
-from datetime import timedelta
+from bisect import bisect_right
+from datetime import datetime, timedelta, timezone
 
 from data.candle_builder import TIMEFRAME_SECONDS
 from data.storage import RawMarketDataRepository
@@ -9,6 +10,8 @@ from features.registry import FeatureRegistry
 from features.snapshots import FeatureSnapshotService
 from research.governance import DatasetSpec, FREEZE_GATES, can_freeze, content_hash, dependency_audit
 from research.repository import DatasetGovernanceRepository
+from sqlalchemy import func, select
+from database.models import DatasetRow, FeatureSnapshot
 
 
 FEATURE_VERSION = "feature-set-v1"
@@ -34,20 +37,34 @@ class ResearchDatasetV1Builder:
     def __init__(self, sessions) -> None:
         self.sessions = sessions; self.raw = RawMarketDataRepository(sessions); self.snapshots = FeatureSnapshotService(sessions)
         self.registry = FeatureRegistry(sessions); self.governance = DatasetGovernanceRepository(sessions)
-        self.engine = FeatureEngine(); self.spec = DatasetSpec()
+        self.engine = FeatureEngine(); self.spec = DatasetSpec(version="research-dataset-v2", split_policy_version="chronological-time-v2")
 
     def register_features(self) -> list[object]:
         return [self.registry.register(item["name"], item["version"], item) for item in feature_definitions()]
 
     @staticmethod
-    def _split(index: int, total: int) -> str:
-        return "TRAIN" if index < total * .70 else "VALIDATION" if index < total * .85 else "OOS"
+    def split_boundaries(candidates: list[dict]) -> tuple[datetime, datetime]:
+        """Quantiles of unique decision times; one timestamp always gets one split."""
+        times = sorted({datetime.fromisoformat(row["decision_time"]).astimezone(timezone.utc) for row in candidates})
+        if len(times) < 3:
+            raise ValueError("At least three unique decision timestamps are required for chronological splits.")
+        train_end = max(1, min(len(times) - 2, int(len(times) * .70)))
+        validation_end = max(train_end + 1, min(len(times) - 1, int(len(times) * .85)))
+        return times[train_end], times[validation_end]
+
+    @staticmethod
+    def split_for_time(decision_at: datetime, boundaries: tuple[datetime, datetime]) -> str:
+        return "TRAIN" if decision_at < boundaries[0] else "VALIDATION" if decision_at < boundaries[1] else "OOS"
 
     def build_and_freeze(self, symbols: tuple[str, ...] = ("EURUSD", "GBPUSD", "USDJPY")) -> dict:
         definitions = self.register_features(); audit = dependency_audit(definitions)
         if audit["freeze_blocked"]: raise RuntimeError("Feature dependency metadata is incomplete; Dataset v1 cannot freeze.")
         manifest = self.governance.register_not_built(self.spec)
-        candidates, excluded, snapshot_batch, membership = [], [], [], []
+        with self.sessions() as session:
+            existing_rows = session.scalar(select(func.count(DatasetRow.id)).where(DatasetRow.dataset_id == manifest.dataset_id))
+        if existing_rows:
+            raise RuntimeError("Incomplete Dataset v2 membership exists; inspect and clear that attempt before retrying.")
+        candidates, excluded, snapshot_batch = [], [], []
         source_starts, source_ends = [], []
         direct_masks = {(mask.symbol, mask.timeframe): self.governance.masks(mask.symbol, mask.timeframe)
                         for symbol in symbols for mask in self.governance.masks(symbol)}
@@ -55,6 +72,7 @@ class ResearchDatasetV1Builder:
             base = self.raw.bars_as_of(symbol, "M5", __import__("datetime").datetime.max.replace(tzinfo=__import__("datetime").timezone.utc))
             contexts = {tf: self.raw.bars_as_of(symbol, tf, __import__("datetime").datetime.max.replace(tzinfo=__import__("datetime").timezone.utc))
                         for tf in self.spec.context_timeframes}
+            context_times = {tf: [item.timestamp for item in rows] for tf, rows in contexts.items()}
             if not base: continue
             source_starts.append(base[0].timestamp); source_ends.append(base[-1].timestamp)
             for index, bar in enumerate(base):
@@ -66,7 +84,7 @@ class ResearchDatasetV1Builder:
                     excluded.append("QUARANTINED_INTERVAL"); continue
                 # The raw cutoff is exactly the M5 candle open timestamp; no subsequent/future M5 bar is supplied.
                 history = base[max(0, index - 99):index + 1]
-                closed_context = {tf: [item for item in rows if item.timestamp + timedelta(seconds=TIMEFRAME_SECONDS[tf]) <= decision_at]
+                closed_context = {tf: rows[:bisect_right(context_times[tf], decision_at - timedelta(seconds=TIMEFRAME_SECONDS[tf]))]
                                   for tf, rows in contexts.items()}
                 if any(len(rows) < 2 for rows in closed_context.values()):
                     excluded.append("ALIGNMENT_CONTEXT_UNAVAILABLE"); continue
@@ -83,22 +101,42 @@ class ResearchDatasetV1Builder:
                     "raw_data_cutoff": bar.timestamp, "values": values, "context": {"decision_semantics": self.spec.decision_semantics,
                         "alignment_policy": self.spec.alignment_policy, "context_timeframes": list(self.spec.context_timeframes)}})
         if not candidates: raise RuntimeError("No usable Dataset v1 rows; dataset cannot freeze.")
+        boundaries = self.split_boundaries(candidates)
+        split_counts = Counter()
+        symbol_counts = {symbol: Counter() for symbol in symbols}
+        for row in candidates:
+            row["split"] = self.split_for_time(datetime.fromisoformat(row["decision_time"]), boundaries)
+            split_counts[row["split"]] += 1
+            symbol_counts[row["symbol"]][row["split"]] += 1
         # SQLite and production DBs both remain stable under bounded transactions; do not retain a giant ORM unit of work.
         for offset in range(0, len(snapshot_batch), 250):
             batch = snapshot_batch[offset:offset + 250]
             snapshot_ids = self.snapshots.save_batch(batch)
             membership = []
-            for index, (row, snapshot_id) in enumerate(zip(candidates[offset:offset + 250], snapshot_ids), start=offset):
+            for row, snapshot_id in zip(candidates[offset:offset + 250], snapshot_ids):
                 membership.append({"feature_snapshot_id": snapshot_id, "symbol": row["symbol"],
-                    "decision_at": __import__("datetime").datetime.fromisoformat(row["decision_time"]),
-                    "split": self._split(index, len(candidates)), "exclusion_codes": []})
+                    "decision_at": datetime.fromisoformat(row["decision_time"]),
+                    "split": row["split"], "exclusion_codes": []})
             self.governance.add_rows(manifest.dataset_id, membership)
         counts = {"candidate_rows": len(candidates) + len(excluded), "usable_rows": len(candidates), "excluded_rows": len(excluded),
-            "quarantined_rows": excluded.count("QUARANTINED_INTERVAL"), "train_rows": sum(x["split"] == "TRAIN" for x in membership),
-            "validation_rows": sum(x["split"] == "VALIDATION" for x in membership), "oos_rows": sum(x["split"] == "OOS" for x in membership)}
+            "quarantined_rows": excluded.count("QUARANTINED_INTERVAL"), "train_rows": split_counts["TRAIN"],
+            "validation_rows": split_counts["VALIDATION"], "oos_rows": split_counts["OOS"]}
+        with self.sessions() as session:
+            actual = dict(session.execute(select(DatasetRow.split, func.count(DatasetRow.id)).where(
+                DatasetRow.dataset_id == manifest.dataset_id).group_by(DatasetRow.split)).all())
+            future_features = session.scalar(select(func.count(DatasetRow.id)).join(FeatureSnapshot,
+                FeatureSnapshot.snapshot_id == DatasetRow.feature_snapshot_id).where(
+                DatasetRow.dataset_id == manifest.dataset_id, FeatureSnapshot.raw_data_cutoff > DatasetRow.decision_at))
+        if actual != dict(split_counts) or sum(actual.values()) != len(candidates):
+            raise RuntimeError("Persisted split membership does not reconcile with the manifest.")
+        if future_features:
+            raise RuntimeError("Feature leakage gate failed: a raw cutoff follows its decision timestamp.")
         gates = set(FREEZE_GATES)
         if not can_freeze(gates, False): raise RuntimeError("Mandatory Dataset v1 freeze gates did not pass.")
         frozen = self.governance.freeze(manifest.dataset_id, source="MT5", symbols=list(symbols), source_start=min(source_starts),
             source_end=max(source_ends), counts=counts, reason_code_summary=dict(Counter(excluded)), content_hash=content_hash(candidates, self.spec))
-        return {"dataset_id": frozen.dataset_id, "state": frozen.state, "content_hash": frozen.content_hash, "counts": counts,
+        return {"dataset_id": frozen.dataset_id, "dataset_version": self.spec.version, "state": frozen.state,
+            "content_hash": frozen.content_hash, "counts": counts,
+            "split_boundaries": {"validation_start": boundaries[0].isoformat(), "oos_start": boundaries[1].isoformat()},
+            "per_symbol": {symbol: {split: symbol_counts[symbol][split] for split in ("TRAIN", "VALIDATION", "OOS")} for symbol in symbols},
             "feature_count": len(definitions), "leakage_status": "PASS", "dependency_audit": audit}

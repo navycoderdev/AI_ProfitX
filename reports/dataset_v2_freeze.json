@@ -1,0 +1,73 @@
+{
+  "brain_v1_status": "CANDIDATE",
+  "chronological_boundaries": {
+    "oos_min": "2026-09-10T22:55:00",
+    "train_max": "2026-09-03T21:35:00",
+    "validation_max": "2026-09-10T22:50:00",
+    "validation_min": "2026-09-03T21:40:00"
+  },
+  "content_hash": "6696b911e993bb43c000377039e7d40bc660fc17d8f4e89fc5711f69d8cefefe",
+  "counts": {
+    "oos_rows": 4365,
+    "train_rows": 20364,
+    "usable_rows": 29094,
+    "validation_rows": 4365
+  },
+  "dataset_id": "4aa2eb83-56c4-4bb3-9ec1-8125af32a255",
+  "dataset_version": "research-dataset-v2",
+  "feature_count": 22,
+  "feature_dependency_check": "PASS",
+  "feature_value_check": "PASS",
+  "label_counts": {
+    "EURUSD": {
+      "OOS": 1443,
+      "TRAIN": 6776,
+      "VALIDATION": 1443
+    },
+    "GBPUSD": {
+      "OOS": 1443,
+      "TRAIN": 6776,
+      "VALIDATION": 1443
+    },
+    "USDJPY": {
+      "OOS": 1443,
+      "TRAIN": 6776,
+      "VALIDATION": 1443
+    }
+  },
+  "label_exclusions": {
+    "LABEL_HORIZON_CROSSES_SPLIT|EURUSD|TRAIN": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|EURUSD|VALIDATION": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|GBPUSD|TRAIN": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|GBPUSD|VALIDATION": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|USDJPY|TRAIN": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|USDJPY|VALIDATION": 12,
+    "LABEL_HORIZON_UNAVAILABLE|EURUSD|OOS": 12,
+    "LABEL_HORIZON_UNAVAILABLE|GBPUSD|OOS": 12,
+    "LABEL_HORIZON_UNAVAILABLE|USDJPY|OOS": 12
+  },
+  "label_horizon_split_crossings": 0,
+  "leakage_check": "PASS",
+  "manifest_count_reconciliation": "PASS",
+  "model_training_performed": false,
+  "old_dataset_hash": "05ce1447a4251693dd548ab57007ac71558d4be6cd8f8e6e9e77ab18b6ce78f5",
+  "per_symbol": {
+    "EURUSD": {
+      "OOS": 1455,
+      "TRAIN": 6788,
+      "VALIDATION": 1455
+    },
+    "GBPUSD": {
+      "OOS": 1455,
+      "TRAIN": 6788,
+      "VALIDATION": 1455
+    },
+    "USDJPY": {
+      "OOS": 1455,
+      "TRAIN": 6788,
+      "VALIDATION": 1455
+    }
+  },
+  "split_policy_version": "chronological-time-v2",
+  "state": "FROZEN"
+}

@@ -27,6 +27,7 @@ reports/*
 !reports/ic_btcusd_ingestion.json
 !reports/ic_btcusd_quality.json
 !reports/ic_btcusd_feature_label_audit.json
+!reports/ic_btcusd_quality_review.json
 models/artifacts/*
 !models/artifacts/Brain-v1.json
 !models/artifacts/Brain-v2.json

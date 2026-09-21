@@ -30,6 +30,19 @@ def test_quarantine_persists_with_half_open_boundaries_and_no_raw_mutation(tmp_p
     assert governance.masks("USDJPY", "M1")[0].reason_codes == ["POSSIBLE_DATA_GAP"]
 
 
+def test_superseded_quarantine_remains_auditable_but_is_not_active(tmp_path):
+    settings = Settings(_env_file=None, database_url=f"sqlite:///{tmp_path / 'superseded.db'}")
+    sessions = initialize_database(settings)
+    governance = DatasetGovernanceRepository(sessions)
+    start = datetime(2026, 9, 20, tzinfo=timezone.utc)
+    governance.quarantine(policy_version="review-v1", symbol="BTCUSD", timeframe="M1",
+        start_time=start, end_time=start + timedelta(minutes=1), reason_codes=["BAD_DATA"],
+        source_quality_run_id=None)
+    assert governance.supersede(policy_version="review-v1", reason_code="BAD_DATA") == 1
+    assert governance.masks("BTCUSD", "M1") == []
+    assert governance.active_at("BTCUSD", "M1", start) == []
+
+
 def test_quality_adapter_preserves_multiple_reason_codes(tmp_path):
     _, raw, _ = setup_repo(tmp_path); at = datetime(2026, 1, 5, tzinfo=UTC)
     raw.append_bars([MarketBar("TEST", "EURUSD", "M1", at, 1, 2, .5, 1.5),

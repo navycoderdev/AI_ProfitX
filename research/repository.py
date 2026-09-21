@@ -57,7 +57,8 @@ class DatasetGovernanceRepository:
 
     def masks(self, symbol: str | None = None, timeframe: str | None = None) -> list[DatasetQuarantineMask]:
         with self.sessions() as session:
-            statement = select(DatasetQuarantineMask).order_by(DatasetQuarantineMask.start_time)
+            statement = select(DatasetQuarantineMask).where(
+                DatasetQuarantineMask.state == "QUARANTINED").order_by(DatasetQuarantineMask.start_time)
             if symbol: statement = statement.where(DatasetQuarantineMask.symbol == symbol.upper())
             if timeframe: statement = statement.where(DatasetQuarantineMask.timeframe == timeframe.upper())
             return [_restore_utc(mask) for mask in session.scalars(statement)]
@@ -67,7 +68,19 @@ class DatasetGovernanceRepository:
         with self.sessions() as session:
             return [_restore_utc(mask) for mask in session.scalars(select(DatasetQuarantineMask).where(DatasetQuarantineMask.symbol == symbol.upper(),
                 DatasetQuarantineMask.timeframe == timeframe.upper(), DatasetQuarantineMask.start_time <= at,
-                DatasetQuarantineMask.end_time > at))]
+                DatasetQuarantineMask.end_time > at, DatasetQuarantineMask.state == "QUARANTINED"))]
+
+    def supersede(self, *, policy_version: str, reason_code: str) -> int:
+        """Keep incorrect provisional masks for audit lineage but make them inactive."""
+        with self.sessions() as session:
+            masks = list(session.scalars(select(DatasetQuarantineMask).where(
+                DatasetQuarantineMask.policy_version == policy_version,
+                DatasetQuarantineMask.state == "QUARANTINED")))
+            selected = [mask for mask in masks if reason_code in mask.reason_codes]
+            for mask in selected:
+                mask.state = "SUPERSEDED"
+            session.commit()
+            return len(selected)
 
     def freeze(self, manifest_id: str, *, source: str, symbols: list[str], source_start: datetime, source_end: datetime,
                counts: dict[str, int], reason_code_summary: dict, content_hash: str) -> DatasetManifest:

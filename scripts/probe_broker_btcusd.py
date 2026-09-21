@@ -49,6 +49,14 @@ def main() -> None:
                 info = service.info(actual)
                 mapping[canonical] = {"broker_symbol": actual,
                                       "metadata": {key: info.get(key) for key in CONTRACT_FIELDS}}
+                crypto = canonical in ("BTCUSD", "ETHUSD")
+                descriptor = (str(info.get("description", "")) + " " + str(info.get("path", ""))).lower()
+                crypto_name = "bitcoin" if canonical == "BTCUSD" else "ethereum"
+                mapping[canonical]["asset_classification"] = (
+                    "CRYPTO_CFD" if crypto and "crypto" in descriptor and crypto_name in descriptor
+                    and info.get("trade_calc_mode") in (1, 2) else
+                    "UNVERIFIED" if crypto else "FX" if canonical != "XAUUSD" else "METAL_CFD")
+                mapping[canonical]["availability"] = "AVAILABLE"
                 if canonical in ("BTCUSD", "ETHUSD"):
                     tick = _mapping(mt5.symbol_info_tick(actual))
                     price = float(tick.get("ask") or 0)
@@ -59,20 +67,33 @@ def main() -> None:
                             "sample_volume": volume, "sample_ask": price,
                             "buy_profit_up_one_tick": mt5.order_calc_profit(mt5.ORDER_TYPE_BUY, actual, volume, price, price + size),
                             "sell_profit_down_one_tick": mt5.order_calc_profit(mt5.ORDER_TYPE_SELL, actual, volume, price, price - size),
+                            "buy_profit_up_one_usd_one_lot": mt5.order_calc_profit(mt5.ORDER_TYPE_BUY, actual, 1.0, price, price + 1),
+                            "sell_profit_down_one_usd_one_lot": mt5.order_calc_profit(mt5.ORDER_TYPE_SELL, actual, 1.0, price, price - 1),
                             "buy_margin": mt5.order_calc_margin(mt5.ORDER_TYPE_BUY, actual, volume, price),
                             "tick_time": tick.get("time"), "bid": tick.get("bid"), "ask": tick.get("ask"),
                         }
             except Exception as exc:
-                mapping[canonical] = {"broker_symbol": None, "reason": type(exc).__name__}
+                mapping[canonical] = {"broker_symbol": None, "availability": "UNAVAILABLE",
+                                      "asset_classification": "UNVERIFIED", "reason": type(exc).__name__}
         ic_markets_demo = "ic" in str(broker.get("server", "")).lower() and "demo" in str(broker.get("server", "")).lower()
+        btc = mapping["BTCUSD"]
+        btc_calc = btc.get("read_only_calculations", {})
+        contract_verified = (btc.get("asset_classification") == "CRYPTO_CFD" and
+                             btc_calc.get("buy_profit_up_one_usd_one_lot") == 1.0 and
+                             btc_calc.get("sell_profit_down_one_usd_one_lot") == 1.0 and
+                             btc_calc.get("buy_margin") is not None)
         result = {"observed_at": datetime.now(timezone.utc).isoformat(),
                   "broker": broker, "symbol_mapping": mapping,
+                  "demo_verified": bool(account.get("trade_mode") == getattr(mt5, "ACCOUNT_TRADE_MODE_DEMO", -1)),
                   "source": "MT5_account_symbol_info_and_read_only_calculations",
+                  "market_data_source": "MT5:ICMarketsSC-Demo" if ic_markets_demo else "MT5:MetaQuotes-Demo",
                   "broker_gate": "PASS" if ic_markets_demo else "BLOCKED_WRONG_ACCOUNT",
                   "btc_gate": "NOT_EVALUATED_WRONG_ACCOUNT" if not ic_markets_demo else
-                              ("SYMBOL_UNAVAILABLE" if mapping["BTCUSD"]["broker_symbol"] is None else "PENDING_CONTRACT_AUDIT"),
+                              ("PASS_CONTRACT" if contract_verified else "BLOCKED_CONTRACT_UNVERIFIED"),
+                  "btc_pnl_semantics": {"formula": "(exit_price - entry_price) * lots * contract_size for BUY; sign reversed for SELL",
+                                        "account_currency": broker.get("currency"), "verified_by_mt5_profit_calculator": contract_verified},
                   "credentials_in_report": False, "orders_submitted": 0}
-        path = Path("reports/broker_btcusd_probe.json")
+        path = Path("reports/ic_markets_btcusd_probe.json" if ic_markets_demo else "reports/broker_btcusd_probe.json")
         path.write_text(json.dumps(result, indent=2, sort_keys=True), encoding="utf-8")
         print(json.dumps(result, indent=2, sort_keys=True))
     finally:

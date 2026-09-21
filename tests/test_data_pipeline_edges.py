@@ -63,3 +63,19 @@ def test_raw_repository_idempotency_and_utc_boundary(tmp_path):
 def test_invalid_ohlc_is_detectable():
     report = DataQualityEngine().report("EURUSD", "M1", [bar(datetime(2026, 1, 1, tzinfo=UTC), high=1.0, low=1.2)])
     assert report.observations == 1
+
+
+def test_bulk_raw_bars_keep_broker_lineage_and_reject_changed_history(tmp_path):
+    settings = Settings(_env_file=None, database_url=f"sqlite:///{tmp_path / 'broker_lineage.db'}")
+    repository = RawMarketDataRepository(initialize_database(settings))
+    at = datetime(2026, 9, 20, 18, 0, tzinfo=UTC)
+    old = MarketBar("MT5", "BTCUSD", "M5", at, 100, 101, 99, 100, 1, 2, 3)
+    new = MarketBar("MT5:ICMarketsSC-Demo", "BTCUSD", "M5", at, 200, 201, 199, 200, 1, 2, 3)
+    assert repository.append_bars_bulk([old]) == 1
+    assert repository.append_bars_bulk([new]) == 1
+    assert repository.append_bars_bulk([new]) == 0
+    assert repository.bars_as_of("BTCUSD", "M5", at, source="MT5") == [old]
+    assert repository.bars_as_of("BTCUSD", "M5", at, source="MT5:ICMarketsSC-Demo") == [new]
+    changed = MarketBar(new.source, new.symbol, new.timeframe, at, 200, 202, 199, 200, 1, 2, 3)
+    with pytest.raises(ValueError, match="Changed immutable"):
+        repository.append_bars_bulk([changed])

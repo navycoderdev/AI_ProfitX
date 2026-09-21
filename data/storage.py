@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from sqlalchemy import func, select
+from sqlalchemy import func, insert, select
 from sqlalchemy.orm import Session, sessionmaker
 
 from data.types import MarketBar, MarketTick
@@ -25,6 +25,35 @@ class RawMarketDataRepository:
             session.commit()
         return inserted
 
+    def append_bars_bulk(self, bars: list[MarketBar]) -> int:
+        """Append a bounded provider batch, rejecting changed observations."""
+        if not bars:
+            return 0
+        keys = [(bar.source, bar.symbol, bar.timeframe, bar.timestamp) for bar in bars]
+        if len(keys) != len(set(keys)):
+            raise ValueError("Duplicate keys in raw broker batch.")
+        source, symbol, timeframe = bars[0].source, bars[0].symbol, bars[0].timeframe
+        if any(key[:3] != (source, symbol, timeframe) for key in keys):
+            raise ValueError("Raw broker batch must use one source, symbol and timeframe.")
+        with self.sessions() as session:
+            prior = list(session.scalars(select(RawMarketBar).where(
+                RawMarketBar.source == source, RawMarketBar.symbol == symbol,
+                RawMarketBar.timeframe == timeframe,
+                RawMarketBar.timestamp.in_([bar.timestamp for bar in bars]))))
+            existing = {row.timestamp.replace(tzinfo=timezone.utc): row for row in prior}
+            missing = []
+            for bar in bars:
+                old = existing.get(bar.timestamp.astimezone(timezone.utc))
+                if old is None:
+                    missing.append(bar.as_dict())
+                elif any(getattr(old, field) != getattr(bar, field) for field in
+                         ("open", "high", "low", "close", "volume", "tick_volume", "spread")):
+                    raise ValueError("Changed immutable raw broker observation.")
+            if missing:
+                session.execute(insert(RawMarketBar), missing)
+                session.commit()
+            return len(missing)
+
     def append_tick(self, tick: MarketTick) -> bool:
         with self.sessions() as session:
             exists = session.scalar(select(RawMarketTick.id).where(RawMarketTick.source == tick.source,
@@ -42,11 +71,15 @@ class RawMarketDataRepository:
         with self.sessions() as session:
             return int(session.scalar(select(func.count(RawMarketBar.id))) or 0)
 
-    def bars_as_of(self, symbol: str, timeframe: str, decision_at: datetime) -> list[MarketBar]:
+    def bars_as_of(self, symbol: str, timeframe: str, decision_at: datetime,
+                   source: str | None = None) -> list[MarketBar]:
         cutoff = decision_at.astimezone(timezone.utc)
         with self.sessions() as session:
-            rows = session.scalars(select(RawMarketBar).where(RawMarketBar.symbol == symbol.upper(),
-                RawMarketBar.timeframe == timeframe.upper(), RawMarketBar.timestamp <= cutoff).order_by(RawMarketBar.timestamp)).all()
+            query = select(RawMarketBar).where(RawMarketBar.symbol == symbol.upper(),
+                RawMarketBar.timeframe == timeframe.upper(), RawMarketBar.timestamp <= cutoff)
+            if source is not None:
+                query = query.where(RawMarketBar.source == source)
+            rows = session.scalars(query.order_by(RawMarketBar.timestamp)).all()
         return [MarketBar(row.source, row.symbol, row.timeframe,
                 row.timestamp if row.timestamp.tzinfo else row.timestamp.replace(tzinfo=timezone.utc), row.open, row.high, row.low, row.close,
                 row.volume, row.tick_volume, row.spread) for row in rows]

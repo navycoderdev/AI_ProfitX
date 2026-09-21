@@ -70,8 +70,8 @@ class ChunkedHistoricalIngestor:
 
 
 def quality_report(repository: RawMarketDataRepository, symbol: str, timeframe: str, start: datetime, end: datetime,
-                   report_dir: Path) -> dict:
-    bars = [bar for bar in repository.bars_as_of(symbol, timeframe, end) if bar.timestamp >= start]
+                   report_dir: Path, source: str | None = None) -> dict:
+    bars = [bar for bar in repository.bars_as_of(symbol, timeframe, end, source=source) if bar.timestamp >= start]
     base = DataQualityEngine().report(symbol, timeframe, bars)
     invalid_ohlc = [bar.timestamp.isoformat() for bar in bars if min(bar.open, bar.close) < bar.low or max(bar.open, bar.close) > bar.high or bar.high < bar.low or min(bar.open, bar.high, bar.low, bar.close) <= 0]
     classified_gaps = []
@@ -84,7 +84,7 @@ def quality_report(repository: RawMarketDataRepository, symbol: str, timeframe: 
     reason_codes = reason_codes_from_quality(provisional)
     if not bars: reason_codes.append(QualityReasonCode.BROKER_HISTORY_UNAVAILABLE.value)
     status = "FAIL" if not bars else quality_status({QualityReasonCode(code) for code in reason_codes})
-    result = {**provisional, "reason_codes": sorted(set(reason_codes)), "status": status,
+    result = {**provisional, "source": source, "reason_codes": sorted(set(reason_codes)), "status": status,
               "range": {"start": start.isoformat(), "end": end.isoformat()}}
     report_dir.mkdir(parents=True, exist_ok=True)
     (report_dir / f"{symbol.upper()}_{timeframe.upper()}_{uuid4()}.json").write_text(json.dumps(result, default=str, indent=2), encoding="utf-8")

@@ -1,0 +1,52 @@
+{
+  "broker_server": "ICMarketsSC-Demo",
+  "orders_submitted": 0,
+  "requested_end": "2026-09-20T18:30:00+00:00",
+  "requested_start": "2026-07-22T18:30:00+00:00",
+  "source": "MT5:ICMarketsSC-Demo",
+  "symbol": "BTCUSD",
+  "timeframes": {
+    "H1": {
+      "duplicates_skipped": 0,
+      "first": "2026-07-22T19:00:00+00:00",
+      "inserted": 1435,
+      "last": "2026-09-20T17:00:00+00:00",
+      "received": 1435
+    },
+    "H4": {
+      "duplicates_skipped": 0,
+      "first": "2026-07-22T20:00:00+00:00",
+      "inserted": 359,
+      "last": "2026-09-20T12:00:00+00:00",
+      "received": 359
+    },
+    "M1": {
+      "duplicates_skipped": 0,
+      "first": "2026-07-22T18:30:00+00:00",
+      "inserted": 85421,
+      "last": "2026-09-20T18:29:00+00:00",
+      "received": 85421
+    },
+    "M15": {
+      "duplicates_skipped": 0,
+      "first": "2026-07-22T18:30:00+00:00",
+      "inserted": 5714,
+      "last": "2026-09-20T18:15:00+00:00",
+      "received": 5714
+    },
+    "M30": {
+      "duplicates_skipped": 0,
+      "first": "2026-07-22T18:30:00+00:00",
+      "inserted": 2862,
+      "last": "2026-09-20T18:00:00+00:00",
+      "received": 2862
+    },
+    "M5": {
+      "duplicates_skipped": 0,
+      "first": "2026-07-22T18:30:00+00:00",
+      "inserted": 17112,
+      "last": "2026-09-20T18:25:00+00:00",
+      "received": 17112
+    }
+  }
+}

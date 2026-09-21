@@ -1,0 +1,18 @@
+{
+  "artifact_hash": "ccf4a1aa2e12496b3eac099551189f3a6d0e6321cf5134e59bb052aa6dc2b71d",
+  "broker_server": "MetaQuotes-Demo",
+  "credentials_in_report": false,
+  "dataset_hash": "790d8e18de1f8d8fa9e159a26b2cf8628fc813aa2a094b6909e84849f15f7de4",
+  "dataset_version": "research-dataset-v3",
+  "decision_counts": {},
+  "last_poll_at": "2026-09-20T18:22:53.836019+00:00",
+  "live_permission": false,
+  "model_version": "Brain-v2",
+  "observer_pid": 25112,
+  "observer_state": "STOPPED",
+  "orders_submitted": 0,
+  "runtime_end": "2026-09-20T18:23:33.203263+00:00",
+  "runtime_paper_trades": 0,
+  "runtime_start": "2026-09-20T16:32:46.369636+00:00",
+  "stop_reason": "BROKER_ACCOUNT_SWITCH"
+}

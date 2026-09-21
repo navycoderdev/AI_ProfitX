@@ -1,0 +1,71 @@
+{
+  "broker_point_size": 0.01,
+  "broker_server": "ICMarketsSC-Demo",
+  "candidate_split_counts": {
+    "OOS": 2550,
+    "TRAIN": 11899,
+    "VALIDATION": 2550
+  },
+  "dataset_v4_frozen": false,
+  "feature_candidates": 16999,
+  "feature_count": 22,
+  "feature_exclusions": {
+    "ALIGNMENT_CONTEXT_UNAVAILABLE": 63,
+    "WARMUP": 50
+  },
+  "feature_leakage": "PASS",
+  "feature_set_version": "feature-set-v1",
+  "fixed_label_audit": {
+    "class_distribution": {
+      "BTCUSD": {
+        "OOS": {
+          "LONG": 1026,
+          "NO_TRADE": 532,
+          "SHORT": 980
+        },
+        "TRAIN": {
+          "LONG": 4799,
+          "NO_TRADE": 2403,
+          "SHORT": 4685
+        },
+        "VALIDATION": {
+          "LONG": 1052,
+          "NO_TRADE": 468,
+          "SHORT": 1018
+        }
+      }
+    },
+    "exclusions": {
+      "LABEL_HORIZON_CROSSES_SPLIT|BTCUSD|TRAIN": 12,
+      "LABEL_HORIZON_CROSSES_SPLIT|BTCUSD|VALIDATION": 12,
+      "LABEL_HORIZON_UNAVAILABLE|BTCUSD|OOS": 12
+    },
+    "included_cross_split_labels": 0,
+    "label_policy": {
+      "cost_assumptions": {
+        "point_size": 1e-05,
+        "slippage_points_each_side": 2.0,
+        "spread_points": 1.0
+      },
+      "horizon_bars": 12,
+      "long_threshold": 0.0005,
+      "no_trade_zone": "(-0.00050, 0.00050)",
+      "price_reference": "M5_CLOSE",
+      "short_threshold": -0.0005,
+      "timeframe": "M5",
+      "version": "label-spec-v1"
+    },
+    "pathological_classes": [],
+    "usable_for_training": true
+  },
+  "future_context_count": 0,
+  "label_distribution_gate": "PASS",
+  "legacy_fx_cost_assumptions_applicable": false,
+  "orders_submitted": 0,
+  "source": "MT5:ICMarketsSC-Demo",
+  "split_boundaries": {
+    "oos_start": "2026-09-11T20:00:00+00:00",
+    "validation_start": "2026-09-02T22:30:00+00:00"
+  },
+  "symbol": "BTCUSD"
+}

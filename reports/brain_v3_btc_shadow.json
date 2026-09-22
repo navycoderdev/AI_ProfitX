@@ -1,29 +1,33 @@
 {
   "decision_counts": {
-    "LONG": 5,
-    "SHORT": 32
+    "LONG": 30,
+    "SHORT": 56
   },
   "events": [
     {
-      "at": "2026-09-22T04:09:11.863691+00:00",
+      "at": "2026-09-22T04:24:55.235988+00:00",
+      "created": {}
+    },
+    {
+      "at": "2026-09-22T04:25:10.352447+00:00",
       "created": {
-        "BTCUSD": 37
+        "BTCUSD": 1
       }
     }
   ],
   "live_permission": false,
   "model_version": "Brain-v3",
   "new_decisions": {
-    "BTCUSD": 37
+    "BTCUSD": 1
   },
   "orders_submitted": 0,
-  "outcomes_pending": 12,
+  "outcomes_pending": 11,
   "risk_counts": {
-    "BLOCK": 37
+    "BLOCK": 86
   },
-  "runtime_end": "2026-09-22T04:09:12.483335+00:00",
+  "runtime_end": "2026-09-22T04:25:10.615309+00:00",
   "runtime_paper_trades": 0,
-  "runtime_start": "2026-09-22T04:09:08.063667+00:00",
+  "runtime_start": "2026-09-22T04:24:55.048933+00:00",
   "source": "MT5:ICMarketsSC-Demo",
   "stop_reason": "BTCUSD_OBSERVED",
   "symbol": "BTCUSD"

@@ -27,6 +27,10 @@ def main() -> None:
     try:
         manager.connect()
         observer = BrainV3BTCShadowService(sessions, MT5RuntimeGateway(manager), settings)
+        # A resumed observer may only accept candles that closed after this
+        # process began.  The persisted service boundary is lineage metadata,
+        # not permission to backfill candles missed while the process was down.
+        observer.started_at = max(observer.started_at, started)
         until = monotonic() + 420
         while monotonic() < until and new["BTCUSD"] == 0:
             event = observer.poll_once(); events.append(event); new.update(event["created"])

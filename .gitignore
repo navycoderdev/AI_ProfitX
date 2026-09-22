@@ -37,6 +37,7 @@ reports/*
 !reports/brain_v3_oos_simulation.json
 !reports/brain_v3_btc_shadow.json
 !reports/brain_v3_btc_shadow_evidence.json
+!reports/brain_v3_diagnostic.json
 models/artifacts/*
 !models/artifacts/Brain-v1.json
 !models/artifacts/Brain-v2.json

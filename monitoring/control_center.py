@@ -26,13 +26,13 @@ class ControlCenter:
     def overview(self) -> dict:
         account, positions = self.account(), self.positions(); production = self.registry.production()
         with self.sessions() as session:
-            shadow_state = session.get(SystemControlState, "brain_v2_shadow_service")
-            shadow_candidate = session.scalar(select(ModelVersion.stage).where(ModelVersion.version == "Brain-v2"))
+            candidate = session.scalar(select(ModelVersion).where(ModelVersion.stage == "CANDIDATE").order_by(ModelVersion.id.desc()))
+            shadow_model = session.scalar(select(ShadowDecision.model_version).order_by(ShadowDecision.decision_at.desc()))
         equity, high_water = float(account.get("equity", 0) or 0), float(account.get("high_water_equity", account.get("equity", 0)) or 0)
         return {"mt5_status": self.health().get("mt5"), "environment": self.settings.app_env.value, "mode": self.settings.trading_mode.value,
-                "active_model": production["model_id"] if production else None, "balance": account.get("balance"), "equity": account.get("equity"),
-                "shadow_candidate": "Brain-v2" if self.settings.trading_mode.value == "SHADOW" and shadow_state and shadow_candidate == "CANDIDATE" else None,
-                "shadow_candidate_status": shadow_candidate if shadow_state else None,
+                "active_model": production["model_id"] if production else None,
+                "candidate_model": candidate.version if candidate else None, "candidate_status": candidate.stage if candidate else None,
+                "shadow_model": shadow_model, "balance": account.get("balance"), "equity": account.get("equity"),
                 "margin": account.get("margin"), "daily_pnl": account.get("daily_pnl"), "open_exposure": sum(abs(float(item.get("volume", 0)) * float(item.get("price_current", item.get("price_open", 0)))) for item in positions),
                 "drawdown": (high_water - equity) / high_water if high_water else None, "risk_status": "EMERGENCY_STOP" if self.emergency.status().get("active") else "NORMAL"}
     def live_market(self) -> list[dict]:
@@ -59,12 +59,17 @@ class ControlCenter:
             candidates = list(session.scalars(select(ModelVersion).where(ModelVersion.stage.in_(("CANDIDATE", "VALIDATING", "PAPER", "SHADOW")))))
             simulations = self._oos_simulations(session)
         production = self.registry.production()
+        candidate = candidates[-1] if candidates else None
+        candidate_payload = None if candidate is None else json.loads(candidate.metadata_json)
+        artifact_ok = bool(candidate and candidate_payload.get("artifact_path") and Path(candidate_payload["artifact_path"]).is_file())
         return {"active_brain": production["model_id"] if production else None, "model_status": production["status"] if production else None,
+                "current_candidate": candidate.version if candidate else None, "current_candidate_status": candidate.stage if candidate else None,
+                "ai_health": "AVAILABLE" if artifact_ok else "UNAVAILABLE",
                 "latest_decision": None if not decision else {"direction": decision.direction, "confidence": decision.confidence,
                     "model_version": decision.model_version, "feature_version": decision.feature_version,
                     "regime": snapshot.regime if snapshot else None, "timestamp": decision.timestamp},
                 "last_inference": inference.timestamp if inference else None,
-                "candidates": [{"model_id": item.version, "status": item.stage,
+                "candidates": [{"model_id": item.version, "status": item.stage, "historical": item is not candidate,
                     "validation_metrics": json.loads(item.metadata_json).get("validation_metrics"),
                     "out_of_sample_metrics": json.loads(item.metadata_json).get("out_of_sample_metrics"),
                     "confidence_policy": json.loads(item.metadata_json).get("confidence_policy"),
@@ -86,10 +91,9 @@ class ControlCenter:
             simulations = self._oos_simulations(session)
         models = [{"model_id": item.version, "status": item.stage, **json.loads(item.metadata_json),
                    "oos_simulation": simulations.get(item.version)} for item in rows]
-        return {"production_champion": self.registry.production(), "models": models,
-            "supported_research_universe": ["EURUSD", "GBPUSD", "USDJPY", "XAUUSD"],
-            "unavailable_on_current_broker": {"BTCUSD": "UNAVAILABLE_ON_CURRENT_BROKER",
-                "ETHUSD": "UNAVAILABLE_ON_CURRENT_BROKER"}}
+        return {"production_champion": self.registry.production(), "current_candidate": models[-1] if models else None,
+            "models": models, "supported_research_universe": ["EURUSD", "GBPUSD", "USDJPY", "XAUUSD", "BTCUSD", "ETHUSD"],
+            "unavailable_on_current_broker": {}}
 
     @staticmethod
     def _oos_simulations(session) -> dict:
@@ -168,9 +172,8 @@ class ControlCenter:
             "source_end": manifest.source_end if manifest else None, "leakage_status": "PASS" if manifest and manifest.state == "FROZEN" else "NOT_RUN",
             "feature_count": len(definitions), "feature_snapshots": active_snapshot_count, "feature_snapshot_examples": examples}
         return {"total_candles": sum(item["count"] for item in coverage), "symbols": sorted({item["symbol"] for item in coverage}),
-            "supported_research_universe": ["EURUSD", "GBPUSD", "USDJPY", "XAUUSD"],
-            "unavailable_on_current_broker": {"BTCUSD": "UNAVAILABLE_ON_CURRENT_BROKER",
-                "ETHUSD": "UNAVAILABLE_ON_CURRENT_BROKER"},
+            "supported_research_universe": ["EURUSD", "GBPUSD", "USDJPY", "XAUUSD", "BTCUSD", "ETHUSD"],
+            "unavailable_on_current_broker": {},
             "timeframes": sorted({item["timeframe"] for item in coverage}), "aggregate": aggregate, "coverage": coverage,
             "dataset": dataset, "dependency_audit": dependency_audit(definitions)}
 
@@ -181,17 +184,23 @@ class ControlCenter:
             "created_at": row.created_at} for row in rows]
 
     def live_shadow(self, limit: int = 100) -> dict:
-        from ai.shadow import ARTIFACT_SHA256, MODEL_VERSION, STATUS_KEY, SYMBOLS
         from collections import Counter
         with self.sessions() as session:
-            state = session.get(SystemControlState, STATUS_KEY)
-            rows = session.scalars(select(ShadowDecision).where(ShadowDecision.model_version == MODEL_VERSION)
+            model_version = session.scalar(select(ShadowDecision.model_version).order_by(ShadowDecision.decision_at.desc())) or "Brain-v3"
+            registry = session.scalar(select(ModelVersion).where(ModelVersion.version == model_version))
+            metadata = json.loads(registry.metadata_json) if registry else {}
+            status_key = "brain_v3_btcusd_shadow_service" if model_version == "Brain-v3" else "brain_v2_shadow_service"
+            state = session.get(SystemControlState, status_key)
+            symbols = list(session.scalars(select(ShadowDecision.symbol).where(
+                ShadowDecision.model_version == model_version).distinct()))
+            if not symbols: symbols = ["BTCUSD"] if model_version == "Brain-v3" else ["EURUSD", "GBPUSD", "USDJPY", "XAUUSD"]
+            rows = session.scalars(select(ShadowDecision).where(ShadowDecision.model_version == model_version)
                 .order_by(ShadowDecision.decision_at.desc()).limit(max(1, min(limit, 500)))).all()
-            all_rows = session.scalars(select(ShadowDecision).where(ShadowDecision.model_version == MODEL_VERSION)).all()
-            outcomes = session.scalars(select(ShadowOutcome)).all()
+            all_rows = session.scalars(select(ShadowDecision).where(ShadowDecision.model_version == model_version)).all()
+            outcomes = {item.decision_id: item for item in session.scalars(select(ShadowOutcome)).all()}
             paper_trades = session.scalar(select(func.count(TradeMemory.id)).join(DecisionMemory,
                 TradeMemory.decision_id == DecisionMemory.decision_id).where(DecisionMemory.environment == "PAPER")) or 0
-        resolved = {item.decision_id for item in outcomes}
+        resolved = set(outcomes)
         class_counts = Counter(item.final_decision for item in all_rows)
         risk_counts = Counter(item.risk_status for item in all_rows)
         per_symbol = {symbol: {"total": sum(item.symbol == symbol for item in all_rows),
@@ -199,7 +208,7 @@ class ControlCenter:
             "SHORT": sum(item.symbol == symbol and item.final_decision == "SHORT" for item in all_rows),
             "NO_TRADE": sum(item.symbol == symbol and item.final_decision == "NO_TRADE" for item in all_rows),
             "observation_status": "OBSERVING" if any(item.symbol == symbol for item in all_rows) else "WAITING_FOR_NEXT_CLOSED_M5"}
-            for symbol in SYMBOLS}
+            for symbol in symbols}
         service = dict(state.value) if state else {"status": "NOT_STARTED", "last_processed_closed_m5": {}}
         pid = service.get("observer_pid")
         alive = self._process_alive(pid) if pid else None
@@ -216,7 +225,8 @@ class ControlCenter:
         service.setdefault("stop_reason", None)
         return {"service": service, "environment": "SHADOW", "runtime_paper_trades": paper_trades,
             "live_permission": self.settings.allow_live_trading,
-            "model_version": MODEL_VERSION, "artifact_hash": ARTIFACT_SHA256,
+            "model_version": model_version, "model_status": registry.stage if registry else None,
+            "artifact_hash": metadata.get("artifact_hash") or (all_rows[0].artifact_hash if all_rows else None),
             "counts": {"total": len(all_rows), **{label: class_counts[label] for label in ("LONG", "SHORT", "NO_TRADE")},
                 "risk_pass": risk_counts["PASS"], "risk_block": risk_counts["BLOCK"],
                 "orders_submitted": sum(item.order_submitted for item in all_rows)},
@@ -234,7 +244,12 @@ class ControlCenter:
                 "risk_reason_codes": item.risk_reason_codes, "entry_reference": item.entry_reference,
                 "proposed_stop": item.proposed_stop, "proposed_target": item.proposed_target,
                 "environment": item.environment, "order_submitted": item.order_submitted,
-                "outcome_status": "RESOLVED" if item.decision_id in resolved else "PENDING"} for item in rows]}
+                "outcome_status": "RESOLVED" if item.decision_id in resolved else "PENDING",
+                "outcome": None if item.decision_id not in outcomes else {
+                    "realized_label": outcomes[item.decision_id].realized_label,
+                    "horizon_bar_at": outcomes[item.decision_id].horizon_bar_at,
+                    "hypothetical_pnl_usd": outcomes[item.decision_id].hypothetical_pnl_usd}}
+                for item in rows]}
 
     @staticmethod
     def _process_alive(pid: int) -> bool:

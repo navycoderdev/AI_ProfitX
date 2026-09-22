@@ -18,6 +18,8 @@ def test_frontend_uses_control_center_endpoints_without_embedded_prices() -> Non
         assert endpoint in script
     assert "setInterval(refresh,3000)" in script
     assert "EURUSD" not in script
+    assert "find(x=>x.model_id==='Brain-v1')" not in script
+    assert "current_candidate" in script and "shadow_model" in script
 
 
 def test_frontend_has_responsive_layout_and_accessible_navigation() -> None:
@@ -25,3 +27,5 @@ def test_frontend_has_responsive_layout_and_accessible_navigation() -> None:
     styles = (ROOT / "frontend" / "styles.css").read_text(encoding="utf-8")
     assert 'aria-label="Primary navigation"' in document
     assert "@media(max-width:900px)" in styles
+    assert "Current Frozen Dataset Governance" in document
+    assert "Persisted Brain-v2 observations" not in document

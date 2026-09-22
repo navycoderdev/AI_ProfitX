@@ -17,10 +17,10 @@ class MT5RuntimeGateway:
         self.audit = manager.audit
 
     def health(self) -> bool:
-        if not self.manager.connected:
-            return False
         try:
-            return self.manager.client.terminal_info() is not None
+            if self.manager.connected and self.manager.client.terminal_info() is not None:
+                return True
+            return bool(self.manager.heartbeat(reconnect=True).get("connected"))
         except Exception:
             return False
 

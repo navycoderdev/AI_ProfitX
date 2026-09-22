@@ -60,9 +60,18 @@ class MT5ConnectionManager:
                 options.update(login=self.settings.mt5_login,
                     password=self.settings.mt5_password.get_secret_value(), server=self.settings.mt5_server)
             ok = bool(self.client.initialize(**options))
+            configured_error = self.last_error()
+            fallback = False
+            if not ok and self.settings.mt5_terminal_path and {"login", "password", "server"} <= options.keys():
+                self.client.shutdown()
+                ok = bool(self.client.initialize(path=self.settings.mt5_terminal_path,
+                                                 timeout=self.settings.mt5_timeout_ms))
+                fallback = ok
             self._connected = ok
             error = self.last_error()
-            self.audit.write("mt5.connect", self.settings.app_env.value, {"success": ok, "error": error})
+            self.audit.write("mt5.connect", self.settings.app_env.value,
+                {"success": ok, "error": error, "terminal_session_fallback": fallback,
+                 "configured_attempt_error": configured_error if fallback else None})
             if not ok:
                 raise GatewayUnavailableError(f"MT5 initialize failed: {error}")
             return True

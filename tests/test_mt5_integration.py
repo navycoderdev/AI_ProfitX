@@ -93,6 +93,19 @@ class FakeMT5:
         return ()
 
 
+class StaleConfiguredSessionMT5(FakeMT5):
+    def __init__(self):
+        super().__init__(); self.attempts = []
+
+    def initialize(self, **kwargs):
+        self.attempts.append(kwargs)
+        self.initialized = "login" not in kwargs
+        return self.initialized
+
+    def last_error(self):
+        return (0, "ok") if self.initialized else (-6, "stale configured account")
+
+
 @pytest.fixture
 def mt5_stack(tmp_path):
     settings = Settings(app_env="production", trading_mode="LIVE", allow_live_trading=True,
@@ -123,6 +136,16 @@ def test_connection_account_market_data_and_health(mt5_stack):
     manager.disconnect()
     assert manager.connected is False
     assert manager.heartbeat(reconnect=True)["connected"] is True
+
+
+def test_connection_falls_back_to_authenticated_terminal_session_without_exposing_credentials(tmp_path):
+    settings = Settings(_env_file=None, trading_mode="SHADOW", database_url=f"sqlite:///{tmp_path}/fallback.db",
+        mt5_terminal_path="terminal64.exe", mt5_login=123, mt5_password="secret", mt5_server="Old-Demo")
+    client = StaleConfiguredSessionMT5()
+    manager = MT5ConnectionManager(settings, AuditRepository(initialize_database(settings)), client=client)
+    assert manager.connect()
+    assert len(client.attempts) == 2
+    assert set(client.attempts[1]) == {"path", "timeout"}
 
 
 def test_live_order_is_normalized_and_auditable(mt5_stack):

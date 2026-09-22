@@ -65,7 +65,8 @@ def test_live_shadow_api_reports_empty_persisted_state(tmp_path, monkeypatch):
     body = response.json()
     assert body["service"]["status"] == "NOT_STARTED"
     assert body["counts"]["total"] == body["counts"]["orders_submitted"] == 0
-    assert set(body["per_symbol"]) == {"EURUSD", "GBPUSD", "USDJPY", "XAUUSD"}
+    assert body["model_version"] == "Brain-v3"
+    assert set(body["per_symbol"]) == {"BTCUSD"}
     assert body["decisions"] == []
 
 

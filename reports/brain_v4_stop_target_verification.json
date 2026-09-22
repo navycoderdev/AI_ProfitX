@@ -1,0 +1,77 @@
+{
+  "directional_proposals": 6453,
+  "examples": [
+    {
+      "difference": -2.220446049250313e-16,
+      "minimum": 1.5,
+      "risk_reward": 1.4999999999999998,
+      "symbol": "BTCUSD"
+    },
+    {
+      "difference": -2.220446049250313e-16,
+      "minimum": 1.5,
+      "risk_reward": 1.4999999999999998,
+      "symbol": "BTCUSD"
+    },
+    {
+      "difference": -2.220446049250313e-16,
+      "minimum": 1.5,
+      "risk_reward": 1.4999999999999998,
+      "symbol": "BTCUSD"
+    },
+    {
+      "difference": -2.220446049250313e-16,
+      "minimum": 1.5,
+      "risk_reward": 1.4999999999999998,
+      "symbol": "BTCUSD"
+    },
+    {
+      "difference": -2.220446049250313e-16,
+      "minimum": 1.5,
+      "risk_reward": 1.4999999999999998,
+      "symbol": "BTCUSD"
+    }
+  ],
+  "frozen_config_hash": "336d0a442fe8b829b6b8ad122e2cc141ef8fb723220a414afa9a5d1b30678172",
+  "model_retuned": false,
+  "original_strict_pass": 5940,
+  "per_symbol": {
+    "BTCUSD": {
+      "DIRECTIONAL": 2019,
+      "STRICT_PASS": 1848,
+      "TOLERANT_PASS": 2019
+    },
+    "ETHUSD": {
+      "DIRECTIONAL": 2336,
+      "STRICT_PASS": 2151,
+      "TOLERANT_PASS": 2336
+    },
+    "EURUSD": {
+      "DIRECTIONAL": 23,
+      "STRICT_PASS": 22,
+      "TOLERANT_PASS": 23
+    },
+    "GBPUSD": {
+      "DIRECTIONAL": 52,
+      "STRICT_PASS": 43,
+      "TOLERANT_PASS": 52
+    },
+    "USDJPY": {
+      "DIRECTIONAL": 592,
+      "STRICT_PASS": 502,
+      "TOLERANT_PASS": 592
+    },
+    "XAUUSD": {
+      "DIRECTIONAL": 1431,
+      "STRICT_PASS": 1374,
+      "TOLERANT_PASS": 1431
+    }
+  },
+  "policy": "IEEE-754 comparison tolerance 1e-12; no model, threshold, ATR multiplier, tick rounding, or risk-policy change.",
+  "remaining_failures": 0,
+  "resolved_pass_with_numeric_tolerance": 6453,
+  "root_causes": {
+    "BINARY_FLOAT_RATIO_BELOW_EXACT_1_5": 513
+  },
+  "verification_only": true
+}

@@ -36,16 +36,26 @@ class ControlCenter:
                 "margin": account.get("margin"), "daily_pnl": account.get("daily_pnl"), "open_exposure": sum(abs(float(item.get("volume", 0)) * float(item.get("price_current", item.get("price_open", 0)))) for item in positions),
                 "drawdown": (high_water - equity) / high_water if high_water else None, "risk_status": "EMERGENCY_STOP" if self.emergency.status().get("active") else "NORMAL"}
     def live_market(self) -> list[dict]:
+        observations = []
         if self.live_market_source and self.health().get("mt5"):
             observations = self.live_market_source()
-            if observations:
-                return observations
         with self.sessions() as session:
             ticks = list(session.scalars(select(RawMarketTick).order_by(RawMarketTick.id.desc())))
             regimes = list(session.scalars(select(RegimeHistory).order_by(RegimeHistory.id.desc())))
+            features = list(session.scalars(select(FeatureSnapshot).order_by(FeatureSnapshot.decision_at.desc())))
         latest_ticks, latest_regimes = {}, {}
+        latest_features = {}
         for item in ticks: latest_ticks.setdefault(item.symbol, item)
         for item in regimes: latest_regimes.setdefault(item.symbol, item)
+        for item in features: latest_features.setdefault(item.symbol, item)
+        if observations:
+            for item in observations:
+                context = latest_regimes.get(item["symbol"]); feature = latest_features.get(item["symbol"])
+                item["timeframe"] = context.timeframe if context else feature.timeframe if feature else None
+                item["regime"] = context.label if context else (feature.values or {}).get("session", "UNAVAILABLE") if feature else "UNAVAILABLE"
+                item["volatility"] = ((context.measurements or {}).get("volatility_percentile") if context else
+                    (feature.values or {}).get("volatility_percentile") if feature else None)
+            return observations
         return [{"symbol": symbol, "bid": tick.bid, "ask": tick.ask, "spread": tick.ask - tick.bid, "timestamp": tick.timestamp,
                  "timeframe": latest_regimes.get(symbol).timeframe if symbol in latest_regimes else None,
                  "regime": latest_regimes.get(symbol).label if symbol in latest_regimes else "UNCERTAIN",
@@ -58,6 +68,10 @@ class ControlCenter:
             snapshot = session.scalar(select(MarketSnapshot).where(MarketSnapshot.snapshot_id == decision.market_snapshot_id)) if decision else None
             candidates = list(session.scalars(select(ModelVersion).where(ModelVersion.stage.in_(("CANDIDATE", "VALIDATING", "PAPER", "SHADOW")))))
             simulations = self._oos_simulations(session)
+            shadow = session.scalar(select(ShadowDecision).where(ShadowDecision.model_version == "Brain-v3")
+                .order_by(ShadowDecision.decision_at.desc()))
+            manifest = session.scalar(select(DatasetManifest).where(DatasetManifest.dataset_version == "research-dataset-v4",
+                DatasetManifest.state == "FROZEN").order_by(DatasetManifest.frozen_at.desc()))
         production = self.registry.production()
         candidate = candidates[-1] if candidates else None
         candidate_payload = None if candidate is None else json.loads(candidate.metadata_json)
@@ -65,9 +79,14 @@ class ControlCenter:
         return {"active_brain": production["model_id"] if production else None, "model_status": production["status"] if production else None,
                 "current_candidate": candidate.version if candidate else None, "current_candidate_status": candidate.stage if candidate else None,
                 "ai_health": "AVAILABLE" if artifact_ok else "UNAVAILABLE",
-                "latest_decision": None if not decision else {"direction": decision.direction, "confidence": decision.confidence,
+                "dataset": None if not manifest else {"version": manifest.dataset_version, "hash": manifest.content_hash,
+                    "state": manifest.state},
+                "latest_decision": ({"direction": shadow.final_decision, "confidence": shadow.confidence,
+                    "model_version": shadow.model_version, "feature_version": shadow.feature_set_version,
+                    "regime": (shadow.market_context or {}).get("session"), "timestamp": shadow.decision_at}
+                    if shadow else None if not decision else {"direction": decision.direction, "confidence": decision.confidence,
                     "model_version": decision.model_version, "feature_version": decision.feature_version,
-                    "regime": snapshot.regime if snapshot else None, "timestamp": decision.timestamp},
+                    "regime": snapshot.regime if snapshot else None, "timestamp": decision.timestamp}),
                 "last_inference": inference.timestamp if inference else None,
                 "candidates": [{"model_id": item.version, "status": item.stage, "historical": item is not candidate,
                     "validation_metrics": json.loads(item.metadata_json).get("validation_metrics"),
@@ -108,7 +127,7 @@ class ControlCenter:
                 "transaction_costs_usd": overall["costs_usd"], "slippage_usd": overall["slippage_usd"],
                 "net_pnl_usd": overall["net_pnl_usd"], "profit_factor": overall["profit_factor"],
                 "max_drawdown": overall["max_drawdown"], "runtime_paper_trades": 0, "per_symbol": per_symbol}
-            models.append({"model_id": "Brain-v4", "status": "RESEARCH_ONLY", "parent_model": "Brain-v3",
+            models.append({"model_id": "Brain-v4", "status": "RESEARCH_ONLY", "parent_model": None,
                 "feature_version": "brain-v4-research-features-v1", "confidence_policy": {"threshold": evidence["confidence_threshold"]},
                 "validation_metrics": None, "out_of_sample_metrics": None, "oos_simulation": simulation,
                 "frozen_config_hash": evidence["frozen_config_hash"], "go_no_go": evidence["go_no_go"]})
@@ -128,22 +147,50 @@ class ControlCenter:
     def risk_center(self) -> dict:
         with self.sessions() as session:
             events = list(session.scalars(select(AuditLog).where(AuditLog.action.like("risk.%")).order_by(AuditLog.id.desc()).limit(100)))
-        return {"emergency_stop": self.emergency.status(), "risk_events": [{"action": item.action, "payload": item.payload, "timestamp": item.created_at} for item in events],
+            shadow = list(session.scalars(select(ShadowDecision).where(ShadowDecision.model_version == "Brain-v3")))
+        from collections import Counter
+        reasons = Counter(code for item in shadow for code in item.risk_reason_codes)
+        last = max(shadow, key=lambda item: item.decision_at) if shadow else None
+        frozen = json.loads(Path("reports/brain_v4_pre_oos_config.json").read_text(encoding="utf-8")) if Path("reports/brain_v4_pre_oos_config.json").is_file() else None
+        return {"emergency_stop": self.emergency.status(), "current_policy": {"name": "conservative", "version": "risk-policy-v1",
+                    "scope": "Brain-v3 SHADOW observational", "minimum_risk_reward": 1.0, "maximum_spread_points": 30},
+                "brain_v4_research_profiles": None if not frozen else {"status": "RESEARCH_ONLY", "config_hash": frozen.get("content_hash"),
+                    "profiles": frozen.get("stop_target_and_risk_policies")},
+                "shadow_summary": {"total": len(shadow), "PASS": sum(x.risk_status == "PASS" for x in shadow),
+                    "BLOCK": sum(x.risk_status == "BLOCK" for x in shadow), "reason_counts": dict(reasons),
+                    "last_evaluation": last.decision_at if last else None},
+                "risk_events": [{"action": item.action, "payload": item.payload, "timestamp": item.created_at} for item in events],
                 "alerts": [item for item in self.alerts.recent(100) if item["code"] in {"ABNORMAL_SPREAD", "STATE_MISMATCH", "MT5_DISCONNECTED"}]}
     def system_health(self) -> dict:
-        health = self.health(); last_tick = None
-        with self.sessions() as session: tick = session.scalar(select(RawMarketTick).order_by(RawMarketTick.id.desc()))
+        health = self.health(); last_tick = None; quote_count = 0; expected_quotes = 6
+        with self.sessions() as session:
+            tick = session.scalar(select(RawMarketTick).order_by(RawMarketTick.id.desc()))
+            candidate = session.scalar(select(ModelVersion).where(ModelVersion.stage == "CANDIDATE").order_by(ModelVersion.id.desc()))
+            inference = session.scalar(select(ModelInferenceLog).order_by(ModelInferenceLog.id.desc()))
+            shadow_state = session.get(SystemControlState, "brain_v3_btcusd_shadow_service")
         if tick: last_tick = tick.timestamp
         # PAPER/SHADOW can read directly from MT5 before a background collector is started.
         # Treat a current terminal quote as a healthy feed; do not claim a stale database tick instead.
         if health.get("mt5") and self.live_market_source:
             observations = self.live_market_source()
+            quote_count = sum(bool(item.get("quote_available", item.get("bid") is not None and item.get("ask") is not None)) for item in observations)
             timestamps = [item.get("timestamp") for item in observations if item.get("timestamp")]
             if timestamps:
                 last_tick = max(timestamps)
         if last_tick is not None and last_tick.tzinfo is None: last_tick = last_tick.replace(tzinfo=timezone.utc)
-        return {**health, "last_successful_tick": last_tick, "data_feed_stale": last_tick is None or (datetime.now(timezone.utc) - last_tick).total_seconds() > self.settings.data_feed_stale_seconds,
-                "background_workers": "external_orchestrator_required", "recent_alerts": self.alerts.recent(20)}
+        stale = last_tick is None or (datetime.now(timezone.utc) - last_tick).total_seconds() > self.settings.data_feed_stale_seconds
+        artifact_ok = False
+        if candidate:
+            metadata = json.loads(candidate.metadata_json); artifact_ok = bool(metadata.get("artifact_path") and Path(metadata["artifact_path"]).is_file())
+        worker = (shadow_state.value or {}).get("status", "NOT_STARTED") if shadow_state else "NOT_STARTED"
+        complete_feed = quote_count == expected_quotes
+        return {**health, "status": "ok" if health.get("database") and health.get("mt5") and artifact_ok and not stale and complete_feed else "degraded",
+                "last_successful_tick": last_tick, "data_feed_stale": stale, "ai_inference": artifact_ok,
+                "market_quotes_available": quote_count, "market_quotes_expected": expected_quotes,
+                "market_feed_status": "HEALTHY" if complete_feed and not stale else "DEGRADED",
+                "risk_engine": True, "execution_engine": "DISABLED_SHADOW" if self.settings.trading_mode.value == "SHADOW" else "DISABLED",
+                "background_workers": worker, "inference_latency": getattr(inference, "latency_ms", None) if inference else None,
+                "execution_latency": None, "recent_alerts": self.alerts.recent(20)}
     def audit_log(self, limit: int = 200) -> list[dict]:
         with self.sessions() as session: rows = session.scalars(select(AuditLog).order_by(AuditLog.id.desc()).limit(limit)).all()
         return [{"action": row.action, "environment": row.environment, "session_id": row.session_id, "payload": row.payload, "timestamp": row.created_at} for row in rows]
@@ -192,17 +239,34 @@ class ControlCenter:
             "oos_rows": manifest.oos_rows if manifest else None, "source_start": manifest.source_start if manifest else None,
             "source_end": manifest.source_end if manifest else None, "leakage_status": "PASS" if manifest and manifest.state == "FROZEN" else "NOT_RUN",
             "feature_count": len(definitions), "feature_snapshots": active_snapshot_count, "feature_snapshot_examples": examples}
+        raw_latest = max((item["last"] for item in coverage if item["last"]), default=None)
         return {"total_candles": sum(item["count"] for item in coverage), "symbols": sorted({item["symbol"] for item in coverage}),
             "supported_research_universe": ["EURUSD", "GBPUSD", "USDJPY", "XAUUSD", "BTCUSD", "ETHUSD"],
             "unavailable_on_current_broker": {},
-            "timeframes": sorted({item["timeframe"] for item in coverage}), "aggregate": aggregate, "coverage": coverage,
+            "timeframes": sorted({item["timeframe"] for item in coverage}), "aggregate": aggregate,
+            "raw_data_latest": raw_latest, "quality_report_at": (aggregate or {}).get("created_at"), "coverage": coverage,
             "dataset": dataset, "dependency_audit": dependency_audit(definitions)}
 
     def backtest_runs(self) -> list[dict]:
         with self.sessions() as session: rows = session.scalars(select(BacktestRun).order_by(BacktestRun.created_at.desc())).all()
-        return [{"run_id": row.run_id, "strategy_version": row.strategy_version, "symbol": row.symbol, "timeframe": row.timeframe,
+        result = [{"run_id": row.run_id, "strategy_version": row.strategy_version, "symbol": row.symbol, "timeframe": row.timeframe,
             "configuration": row.configuration, "metrics": row.results.get("metrics", {}), "metadata": row.results.get("metadata", {}),
             "created_at": row.created_at} for row in rows]
+        for version in ("Brain-v3", "Brain-v4"):
+            path = Path(f"reports/{version.lower().replace('-', '_')}_oos_{'simulation' if version == 'Brain-v3' else 'evaluation'}.json")
+            if not path.is_file(): continue
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            scopes = payload.get("per_symbol") if version == "Brain-v3" else payload.get("results")
+            overall = payload if version == "Brain-v3" else scopes["ALL"]
+            result.insert(0, {"run_id": payload.get("run_id", payload.get("frozen_config_hash", "")[:12]),
+                "strategy_version": version, "symbol": "ALL", "timeframe": "M5",
+                "configuration": {"status": "CANDIDATE" if version == "Brain-v3" else "RESEARCH_ONLY"},
+                "metrics": {"trade_count": overall.get("simulated_trade_count", overall.get("trades")),
+                    "net_pnl": overall.get("net_pnl_usd"), "profit_factor": overall.get("profit_factor"),
+                    "maximum_drawdown": overall.get("max_drawdown"),
+                    "transaction_costs": overall.get("transaction_costs_usd", overall.get("costs_usd"))},
+                "metadata": {"per_symbol": scopes, "evidence": str(path)}, "created_at": datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc)})
+        return result
 
     def live_shadow(self, limit: int = 100) -> dict:
         from collections import Counter
@@ -244,6 +308,9 @@ class ControlCenter:
             if poll.tzinfo is None: poll = poll.replace(tzinfo=timezone.utc)
             service["status"] = ("ACTIVE_WAITING_FOR_NEXT_CLOSED_M5" if alive else "UNKNOWN_PROCESS_WAITING_FOR_NEXT_CLOSED_M5") if (datetime.now(timezone.utc) - poll).total_seconds() <= 150 else "STALE_NO_RECENT_POLL"
         service.setdefault("stop_reason", None)
+        observation_status = service.get("status", "NOT_STARTED")
+        for values in per_symbol.values():
+            values["observation_status"] = observation_status
         return {"service": service, "environment": "SHADOW", "runtime_paper_trades": paper_trades,
             "live_permission": self.settings.allow_live_trading,
             "model_version": model_version, "model_status": registry.stage if registry else None,

@@ -35,6 +35,11 @@ def test_runtime_gateway_reports_terminal_health() -> None:
     assert MT5RuntimeGateway(FakeManager()).health() is True
 
 
+def test_live_market_includes_complete_validated_universe() -> None:
+    rows = MT5RuntimeGateway(FakeManager()).live_market()
+    assert {row["symbol"] for row in rows} == {"EURUSD", "GBPUSD", "USDJPY", "XAUUSD", "BTCUSD", "ETHUSD"}
+
+
 def test_runtime_gateway_rejects_direct_order_submission() -> None:
     gateway = MT5RuntimeGateway(FakeManager())
     context = TradingContext(None, "EURUSD", "M1", "UNKNOWN", "test", "test", "default",

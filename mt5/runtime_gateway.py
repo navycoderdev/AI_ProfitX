@@ -1,6 +1,6 @@
 """Read-only MT5 gateway used by PAPER and SHADOW operational modes."""
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from core.context import TradingContext
 from core.exceptions import ModeViolationError
@@ -36,13 +36,18 @@ class MT5RuntimeGateway:
     def live_market(self) -> list[dict]:
         """Return current terminal ticks without fabricating a missing quote."""
         observations: list[dict] = []
-        for symbol in self.settings.market_symbols:
+        symbols = tuple(dict.fromkeys((*self.settings.market_symbols, "EURUSD", "GBPUSD", "USDJPY", "XAUUSD", "BTCUSD", "ETHUSD")))
+        for symbol in symbols:
             try:
                 tick = self.tick(symbol)
                 timestamp = tick.get("time_msc", tick.get("time"))
                 if timestamp is not None:
                     divisor = 1000 if "time_msc" in tick else 1
                     timestamp = datetime.fromtimestamp(float(timestamp) / divisor, tz=timezone.utc)
+                source_timestamp = timestamp
+                observed_at = datetime.now(timezone.utc)
+                if timestamp is not None and timestamp > observed_at + timedelta(seconds=60):
+                    timestamp = observed_at
                 bid, ask = tick.get("bid"), tick.get("ask")
                 observations.append({
                     "symbol": symbol,
@@ -50,13 +55,19 @@ class MT5RuntimeGateway:
                     "ask": ask,
                     "spread": float(ask) - float(bid) if bid is not None and ask is not None else None,
                     "timestamp": timestamp,
+                    "source_timestamp": source_timestamp,
+                    "timestamp_basis": "OBSERVED_AT" if source_timestamp != timestamp else "BROKER_UTC",
                     "timeframe": None,
                     "regime": None,
                     "volatility": None,
                 })
             except Exception:
-                # One unavailable symbol must not hide healthy symbols from the operator.
-                continue
+                # Preserve complete universe visibility without inventing a quote.
+                observations.append({"symbol": symbol, "bid": None, "ask": None, "spread": None,
+                    "timestamp": None, "source_timestamp": None, "timestamp_basis": "UNAVAILABLE",
+                    "timeframe": None, "regime": None, "volatility": None, "quote_available": False})
+        for item in observations:
+            item.setdefault("quote_available", item.get("bid") is not None and item.get("ask") is not None)
         return observations
 
     def candles(self, symbol: str, timeframe: str, start: datetime, end: datetime) -> list[dict]:

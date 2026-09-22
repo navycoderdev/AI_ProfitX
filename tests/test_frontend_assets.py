@@ -27,5 +27,5 @@ def test_frontend_has_responsive_layout_and_accessible_navigation() -> None:
     styles = (ROOT / "frontend" / "styles.css").read_text(encoding="utf-8")
     assert 'aria-label="Primary navigation"' in document
     assert "@media(max-width:900px)" in styles
-    assert "Current Frozen Dataset Governance" in document
+    assert "Frozen Dataset Governance" in document
     assert "Persisted Brain-v2 observations" not in document

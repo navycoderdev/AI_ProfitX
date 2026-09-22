@@ -38,6 +38,8 @@ reports/*
 !reports/brain_v3_btc_shadow.json
 !reports/brain_v3_btc_shadow_evidence.json
 !reports/brain_v3_diagnostic.json
+!reports/brain_v4_research.json
+!reports/brain_v4_pre_oos_config.json
 models/artifacts/*
 !models/artifacts/Brain-v1.json
 !models/artifacts/Brain-v2.json

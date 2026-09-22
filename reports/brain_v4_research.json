@@ -1,0 +1,1357 @@
+{
+  "baseline": "Brain-v3 diagnostics d54eb1b",
+  "brain_v3_modified": false,
+  "dataset_hash": "8e0d2fa19312a7b85134f72b8f3728a034b8dde1fb737bf867817c071e57932c",
+  "experiments": {
+    "asset_family_heads": {
+      "feature_count": 32,
+      "heads": [
+        "CRYPTO",
+        "FX",
+        "METAL"
+      ],
+      "oos_accessed": false,
+      "selection_score": 0.38626049763633025,
+      "threshold": 0.35,
+      "train_rows": 57020,
+      "validation": {
+        "BTCUSD": {
+          "actual_class_distribution": {
+            "LONG": 959,
+            "NO_TRADE": 548,
+            "SHORT": 992
+          },
+          "balanced_accuracy": 0.4342463027122787,
+          "confidence": {
+            "max": 0.5792825124672139,
+            "mean": 0.3773172975197618,
+            "min": 0.33382764981521357
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 471,
+              "NO_TRADE": 219,
+              "SHORT": 269
+            },
+            "NO_TRADE": {
+              "LONG": 182,
+              "NO_TRADE": 226,
+              "SHORT": 140
+            },
+            "SHORT": {
+              "LONG": 378,
+              "NO_TRADE": 218,
+              "SHORT": 396
+            }
+          },
+          "macro_f1": 0.4291155478749387,
+          "per_class": {
+            "LONG": {
+              "f1": 0.4733668341708543,
+              "precision": 0.4568380213385063,
+              "recall": 0.49113660062565173
+            },
+            "NO_TRADE": {
+              "f1": 0.37324525185796864,
+              "precision": 0.34087481146304677,
+              "recall": 0.4124087591240876
+            },
+            "SHORT": {
+              "f1": 0.44073455759599334,
+              "precision": 0.4919254658385093,
+              "recall": 0.39919354838709675
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 1031,
+            "NO_TRADE": 663,
+            "SHORT": 805
+          }
+        },
+        "ETHUSD": {
+          "actual_class_distribution": {
+            "LONG": 1099,
+            "NO_TRADE": 360,
+            "SHORT": 1040
+          },
+          "balanced_accuracy": 0.40399090470746524,
+          "confidence": {
+            "max": 0.6074707103578302,
+            "mean": 0.3908444733778263,
+            "min": 0.33377657688280954
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 687,
+              "NO_TRADE": 122,
+              "SHORT": 290
+            },
+            "NO_TRADE": {
+              "LONG": 176,
+              "NO_TRADE": 87,
+              "SHORT": 97
+            },
+            "SHORT": {
+              "LONG": 587,
+              "NO_TRADE": 94,
+              "SHORT": 359
+            }
+          },
+          "macro_f1": 0.401164677352942,
+          "per_class": {
+            "LONG": {
+              "f1": 0.5390349156531973,
+              "precision": 0.47379310344827585,
+              "recall": 0.6251137397634213
+            },
+            "NO_TRADE": {
+              "f1": 0.26244343891402716,
+              "precision": 0.2871287128712871,
+              "recall": 0.24166666666666667
+            },
+            "SHORT": {
+              "f1": 0.4020156774916014,
+              "precision": 0.4812332439678284,
+              "recall": 0.3451923076923077
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 1450,
+            "NO_TRADE": 303,
+            "SHORT": 746
+          }
+        },
+        "EURUSD": {
+          "actual_class_distribution": {
+            "LONG": 146,
+            "NO_TRADE": 1400,
+            "SHORT": 192
+          },
+          "balanced_accuracy": 0.42108610567514676,
+          "confidence": {
+            "max": 0.7828037737207341,
+            "mean": 0.5251128012437508,
+            "min": 0.3366607471587706
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 40,
+              "NO_TRADE": 103,
+              "SHORT": 3
+            },
+            "NO_TRADE": {
+              "LONG": 9,
+              "NO_TRADE": 1385,
+              "SHORT": 6
+            },
+            "SHORT": {
+              "LONG": 0,
+              "NO_TRADE": 192,
+              "SHORT": 0
+            }
+          },
+          "macro_f1": 0.4365356865356865,
+          "per_class": {
+            "LONG": {
+              "f1": 0.41025641025641024,
+              "precision": 0.8163265306122449,
+              "recall": 0.273972602739726
+            },
+            "NO_TRADE": {
+              "f1": 0.8993506493506493,
+              "precision": 0.8244047619047619,
+              "recall": 0.9892857142857143
+            },
+            "SHORT": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 49,
+            "NO_TRADE": 1680,
+            "SHORT": 9
+          }
+        },
+        "GBPUSD": {
+          "actual_class_distribution": {
+            "LONG": 233,
+            "NO_TRADE": 1265,
+            "SHORT": 240
+          },
+          "balanced_accuracy": 0.3782478639728127,
+          "confidence": {
+            "max": 0.8401644055447197,
+            "mean": 0.5119140929758684,
+            "min": 0.33461349725221695
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 36,
+              "NO_TRADE": 194,
+              "SHORT": 3
+            },
+            "NO_TRADE": {
+              "LONG": 20,
+              "NO_TRADE": 1240,
+              "SHORT": 5
+            },
+            "SHORT": {
+              "LONG": 0,
+              "NO_TRADE": 240,
+              "SHORT": 0
+            }
+          },
+          "macro_f1": 0.3643197927250479,
+          "per_class": {
+            "LONG": {
+              "f1": 0.24913494809688583,
+              "precision": 0.6428571428571429,
+              "recall": 0.15450643776824036
+            },
+            "NO_TRADE": {
+              "f1": 0.8438244300782579,
+              "precision": 0.7407407407407407,
+              "recall": 0.9802371541501976
+            },
+            "SHORT": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 56,
+            "NO_TRADE": 1674,
+            "SHORT": 8
+          }
+        },
+        "SYMBOL_MACRO": {
+          "balanced_accuracy": 0.4034402283814142,
+          "macro_f1": 0.38626049763633025
+        },
+        "USDJPY": {
+          "actual_class_distribution": {
+            "LONG": 489,
+            "NO_TRADE": 729,
+            "SHORT": 519
+          },
+          "balanced_accuracy": 0.40884366908755304,
+          "confidence": {
+            "max": 0.6912270969427724,
+            "mean": 0.416774545196028,
+            "min": 0.33540359421864396
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 365,
+              "NO_TRADE": 119,
+              "SHORT": 5
+            },
+            "NO_TRADE": {
+              "LONG": 369,
+              "NO_TRADE": 350,
+              "SHORT": 10
+            },
+            "SHORT": {
+              "LONG": 292,
+              "NO_TRADE": 227,
+              "SHORT": 0
+            }
+          },
+          "macro_f1": 0.3243587516646402,
+          "per_class": {
+            "LONG": {
+              "f1": 0.48184818481848185,
+              "precision": 0.3557504873294347,
+              "recall": 0.7464212678936605
+            },
+            "NO_TRADE": {
+              "f1": 0.4912280701754386,
+              "precision": 0.5028735632183908,
+              "recall": 0.48010973936899864
+            },
+            "SHORT": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 1026,
+            "NO_TRADE": 696,
+            "SHORT": 15
+          }
+        },
+        "XAUUSD": {
+          "actual_class_distribution": {
+            "LONG": 538,
+            "NO_TRADE": 299,
+            "SHORT": 698
+          },
+          "balanced_accuracy": 0.3742265241332284,
+          "confidence": {
+            "max": 0.5858044726262742,
+            "mean": 0.3717174376152518,
+            "min": 0.3347336327373029
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 327,
+              "NO_TRADE": 32,
+              "SHORT": 179
+            },
+            "NO_TRADE": {
+              "LONG": 134,
+              "NO_TRADE": 43,
+              "SHORT": 122
+            },
+            "SHORT": {
+              "LONG": 392,
+              "NO_TRADE": 47,
+              "SHORT": 259
+            }
+          },
+          "macro_f1": 0.3620685296647266,
+          "per_class": {
+            "LONG": {
+              "f1": 0.4701653486700215,
+              "precision": 0.38335287221570924,
+              "recall": 0.6078066914498141
+            },
+            "NO_TRADE": {
+              "f1": 0.20427553444180524,
+              "precision": 0.3524590163934426,
+              "recall": 0.14381270903010032
+            },
+            "SHORT": {
+              "f1": 0.411764705882353,
+              "precision": 0.4625,
+              "recall": 0.37106017191977075
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 853,
+            "NO_TRADE": 122,
+            "SHORT": 560
+          }
+        }
+      },
+      "validation_rows": 11746
+    },
+    "shared_base": {
+      "feature_count": 22,
+      "heads": [
+        "ALL"
+      ],
+      "oos_accessed": false,
+      "selection_score": 0.2707989544300008,
+      "threshold": 0.35,
+      "train_rows": 57020,
+      "validation": {
+        "BTCUSD": {
+          "actual_class_distribution": {
+            "LONG": 959,
+            "NO_TRADE": 548,
+            "SHORT": 992
+          },
+          "balanced_accuracy": 0.3701877796091358,
+          "confidence": {
+            "max": 0.6831475789363775,
+            "mean": 0.42768692769666616,
+            "min": 0.3595885782486625
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 630,
+              "NO_TRADE": 0,
+              "SHORT": 329
+            },
+            "NO_TRADE": {
+              "LONG": 325,
+              "NO_TRADE": 0,
+              "SHORT": 223
+            },
+            "SHORT": {
+              "LONG": 542,
+              "NO_TRADE": 0,
+              "SHORT": 450
+            }
+          },
+          "macro_f1": 0.32146112604915716,
+          "per_class": {
+            "LONG": {
+              "f1": 0.513029315960912,
+              "precision": 0.42084168336673344,
+              "recall": 0.656934306569343
+            },
+            "NO_TRADE": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            "SHORT": {
+              "f1": 0.45135406218655966,
+              "precision": 0.4491017964071856,
+              "recall": 0.4536290322580645
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 1497,
+            "SHORT": 1002
+          }
+        },
+        "ETHUSD": {
+          "actual_class_distribution": {
+            "LONG": 1099,
+            "NO_TRADE": 360,
+            "SHORT": 1040
+          },
+          "balanced_accuracy": 0.395961071836868,
+          "confidence": {
+            "max": 0.6655284353339819,
+            "mean": 0.36850086028815704,
+            "min": 0.33364893991458633
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 421,
+              "NO_TRADE": 561,
+              "SHORT": 117
+            },
+            "NO_TRADE": {
+              "LONG": 104,
+              "NO_TRADE": 225,
+              "SHORT": 31
+            },
+            "SHORT": {
+              "LONG": 345,
+              "NO_TRADE": 508,
+              "SHORT": 187
+            }
+          },
+          "macro_f1": 0.3238986507717669,
+          "per_class": {
+            "LONG": {
+              "f1": 0.4276282376841036,
+              "precision": 0.4839080459770115,
+              "recall": 0.3830755232029117
+            },
+            "NO_TRADE": {
+              "f1": 0.2720677146311971,
+              "precision": 0.17387944358578053,
+              "recall": 0.625
+            },
+            "SHORT": {
+              "f1": 0.272,
+              "precision": 0.5582089552238806,
+              "recall": 0.1798076923076923
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 870,
+            "NO_TRADE": 1294,
+            "SHORT": 335
+          }
+        },
+        "EURUSD": {
+          "actual_class_distribution": {
+            "LONG": 146,
+            "NO_TRADE": 1400,
+            "SHORT": 192
+          },
+          "balanced_accuracy": 0.3333333333333333,
+          "confidence": {
+            "max": 0.6052994961278779,
+            "mean": 0.47239961249874246,
+            "min": 0.34617631816506
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 0,
+              "NO_TRADE": 146,
+              "SHORT": 0
+            },
+            "NO_TRADE": {
+              "LONG": 0,
+              "NO_TRADE": 1400,
+              "SHORT": 0
+            },
+            "SHORT": {
+              "LONG": 0,
+              "NO_TRADE": 192,
+              "SHORT": 0
+            }
+          },
+          "macro_f1": 0.29742936052687485,
+          "per_class": {
+            "LONG": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            "NO_TRADE": {
+              "f1": 0.8922880815806246,
+              "precision": 0.8055235903337169,
+              "recall": 1.0
+            },
+            "SHORT": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0
+            }
+          },
+          "prediction_distribution": {
+            "NO_TRADE": 1738
+          }
+        },
+        "GBPUSD": {
+          "actual_class_distribution": {
+            "LONG": 233,
+            "NO_TRADE": 1265,
+            "SHORT": 240
+          },
+          "balanced_accuracy": 0.3361945636623748,
+          "confidence": {
+            "max": 0.5892800400042618,
+            "mean": 0.46863478364001604,
+            "min": 0.3413026103779143
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 2,
+              "NO_TRADE": 231,
+              "SHORT": 0
+            },
+            "NO_TRADE": {
+              "LONG": 0,
+              "NO_TRADE": 1265,
+              "SHORT": 0
+            },
+            "SHORT": {
+              "LONG": 0,
+              "NO_TRADE": 240,
+              "SHORT": 0
+            }
+          },
+          "macro_f1": 0.2866911974968155,
+          "per_class": {
+            "LONG": {
+              "f1": 0.01702127659574468,
+              "precision": 1.0,
+              "recall": 0.008583690987124463
+            },
+            "NO_TRADE": {
+              "f1": 0.8430523158947018,
+              "precision": 0.7286866359447005,
+              "recall": 1.0
+            },
+            "SHORT": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 2,
+            "NO_TRADE": 1736
+          }
+        },
+        "SYMBOL_MACRO": {
+          "balanced_accuracy": 0.3561394170294552,
+          "macro_f1": 0.2707989544300008
+        },
+        "USDJPY": {
+          "actual_class_distribution": {
+            "LONG": 489,
+            "NO_TRADE": 729,
+            "SHORT": 519
+          },
+          "balanced_accuracy": 0.3340149965916837,
+          "confidence": {
+            "max": 0.594742208870455,
+            "mean": 0.4638452095209899,
+            "min": 0.336503811653435
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 1,
+              "NO_TRADE": 488,
+              "SHORT": 0
+            },
+            "NO_TRADE": {
+              "LONG": 0,
+              "NO_TRADE": 729,
+              "SHORT": 0
+            },
+            "SHORT": {
+              "LONG": 0,
+              "NO_TRADE": 519,
+              "SHORT": 0
+            }
+          },
+          "macro_f1": 0.19852078762539502,
+          "per_class": {
+            "LONG": {
+              "f1": 0.004081632653061225,
+              "precision": 1.0,
+              "recall": 0.002044989775051125
+            },
+            "NO_TRADE": {
+              "f1": 0.5914807302231238,
+              "precision": 0.41993087557603687,
+              "recall": 1.0
+            },
+            "SHORT": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 1,
+            "NO_TRADE": 1736
+          }
+        },
+        "XAUUSD": {
+          "actual_class_distribution": {
+            "LONG": 538,
+            "NO_TRADE": 299,
+            "SHORT": 698
+          },
+          "balanced_accuracy": 0.36714475714333533,
+          "confidence": {
+            "max": 0.5795083813009088,
+            "mean": 0.40736077676600285,
+            "min": 0.33434405721052834
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 70,
+              "NO_TRADE": 458,
+              "SHORT": 10
+            },
+            "NO_TRADE": {
+              "LONG": 12,
+              "NO_TRADE": 284,
+              "SHORT": 3
+            },
+            "SHORT": {
+              "LONG": 43,
+              "NO_TRADE": 640,
+              "SHORT": 15
+            }
+          },
+          "macro_f1": 0.1967926041099954,
+          "per_class": {
+            "LONG": {
+              "f1": 0.2111613876319759,
+              "precision": 0.56,
+              "recall": 0.13011152416356878
+            },
+            "NO_TRADE": {
+              "f1": 0.3378941106484235,
+              "precision": 0.20549927641099855,
+              "recall": 0.9498327759197325
+            },
+            "SHORT": {
+              "f1": 0.04132231404958678,
+              "precision": 0.5357142857142857,
+              "recall": 0.02148997134670487
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 125,
+            "NO_TRADE": 1382,
+            "SHORT": 28
+          }
+        }
+      },
+      "validation_rows": 11746
+    },
+    "shared_context_normalized": {
+      "feature_count": 32,
+      "heads": [
+        "ALL"
+      ],
+      "oos_accessed": false,
+      "selection_score": 0.30294640047464744,
+      "threshold": 0.35,
+      "train_rows": 57020,
+      "validation": {
+        "BTCUSD": {
+          "actual_class_distribution": {
+            "LONG": 959,
+            "NO_TRADE": 548,
+            "SHORT": 992
+          },
+          "balanced_accuracy": 0.36664256001435186,
+          "confidence": {
+            "max": 0.6601106451799462,
+            "mean": 0.43350497562583534,
+            "min": 0.3547525159941929
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 614,
+              "NO_TRADE": 0,
+              "SHORT": 345
+            },
+            "NO_TRADE": {
+              "LONG": 325,
+              "NO_TRADE": 0,
+              "SHORT": 223
+            },
+            "SHORT": {
+              "LONG": 536,
+              "NO_TRADE": 0,
+              "SHORT": 456
+            }
+          },
+          "macro_f1": 0.31896675405303176,
+          "per_class": {
+            "LONG": {
+              "f1": 0.504519309778143,
+              "precision": 0.41627118644067795,
+              "recall": 0.6402502606882169
+            },
+            "NO_TRADE": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            "SHORT": {
+              "f1": 0.45238095238095233,
+              "precision": 0.4453125,
+              "recall": 0.4596774193548387
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 1475,
+            "SHORT": 1024
+          }
+        },
+        "ETHUSD": {
+          "actual_class_distribution": {
+            "LONG": 1099,
+            "NO_TRADE": 360,
+            "SHORT": 1040
+          },
+          "balanced_accuracy": 0.38530469294800507,
+          "confidence": {
+            "max": 0.6701008182372483,
+            "mean": 0.40876232383948624,
+            "min": 0.33517044132088775
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 734,
+              "NO_TRADE": 85,
+              "SHORT": 280
+            },
+            "NO_TRADE": {
+              "LONG": 209,
+              "NO_TRADE": 58,
+              "SHORT": 93
+            },
+            "SHORT": {
+              "LONG": 627,
+              "NO_TRADE": 73,
+              "SHORT": 340
+            }
+          },
+          "macro_f1": 0.379771356196465,
+          "per_class": {
+            "LONG": {
+              "f1": 0.5500187336080931,
+              "precision": 0.467515923566879,
+              "recall": 0.6678798908098271
+            },
+            "NO_TRADE": {
+              "f1": 0.2013888888888889,
+              "precision": 0.26851851851851855,
+              "recall": 0.16111111111111112
+            },
+            "SHORT": {
+              "f1": 0.387906446092413,
+              "precision": 0.47685834502103785,
+              "recall": 0.3269230769230769
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 1570,
+            "NO_TRADE": 216,
+            "SHORT": 713
+          }
+        },
+        "EURUSD": {
+          "actual_class_distribution": {
+            "LONG": 146,
+            "NO_TRADE": 1400,
+            "SHORT": 192
+          },
+          "balanced_accuracy": 0.34474885844748854,
+          "confidence": {
+            "max": 0.9047731229131247,
+            "mean": 0.5679144990123303,
+            "min": 0.3475013937820182
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 5,
+              "NO_TRADE": 141,
+              "SHORT": 0
+            },
+            "NO_TRADE": {
+              "LONG": 0,
+              "NO_TRADE": 1400,
+              "SHORT": 0
+            },
+            "SHORT": {
+              "LONG": 0,
+              "NO_TRADE": 192,
+              "SHORT": 0
+            }
+          },
+          "macro_f1": 0.31997908753150434,
+          "per_class": {
+            "LONG": {
+              "f1": 0.06622516556291391,
+              "precision": 1.0,
+              "recall": 0.03424657534246575
+            },
+            "NO_TRADE": {
+              "f1": 0.893712097031599,
+              "precision": 0.8078476630121177,
+              "recall": 1.0
+            },
+            "SHORT": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 5,
+            "NO_TRADE": 1733
+          }
+        },
+        "GBPUSD": {
+          "actual_class_distribution": {
+            "LONG": 233,
+            "NO_TRADE": 1265,
+            "SHORT": 240
+          },
+          "balanced_accuracy": 0.3356675544397134,
+          "confidence": {
+            "max": 0.9439137424490237,
+            "mean": 0.5755774099965506,
+            "min": 0.3395080980397588
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 2,
+              "NO_TRADE": 231,
+              "SHORT": 0
+            },
+            "NO_TRADE": {
+              "LONG": 2,
+              "NO_TRADE": 1263,
+              "SHORT": 0
+            },
+            "SHORT": {
+              "LONG": 0,
+              "NO_TRADE": 240,
+              "SHORT": 0
+            }
+          },
+          "macro_f1": 0.2863861324614065,
+          "per_class": {
+            "LONG": {
+              "f1": 0.01687763713080169,
+              "precision": 0.5,
+              "recall": 0.008583690987124463
+            },
+            "NO_TRADE": {
+              "f1": 0.8422807602534178,
+              "precision": 0.7283737024221453,
+              "recall": 0.9984189723320158
+            },
+            "SHORT": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 4,
+            "NO_TRADE": 1734
+          }
+        },
+        "SYMBOL_MACRO": {
+          "balanced_accuracy": 0.3586812939747477,
+          "macro_f1": 0.30294640047464744
+        },
+        "USDJPY": {
+          "actual_class_distribution": {
+            "LONG": 489,
+            "NO_TRADE": 729,
+            "SHORT": 519
+          },
+          "balanced_accuracy": 0.3453283625214247,
+          "confidence": {
+            "max": 0.8916380777202451,
+            "mean": 0.4994629494052748,
+            "min": 0.33824159306863066
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 29,
+              "NO_TRADE": 460,
+              "SHORT": 0
+            },
+            "NO_TRADE": {
+              "LONG": 14,
+              "NO_TRADE": 712,
+              "SHORT": 3
+            },
+            "SHORT": {
+              "LONG": 10,
+              "NO_TRADE": 509,
+              "SHORT": 0
+            }
+          },
+          "macro_f1": 0.23262747980176898,
+          "per_class": {
+            "LONG": {
+              "f1": 0.1070110701107011,
+              "precision": 0.5471698113207547,
+              "recall": 0.05930470347648262
+            },
+            "NO_TRADE": {
+              "f1": 0.5908713692946058,
+              "precision": 0.4235574063057704,
+              "recall": 0.9766803840877915
+            },
+            "SHORT": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 53,
+            "NO_TRADE": 1681,
+            "SHORT": 3
+          }
+        },
+        "XAUUSD": {
+          "actual_class_distribution": {
+            "LONG": 538,
+            "NO_TRADE": 299,
+            "SHORT": 698
+          },
+          "balanced_accuracy": 0.3743957354775027,
+          "confidence": {
+            "max": 0.5776375595182109,
+            "mean": 0.3835094138058595,
+            "min": 0.33387839096179034
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 174,
+              "NO_TRADE": 323,
+              "SHORT": 41
+            },
+            "NO_TRADE": {
+              "LONG": 76,
+              "NO_TRADE": 213,
+              "SHORT": 10
+            },
+            "SHORT": {
+              "LONG": 180,
+              "NO_TRADE": 457,
+              "SHORT": 61
+            }
+          },
+          "macro_f1": 0.2799475928037081,
+          "per_class": {
+            "LONG": {
+              "f1": 0.3595041322314049,
+              "precision": 0.4046511627906977,
+              "recall": 0.32342007434944237
+            },
+            "NO_TRADE": {
+              "f1": 0.32972136222910214,
+              "precision": 0.21450151057401812,
+              "recall": 0.7123745819397993
+            },
+            "SHORT": {
+              "f1": 0.1506172839506173,
+              "precision": 0.5446428571428571,
+              "recall": 0.08739255014326648
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 430,
+            "NO_TRADE": 993,
+            "SHORT": 112
+          }
+        }
+      },
+      "validation_rows": 11746
+    },
+    "symbol_heads": {
+      "feature_count": 32,
+      "heads": [
+        "BTCUSD",
+        "ETHUSD",
+        "EURUSD",
+        "GBPUSD",
+        "USDJPY",
+        "XAUUSD"
+      ],
+      "oos_accessed": false,
+      "selection_score": 0.351759410331582,
+      "threshold": 0.35,
+      "train_rows": 57020,
+      "validation": {
+        "BTCUSD": {
+          "actual_class_distribution": {
+            "LONG": 959,
+            "NO_TRADE": 548,
+            "SHORT": 992
+          },
+          "balanced_accuracy": 0.3997629278930786,
+          "confidence": {
+            "max": 0.60566853600092,
+            "mean": 0.3954081690903657,
+            "min": 0.3338088321719322
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 535,
+              "NO_TRADE": 48,
+              "SHORT": 376
+            },
+            "NO_TRADE": {
+              "LONG": 245,
+              "NO_TRADE": 67,
+              "SHORT": 236
+            },
+            "SHORT": {
+              "LONG": 437,
+              "NO_TRADE": 40,
+              "SHORT": 515
+            }
+          },
+          "macro_f1": 0.38947264810380683,
+          "per_class": {
+            "LONG": {
+              "f1": 0.49172794117647056,
+              "precision": 0.4396055875102712,
+              "recall": 0.5578727841501564
+            },
+            "NO_TRADE": {
+              "f1": 0.19061166429587484,
+              "precision": 0.432258064516129,
+              "recall": 0.12226277372262774
+            },
+            "SHORT": {
+              "f1": 0.4860783388390751,
+              "precision": 0.4569653948535936,
+              "recall": 0.5191532258064516
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 1217,
+            "NO_TRADE": 155,
+            "SHORT": 1127
+          }
+        },
+        "ETHUSD": {
+          "actual_class_distribution": {
+            "LONG": 1099,
+            "NO_TRADE": 360,
+            "SHORT": 1040
+          },
+          "balanced_accuracy": 0.36930585043642367,
+          "confidence": {
+            "max": 0.6556876449209033,
+            "mean": 0.4110746025638103,
+            "min": 0.3353492374911047
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 749,
+              "NO_TRADE": 16,
+              "SHORT": 334
+            },
+            "NO_TRADE": {
+              "LONG": 223,
+              "NO_TRADE": 14,
+              "SHORT": 123
+            },
+            "SHORT": {
+              "LONG": 623,
+              "NO_TRADE": 14,
+              "SHORT": 403
+            }
+          },
+          "macro_f1": 0.34985597985422734,
+          "per_class": {
+            "LONG": {
+              "f1": 0.5560504825538233,
+              "precision": 0.4695924764890282,
+              "recall": 0.6815286624203821
+            },
+            "NO_TRADE": {
+              "f1": 0.0693069306930693,
+              "precision": 0.3181818181818182,
+              "recall": 0.03888888888888889
+            },
+            "SHORT": {
+              "f1": 0.4242105263157894,
+              "precision": 0.4686046511627907,
+              "recall": 0.3875
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 1595,
+            "NO_TRADE": 44,
+            "SHORT": 860
+          }
+        },
+        "EURUSD": {
+          "actual_class_distribution": {
+            "LONG": 146,
+            "NO_TRADE": 1400,
+            "SHORT": 192
+          },
+          "balanced_accuracy": 0.3525077462491846,
+          "confidence": {
+            "max": 0.8354740787035787,
+            "mean": 0.5488820300061386,
+            "min": 0.33412671975521735
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 13,
+              "NO_TRADE": 84,
+              "SHORT": 49
+            },
+            "NO_TRADE": {
+              "LONG": 14,
+              "NO_TRADE": 1334,
+              "SHORT": 52
+            },
+            "SHORT": {
+              "LONG": 3,
+              "NO_TRADE": 186,
+              "SHORT": 3
+            }
+          },
+          "macro_f1": 0.35204889249496435,
+          "per_class": {
+            "LONG": {
+              "f1": 0.1477272727272727,
+              "precision": 0.43333333333333335,
+              "recall": 0.08904109589041095
+            },
+            "NO_TRADE": {
+              "f1": 0.8881491344873502,
+              "precision": 0.8316708229426434,
+              "recall": 0.9528571428571428
+            },
+            "SHORT": {
+              "f1": 0.02027027027027027,
+              "precision": 0.028846153846153848,
+              "recall": 0.015625
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 30,
+            "NO_TRADE": 1604,
+            "SHORT": 104
+          }
+        },
+        "GBPUSD": {
+          "actual_class_distribution": {
+            "LONG": 233,
+            "NO_TRADE": 1265,
+            "SHORT": 240
+          },
+          "balanced_accuracy": 0.3887012973549641,
+          "confidence": {
+            "max": 0.8398683402965155,
+            "mean": 0.5143937722456233,
+            "min": 0.3387763582651308
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 33,
+              "NO_TRADE": 164,
+              "SHORT": 36
+            },
+            "NO_TRADE": {
+              "LONG": 14,
+              "NO_TRADE": 1180,
+              "SHORT": 71
+            },
+            "SHORT": {
+              "LONG": 1,
+              "NO_TRADE": 217,
+              "SHORT": 22
+            }
+          },
+          "macro_f1": 0.3964064185979636,
+          "per_class": {
+            "LONG": {
+              "f1": 0.23487544483985764,
+              "precision": 0.6875,
+              "recall": 0.14163090128755365
+            },
+            "NO_TRADE": {
+              "f1": 0.835102618542109,
+              "precision": 0.7559256886611146,
+              "recall": 0.932806324110672
+            },
+            "SHORT": {
+              "f1": 0.11924119241192412,
+              "precision": 0.17054263565891473,
+              "recall": 0.09166666666666666
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 48,
+            "NO_TRADE": 1561,
+            "SHORT": 129
+          }
+        },
+        "SYMBOL_MACRO": {
+          "balanced_accuracy": 0.3778939100963152,
+          "macro_f1": 0.351759410331582
+        },
+        "USDJPY": {
+          "actual_class_distribution": {
+            "LONG": 489,
+            "NO_TRADE": 729,
+            "SHORT": 519
+          },
+          "balanced_accuracy": 0.3828591145110118,
+          "confidence": {
+            "max": 0.62168077847321,
+            "mean": 0.4352482243967842,
+            "min": 0.3464388367856592
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 455,
+              "NO_TRADE": 34,
+              "SHORT": 0
+            },
+            "NO_TRADE": {
+              "LONG": 570,
+              "NO_TRADE": 159,
+              "SHORT": 0
+            },
+            "SHORT": {
+              "LONG": 422,
+              "NO_TRADE": 97,
+              "SHORT": 0
+            }
+          },
+          "macro_f1": 0.2607039932738033,
+          "per_class": {
+            "LONG": {
+              "f1": 0.4700413223140496,
+              "precision": 0.3144436765722184,
+              "recall": 0.9304703476482618
+            },
+            "NO_TRADE": {
+              "f1": 0.3120706575073601,
+              "precision": 0.5482758620689655,
+              "recall": 0.21810699588477367
+            },
+            "SHORT": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 1447,
+            "NO_TRADE": 290
+          }
+        },
+        "XAUUSD": {
+          "actual_class_distribution": {
+            "LONG": 538,
+            "NO_TRADE": 299,
+            "SHORT": 698
+          },
+          "balanced_accuracy": 0.3742265241332284,
+          "confidence": {
+            "max": 0.5858044726262742,
+            "mean": 0.3717174376152518,
+            "min": 0.3347336327373029
+          },
+          "confusion_matrix": {
+            "LONG": {
+              "LONG": 327,
+              "NO_TRADE": 32,
+              "SHORT": 179
+            },
+            "NO_TRADE": {
+              "LONG": 134,
+              "NO_TRADE": 43,
+              "SHORT": 122
+            },
+            "SHORT": {
+              "LONG": 392,
+              "NO_TRADE": 47,
+              "SHORT": 259
+            }
+          },
+          "macro_f1": 0.3620685296647266,
+          "per_class": {
+            "LONG": {
+              "f1": 0.4701653486700215,
+              "precision": 0.38335287221570924,
+              "recall": 0.6078066914498141
+            },
+            "NO_TRADE": {
+              "f1": 0.20427553444180524,
+              "precision": 0.3524590163934426,
+              "recall": 0.14381270903010032
+            },
+            "SHORT": {
+              "f1": 0.411764705882353,
+              "precision": 0.4625,
+              "recall": 0.37106017191977075
+            }
+          },
+          "prediction_distribution": {
+            "LONG": 853,
+            "NO_TRADE": 122,
+            "SHORT": 560
+          }
+        }
+      },
+      "validation_rows": 11746
+    }
+  },
+  "frozen_config_hash": "336d0a442fe8b829b6b8ad122e2cc141ef8fb723220a414afa9a5d1b30678172",
+  "oos_accessed": false,
+  "partitions_used": {
+    "TRAIN": 57020,
+    "VALIDATION": 11746
+  },
+  "safety": {
+    "live": false,
+    "orders": 0,
+    "paper": 0
+  },
+  "selected": "asset_family_heads"
+}

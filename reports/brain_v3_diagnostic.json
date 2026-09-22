@@ -12,7 +12,7 @@
     "version": "confidence-policy-v3"
   },
   "dataset_hash": "8e0d2fa19312a7b85134f72b8f3728a034b8dde1fb737bf867817c071e57932c",
-  "generated_at": "2026-09-22T04:27:19.343712+00:00",
+  "generated_at": "2026-09-22T04:30:00.573499+00:00",
   "model_version": "Brain-v3",
   "oos": {
     "per_symbol": {
@@ -511,6 +511,12 @@
     "runtime_paper_trades": 0,
     "runtime_start": "2026-09-22T04:24:55.048933+00:00",
     "stop_reason": "BTCUSD_OBSERVED"
+  },
+  "shadow_excluded_resume_backfill": {
+    "count": 48,
+    "first_decision_at": "2026-09-22T00:20:00",
+    "last_decision_at": "2026-09-22T04:15:00",
+    "reason": "Candle closed before the resumed observer process began; excluded from genuine forward evidence."
   },
   "shadow_original_37": {
     "counts": {

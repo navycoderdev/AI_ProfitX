@@ -78,6 +78,12 @@ def main() -> None:
                 "horizon_close": outcome.horizon_close, "hypothetical_pnl_usd": outcome.hypothetical_pnl_usd}})
     simulation = json.loads(Path("reports/brain_v3_oos_simulation.json").read_text(encoding="utf-8"))
     continuation = json.loads(Path("reports/brain_v3_btc_shadow.json").read_text(encoding="utf-8"))
+    continuation_start = datetime.fromisoformat(continuation["runtime_start"])
+    with sessions() as session:
+        excluded = list(session.scalars(select(ShadowDecision).where(
+            ShadowDecision.model_version == "Brain-v3", ShadowDecision.symbol == "BTCUSD",
+            ShadowDecision.decision_at > ORIGINAL_LAST.replace(tzinfo=None),
+            ShadowDecision.decision_at <= continuation_start.replace(tzinfo=None)).order_by(ShadowDecision.decision_at)))
     result = {"generated_at": datetime.now(timezone.utc).isoformat(), "model_version": model.version,
         "artifact_hash": __import__('hashlib').sha256(Path("models/artifacts/Brain-v3.json").read_bytes()).hexdigest(),
         "dataset_hash": DATASET_HASH, "confidence_policy": metadata["confidence_policy"],
@@ -88,6 +94,9 @@ def main() -> None:
             "stop_reason": continuation["stop_reason"], "orders_submitted": continuation["orders_submitted"],
             "runtime_paper_trades": continuation["runtime_paper_trades"],
             "live_permission": continuation["live_permission"]},
+        "shadow_excluded_resume_backfill": {"reason": "Candle closed before the resumed observer process began; excluded from genuine forward evidence.",
+            "count": len(excluded), "first_decision_at": excluded[0].decision_at.isoformat() if excluded else None,
+            "last_decision_at": excluded[-1].decision_at.isoformat() if excluded else None},
         "risk_root_cause": {"classification": "EXPECTED_FAIL_CLOSED_PLUS_INTEGRATION_CONFIGURATION_GAP",
             "invalid_stop": "Shadow proposals intentionally provide no stop/target; hard-stop policy therefore rejects every directional proposal.",
             "max_spread": "BTCUSD observed spread points exceed the generic RiskProfile maximum_spread_points=30; no validated symbol-aware BTC risk profile is wired.",

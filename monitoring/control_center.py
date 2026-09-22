@@ -91,7 +91,28 @@ class ControlCenter:
             simulations = self._oos_simulations(session)
         models = [{"model_id": item.version, "status": item.stage, **json.loads(item.metadata_json),
                    "oos_simulation": simulations.get(item.version)} for item in rows]
-        return {"production_champion": self.registry.production(), "current_candidate": models[-1] if models else None,
+        current_candidate = next((item for item in reversed(models) if item["status"] == "CANDIDATE"), None)
+        brain4_path = Path("reports/brain_v4_oos_evaluation.json")
+        if brain4_path.is_file():
+            evidence = json.loads(brain4_path.read_text(encoding="utf-8")); overall = evidence["results"]["ALL"]
+            per_symbol = {symbol: {"coverage_status": "AVAILABLE", "prediction_count": value["predictions"],
+                "prediction_counts": value["prediction_counts"], "simulated_trade_count": value["trades"],
+                "wins": value["wins"], "losses": value["losses"], "net_pnl_usd": value["net_pnl_usd"],
+                "profit_factor": value["profit_factor"], "max_drawdown": value["max_drawdown"]}
+                for symbol, value in evidence["results"].items() if symbol in {"EURUSD", "GBPUSD", "USDJPY", "XAUUSD", "BTCUSD", "ETHUSD"}}
+            simulation = {"run_id": evidence["frozen_config_hash"][:12], "simulation_timestamp": datetime.fromtimestamp(
+                brain4_path.stat().st_mtime, tz=timezone.utc), "dataset_version": "research-dataset-v4",
+                "dataset_hash": evidence["dataset_hash"], "prediction_count": overall["predictions"],
+                "prediction_counts": overall["prediction_counts"], "simulated_trade_count": overall["trades"],
+                "wins": overall["wins"], "losses": overall["losses"], "gross_pnl_usd": overall["gross_pnl_usd"],
+                "transaction_costs_usd": overall["costs_usd"], "slippage_usd": overall["slippage_usd"],
+                "net_pnl_usd": overall["net_pnl_usd"], "profit_factor": overall["profit_factor"],
+                "max_drawdown": overall["max_drawdown"], "runtime_paper_trades": 0, "per_symbol": per_symbol}
+            models.append({"model_id": "Brain-v4", "status": "RESEARCH_ONLY", "parent_model": "Brain-v3",
+                "feature_version": "brain-v4-research-features-v1", "confidence_policy": {"threshold": evidence["confidence_threshold"]},
+                "validation_metrics": None, "out_of_sample_metrics": None, "oos_simulation": simulation,
+                "frozen_config_hash": evidence["frozen_config_hash"], "go_no_go": evidence["go_no_go"]})
+        return {"production_champion": self.registry.production(), "current_candidate": current_candidate,
             "models": models, "supported_research_universe": ["EURUSD", "GBPUSD", "USDJPY", "XAUUSD", "BTCUSD", "ETHUSD"],
             "unavailable_on_current_broker": {}}
 

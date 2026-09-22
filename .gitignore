@@ -40,6 +40,7 @@ reports/*
 !reports/brain_v3_diagnostic.json
 !reports/brain_v4_research.json
 !reports/brain_v4_pre_oos_config.json
+!reports/brain_v4_oos_evaluation.json
 models/artifacts/*
 !models/artifacts/Brain-v1.json
 !models/artifacts/Brain-v2.json

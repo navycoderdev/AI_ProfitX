@@ -1,0 +1,509 @@
+{
+  "architecture": "asset_family_heads",
+  "brain_v3_comparison_same_oos": {
+    "Brain-v3": {
+      "gross_pnl_usd": -30.735300000000162,
+      "max_drawdown": 0.0059681024296227275,
+      "net_pnl_usd": -45.07020000000017,
+      "profit_factor": 0.8414556327499776,
+      "trades": 297
+    },
+    "Brain-v4": {
+      "costs_usd": 24.686548857375346,
+      "gross_pnl_usd": 224.77235528737708,
+      "losses": 306,
+      "max_drawdown": 0.007588160671594834,
+      "net_pnl_usd": 196.32209113038158,
+      "prediction_counts": {
+        "LONG": 4118,
+        "NO_TRADE": 5056,
+        "SHORT": 2335
+      },
+      "predictions": 11509,
+      "profit_factor": 1.259760102377787,
+      "slippage_usd": 3.7637152996201446,
+      "trades": 600,
+      "wins": 294
+    }
+  },
+  "confidence_performance": {
+    "ALL": {
+      "[0.33,0.40)|CORRECT": 2587,
+      "[0.33,0.40)|WRONG": 3493,
+      "[0.40,0.50)|CORRECT": 2010,
+      "[0.40,0.50)|WRONG": 1500,
+      "[0.50,0.60)|CORRECT": 1049,
+      "[0.50,0.60)|WRONG": 379,
+      "[0.60,1.00]|CORRECT": 424,
+      "[0.60,1.00]|WRONG": 67
+    },
+    "BTCUSD": {
+      "[0.33,0.40)|CORRECT": 813,
+      "[0.33,0.40)|WRONG": 1146,
+      "[0.40,0.50)|CORRECT": 283,
+      "[0.40,0.50)|WRONG": 226,
+      "[0.50,0.60)|CORRECT": 15,
+      "[0.50,0.60)|WRONG": 17
+    },
+    "CRYPTO": {
+      "[0.33,0.40)|CORRECT": 1451,
+      "[0.33,0.40)|WRONG": 1961,
+      "[0.40,0.50)|CORRECT": 796,
+      "[0.40,0.50)|WRONG": 734,
+      "[0.50,0.60)|CORRECT": 29,
+      "[0.50,0.60)|WRONG": 28,
+      "[0.60,1.00]|CORRECT": 1
+    },
+    "ETHUSD": {
+      "[0.33,0.40)|CORRECT": 638,
+      "[0.33,0.40)|WRONG": 815,
+      "[0.40,0.50)|CORRECT": 513,
+      "[0.40,0.50)|WRONG": 508,
+      "[0.50,0.60)|CORRECT": 14,
+      "[0.50,0.60)|WRONG": 11,
+      "[0.60,1.00]|CORRECT": 1
+    },
+    "EURUSD": {
+      "[0.33,0.40)|CORRECT": 48,
+      "[0.33,0.40)|WRONG": 58,
+      "[0.40,0.50)|CORRECT": 447,
+      "[0.40,0.50)|WRONG": 209,
+      "[0.50,0.60)|CORRECT": 513,
+      "[0.50,0.60)|WRONG": 149,
+      "[0.60,1.00]|CORRECT": 220,
+      "[0.60,1.00]|WRONG": 27
+    },
+    "FX": {
+      "[0.33,0.40)|CORRECT": 460,
+      "[0.33,0.40)|WRONG": 708,
+      "[0.40,0.50)|CORRECT": 1167,
+      "[0.40,0.50)|WRONG": 714,
+      "[0.50,0.60)|CORRECT": 1020,
+      "[0.50,0.60)|WRONG": 351,
+      "[0.60,1.00]|CORRECT": 423,
+      "[0.60,1.00]|WRONG": 67
+    },
+    "GBPUSD": {
+      "[0.33,0.40)|CORRECT": 74,
+      "[0.33,0.40)|WRONG": 128,
+      "[0.40,0.50)|CORRECT": 432,
+      "[0.40,0.50)|WRONG": 231,
+      "[0.50,0.60)|CORRECT": 433,
+      "[0.50,0.60)|WRONG": 145,
+      "[0.60,1.00]|CORRECT": 190,
+      "[0.60,1.00]|WRONG": 38
+    },
+    "METAL": {
+      "[0.33,0.40)|CORRECT": 676,
+      "[0.33,0.40)|WRONG": 824,
+      "[0.40,0.50)|CORRECT": 47,
+      "[0.40,0.50)|WRONG": 52
+    },
+    "USDJPY": {
+      "[0.33,0.40)|CORRECT": 338,
+      "[0.33,0.40)|WRONG": 522,
+      "[0.40,0.50)|CORRECT": 288,
+      "[0.40,0.50)|WRONG": 274,
+      "[0.50,0.60)|CORRECT": 74,
+      "[0.50,0.60)|WRONG": 57,
+      "[0.60,1.00]|CORRECT": 13,
+      "[0.60,1.00]|WRONG": 2
+    },
+    "XAUUSD": {
+      "[0.33,0.40)|CORRECT": 676,
+      "[0.33,0.40)|WRONG": 824,
+      "[0.40,0.50)|CORRECT": 47,
+      "[0.40,0.50)|WRONG": 52
+    }
+  },
+  "confidence_threshold": 0.35,
+  "dataset_hash": "8e0d2fa19312a7b85134f72b8f3728a034b8dde1fb737bf867817c071e57932c",
+  "frozen_config_hash": "336d0a442fe8b829b6b8ad122e2cc141ef8fb723220a414afa9a5d1b30678172",
+  "go_no_go": "TECHNICAL_REVIEW_REQUIRED",
+  "model_version": "Brain-v4",
+  "oos_open_count": 1,
+  "regime_performance": {
+    "ALL": {
+      "DOWN_HIGH_VOL|CORRECT": 777,
+      "DOWN_HIGH_VOL|WRONG": 677,
+      "DOWN_LOW_VOL|CORRECT": 679,
+      "DOWN_LOW_VOL|WRONG": 549,
+      "DOWN_MID_VOL|CORRECT": 744,
+      "DOWN_MID_VOL|WRONG": 564,
+      "MIXED_HIGH_VOL|CORRECT": 612,
+      "MIXED_HIGH_VOL|WRONG": 600,
+      "MIXED_LOW_VOL|CORRECT": 698,
+      "MIXED_LOW_VOL|WRONG": 545,
+      "MIXED_MID_VOL|CORRECT": 574,
+      "MIXED_MID_VOL|WRONG": 544,
+      "UP_HIGH_VOL|CORRECT": 733,
+      "UP_HIGH_VOL|WRONG": 772,
+      "UP_LOW_VOL|CORRECT": 629,
+      "UP_LOW_VOL|WRONG": 548,
+      "UP_MID_VOL|CORRECT": 624,
+      "UP_MID_VOL|WRONG": 640
+    },
+    "BTCUSD": {
+      "DOWN_HIGH_VOL|CORRECT": 152,
+      "DOWN_HIGH_VOL|WRONG": 147,
+      "DOWN_LOW_VOL|CORRECT": 122,
+      "DOWN_LOW_VOL|WRONG": 137,
+      "DOWN_MID_VOL|CORRECT": 108,
+      "DOWN_MID_VOL|WRONG": 138,
+      "MIXED_HIGH_VOL|CORRECT": 104,
+      "MIXED_HIGH_VOL|WRONG": 144,
+      "MIXED_LOW_VOL|CORRECT": 115,
+      "MIXED_LOW_VOL|WRONG": 154,
+      "MIXED_MID_VOL|CORRECT": 107,
+      "MIXED_MID_VOL|WRONG": 125,
+      "UP_HIGH_VOL|CORRECT": 146,
+      "UP_HIGH_VOL|WRONG": 218,
+      "UP_LOW_VOL|CORRECT": 117,
+      "UP_LOW_VOL|WRONG": 169,
+      "UP_MID_VOL|CORRECT": 140,
+      "UP_MID_VOL|WRONG": 157
+    },
+    "CRYPTO": {
+      "DOWN_HIGH_VOL|CORRECT": 291,
+      "DOWN_HIGH_VOL|WRONG": 283,
+      "DOWN_LOW_VOL|CORRECT": 241,
+      "DOWN_LOW_VOL|WRONG": 279,
+      "DOWN_MID_VOL|CORRECT": 246,
+      "DOWN_MID_VOL|WRONG": 253,
+      "MIXED_HIGH_VOL|CORRECT": 212,
+      "MIXED_HIGH_VOL|WRONG": 288,
+      "MIXED_LOW_VOL|CORRECT": 243,
+      "MIXED_LOW_VOL|WRONG": 321,
+      "MIXED_MID_VOL|CORRECT": 224,
+      "MIXED_MID_VOL|WRONG": 271,
+      "UP_HIGH_VOL|CORRECT": 305,
+      "UP_HIGH_VOL|WRONG": 396,
+      "UP_LOW_VOL|CORRECT": 230,
+      "UP_LOW_VOL|WRONG": 283,
+      "UP_MID_VOL|CORRECT": 285,
+      "UP_MID_VOL|WRONG": 349
+    },
+    "ETHUSD": {
+      "DOWN_HIGH_VOL|CORRECT": 139,
+      "DOWN_HIGH_VOL|WRONG": 136,
+      "DOWN_LOW_VOL|CORRECT": 119,
+      "DOWN_LOW_VOL|WRONG": 142,
+      "DOWN_MID_VOL|CORRECT": 138,
+      "DOWN_MID_VOL|WRONG": 115,
+      "MIXED_HIGH_VOL|CORRECT": 108,
+      "MIXED_HIGH_VOL|WRONG": 144,
+      "MIXED_LOW_VOL|CORRECT": 128,
+      "MIXED_LOW_VOL|WRONG": 167,
+      "MIXED_MID_VOL|CORRECT": 117,
+      "MIXED_MID_VOL|WRONG": 146,
+      "UP_HIGH_VOL|CORRECT": 159,
+      "UP_HIGH_VOL|WRONG": 178,
+      "UP_LOW_VOL|CORRECT": 113,
+      "UP_LOW_VOL|WRONG": 114,
+      "UP_MID_VOL|CORRECT": 145,
+      "UP_MID_VOL|WRONG": 192
+    },
+    "EURUSD": {
+      "DOWN_HIGH_VOL|CORRECT": 183,
+      "DOWN_HIGH_VOL|WRONG": 91,
+      "DOWN_LOW_VOL|CORRECT": 163,
+      "DOWN_LOW_VOL|WRONG": 41,
+      "DOWN_MID_VOL|CORRECT": 207,
+      "DOWN_MID_VOL|WRONG": 59,
+      "MIXED_HIGH_VOL|CORRECT": 128,
+      "MIXED_HIGH_VOL|WRONG": 72,
+      "MIXED_LOW_VOL|CORRECT": 146,
+      "MIXED_LOW_VOL|WRONG": 21,
+      "MIXED_MID_VOL|CORRECT": 105,
+      "MIXED_MID_VOL|WRONG": 33,
+      "UP_HIGH_VOL|CORRECT": 111,
+      "UP_HIGH_VOL|WRONG": 54,
+      "UP_LOW_VOL|CORRECT": 97,
+      "UP_LOW_VOL|WRONG": 31,
+      "UP_MID_VOL|CORRECT": 88,
+      "UP_MID_VOL|WRONG": 41
+    },
+    "FX": {
+      "DOWN_HIGH_VOL|CORRECT": 388,
+      "DOWN_HIGH_VOL|WRONG": 282,
+      "DOWN_LOW_VOL|CORRECT": 362,
+      "DOWN_LOW_VOL|WRONG": 142,
+      "DOWN_MID_VOL|CORRECT": 420,
+      "DOWN_MID_VOL|WRONG": 201,
+      "MIXED_HIGH_VOL|CORRECT": 320,
+      "MIXED_HIGH_VOL|WRONG": 229,
+      "MIXED_LOW_VOL|CORRECT": 383,
+      "MIXED_LOW_VOL|WRONG": 136,
+      "MIXED_MID_VOL|CORRECT": 281,
+      "MIXED_MID_VOL|WRONG": 191,
+      "UP_HIGH_VOL|CORRECT": 332,
+      "UP_HIGH_VOL|WRONG": 278,
+      "UP_LOW_VOL|CORRECT": 326,
+      "UP_LOW_VOL|WRONG": 177,
+      "UP_MID_VOL|CORRECT": 258,
+      "UP_MID_VOL|WRONG": 204
+    },
+    "GBPUSD": {
+      "DOWN_HIGH_VOL|CORRECT": 154,
+      "DOWN_HIGH_VOL|WRONG": 101,
+      "DOWN_LOW_VOL|CORRECT": 140,
+      "DOWN_LOW_VOL|WRONG": 39,
+      "DOWN_MID_VOL|CORRECT": 163,
+      "DOWN_MID_VOL|WRONG": 75,
+      "MIXED_HIGH_VOL|CORRECT": 123,
+      "MIXED_HIGH_VOL|WRONG": 77,
+      "MIXED_LOW_VOL|CORRECT": 127,
+      "MIXED_LOW_VOL|WRONG": 27,
+      "MIXED_MID_VOL|CORRECT": 112,
+      "MIXED_MID_VOL|WRONG": 68,
+      "UP_HIGH_VOL|CORRECT": 104,
+      "UP_HIGH_VOL|WRONG": 75,
+      "UP_LOW_VOL|CORRECT": 129,
+      "UP_LOW_VOL|WRONG": 36,
+      "UP_MID_VOL|CORRECT": 77,
+      "UP_MID_VOL|WRONG": 44
+    },
+    "METAL": {
+      "DOWN_HIGH_VOL|CORRECT": 98,
+      "DOWN_HIGH_VOL|WRONG": 112,
+      "DOWN_LOW_VOL|CORRECT": 76,
+      "DOWN_LOW_VOL|WRONG": 128,
+      "DOWN_MID_VOL|CORRECT": 78,
+      "DOWN_MID_VOL|WRONG": 110,
+      "MIXED_HIGH_VOL|CORRECT": 80,
+      "MIXED_HIGH_VOL|WRONG": 83,
+      "MIXED_LOW_VOL|CORRECT": 72,
+      "MIXED_LOW_VOL|WRONG": 88,
+      "MIXED_MID_VOL|CORRECT": 69,
+      "MIXED_MID_VOL|WRONG": 82,
+      "UP_HIGH_VOL|CORRECT": 96,
+      "UP_HIGH_VOL|WRONG": 98,
+      "UP_LOW_VOL|CORRECT": 73,
+      "UP_LOW_VOL|WRONG": 88,
+      "UP_MID_VOL|CORRECT": 81,
+      "UP_MID_VOL|WRONG": 87
+    },
+    "USDJPY": {
+      "DOWN_HIGH_VOL|CORRECT": 51,
+      "DOWN_HIGH_VOL|WRONG": 90,
+      "DOWN_LOW_VOL|CORRECT": 59,
+      "DOWN_LOW_VOL|WRONG": 62,
+      "DOWN_MID_VOL|CORRECT": 50,
+      "DOWN_MID_VOL|WRONG": 67,
+      "MIXED_HIGH_VOL|CORRECT": 69,
+      "MIXED_HIGH_VOL|WRONG": 80,
+      "MIXED_LOW_VOL|CORRECT": 110,
+      "MIXED_LOW_VOL|WRONG": 88,
+      "MIXED_MID_VOL|CORRECT": 64,
+      "MIXED_MID_VOL|WRONG": 90,
+      "UP_HIGH_VOL|CORRECT": 117,
+      "UP_HIGH_VOL|WRONG": 149,
+      "UP_LOW_VOL|CORRECT": 100,
+      "UP_LOW_VOL|WRONG": 110,
+      "UP_MID_VOL|CORRECT": 93,
+      "UP_MID_VOL|WRONG": 119
+    },
+    "XAUUSD": {
+      "DOWN_HIGH_VOL|CORRECT": 98,
+      "DOWN_HIGH_VOL|WRONG": 112,
+      "DOWN_LOW_VOL|CORRECT": 76,
+      "DOWN_LOW_VOL|WRONG": 128,
+      "DOWN_MID_VOL|CORRECT": 78,
+      "DOWN_MID_VOL|WRONG": 110,
+      "MIXED_HIGH_VOL|CORRECT": 80,
+      "MIXED_HIGH_VOL|WRONG": 83,
+      "MIXED_LOW_VOL|CORRECT": 72,
+      "MIXED_LOW_VOL|WRONG": 88,
+      "MIXED_MID_VOL|CORRECT": 69,
+      "MIXED_MID_VOL|WRONG": 82,
+      "UP_HIGH_VOL|CORRECT": 96,
+      "UP_HIGH_VOL|WRONG": 98,
+      "UP_LOW_VOL|CORRECT": 73,
+      "UP_LOW_VOL|WRONG": 88,
+      "UP_MID_VOL|CORRECT": 81,
+      "UP_MID_VOL|WRONG": 87
+    }
+  },
+  "results": {
+    "ALL": {
+      "costs_usd": 24.686548857375346,
+      "gross_pnl_usd": 224.77235528737708,
+      "losses": 306,
+      "max_drawdown": 0.007588160671594834,
+      "net_pnl_usd": 196.32209113038158,
+      "prediction_counts": {
+        "LONG": 4118,
+        "NO_TRADE": 5056,
+        "SHORT": 2335
+      },
+      "predictions": 11509,
+      "profit_factor": 1.259760102377787,
+      "slippage_usd": 3.7637152996201446,
+      "trades": 600,
+      "wins": 294
+    },
+    "BTCUSD": {
+      "costs_usd": 10.8172,
+      "gross_pnl_usd": 36.600199999999454,
+      "losses": 87,
+      "max_drawdown": 0.004450087164930553,
+      "net_pnl_usd": 25.745399999999453,
+      "prediction_counts": {
+        "LONG": 1045,
+        "NO_TRADE": 481,
+        "SHORT": 974
+      },
+      "predictions": 2500,
+      "profit_factor": 1.137543320531057,
+      "slippage_usd": 0.0376,
+      "trades": 188,
+      "wins": 101
+    },
+    "CRYPTO": {
+      "costs_usd": 16.753700000000002,
+      "gross_pnl_usd": 37.92219999999946,
+      "losses": 211,
+      "max_drawdown": 0.004547383451251406,
+      "net_pnl_usd": 21.090299999999456,
+      "prediction_counts": {
+        "LONG": 2525,
+        "NO_TRADE": 645,
+        "SHORT": 1830
+      },
+      "predictions": 5000,
+      "profit_factor": 1.105937913931815,
+      "slippage_usd": 0.0782,
+      "trades": 391,
+      "wins": 180
+    },
+    "ETHUSD": {
+      "costs_usd": 5.9365,
+      "gross_pnl_usd": 1.3220000000000027,
+      "losses": 124,
+      "max_drawdown": 0.00047775999999958,
+      "net_pnl_usd": -4.655099999999997,
+      "prediction_counts": {
+        "LONG": 1480,
+        "NO_TRADE": 164,
+        "SHORT": 856
+      },
+      "predictions": 2500,
+      "profit_factor": 0.6088611423866097,
+      "slippage_usd": 0.040600000000000004,
+      "trades": 203,
+      "wins": 79
+    },
+    "EURUSD": {
+      "costs_usd": 0.0,
+      "gross_pnl_usd": -4.3600000000001415,
+      "losses": 2,
+      "max_drawdown": 0.00043999999999996364,
+      "net_pnl_usd": -4.400000000000142,
+      "prediction_counts": {
+        "LONG": 23,
+        "NO_TRADE": 1648
+      },
+      "predictions": 1671,
+      "profit_factor": 0.0,
+      "slippage_usd": 0.04,
+      "trades": 2,
+      "wins": 0
+    },
+    "FX": {
+      "costs_usd": 0.14284885737534686,
+      "gross_pnl_usd": 4.070155287385143,
+      "losses": 36,
+      "max_drawdown": 0.0008613208158758392,
+      "net_pnl_usd": 2.8617911303896526,
+      "prediction_counts": {
+        "LONG": 654,
+        "NO_TRADE": 4243,
+        "SHORT": 13
+      },
+      "predictions": 4910,
+      "profit_factor": 1.0741576997811655,
+      "slippage_usd": 1.0655152996201445,
+      "trades": 78,
+      "wins": 42
+    },
+    "GBPUSD": {
+      "costs_usd": 0.04,
+      "gross_pnl_usd": -4.690000000000083,
+      "losses": 5,
+      "max_drawdown": 0.0004969999999999346,
+      "net_pnl_usd": -4.870000000000083,
+      "prediction_counts": {
+        "LONG": 52,
+        "NO_TRADE": 1619
+      },
+      "predictions": 1671,
+      "profit_factor": 0.2106969205834407,
+      "slippage_usd": 0.14,
+      "trades": 7,
+      "wins": 2
+    },
+    "METAL": {
+      "costs_usd": 7.79,
+      "gross_pnl_usd": 182.77999999999247,
+      "losses": 59,
+      "max_drawdown": 0.007858437114661275,
+      "net_pnl_usd": 172.36999999999247,
+      "prediction_counts": {
+        "LONG": 939,
+        "NO_TRADE": 168,
+        "SHORT": 492
+      },
+      "predictions": 1599,
+      "profit_factor": 1.3326899693115195,
+      "slippage_usd": 2.62,
+      "trades": 131,
+      "wins": 72
+    },
+    "USDJPY": {
+      "costs_usd": 0.10284885737534687,
+      "gross_pnl_usd": 13.120155287385368,
+      "losses": 29,
+      "max_drawdown": 0.0008605238479406758,
+      "net_pnl_usd": 12.131791130389876,
+      "prediction_counts": {
+        "LONG": 579,
+        "NO_TRADE": 976,
+        "SHORT": 13
+      },
+      "predictions": 1568,
+      "profit_factor": 1.4329595113929168,
+      "slippage_usd": 0.8855152996201444,
+      "trades": 69,
+      "wins": 40
+    },
+    "XAUUSD": {
+      "costs_usd": 7.79,
+      "gross_pnl_usd": 182.77999999999247,
+      "losses": 59,
+      "max_drawdown": 0.007858437114661275,
+      "net_pnl_usd": 172.36999999999247,
+      "prediction_counts": {
+        "LONG": 939,
+        "NO_TRADE": 168,
+        "SHORT": 492
+      },
+      "predictions": 1599,
+      "profit_factor": 1.3326899693115195,
+      "slippage_usd": 2.62,
+      "trades": 131,
+      "wins": 72
+    }
+  },
+  "retuned": false,
+  "risk_stop_target": {
+    "SPREAD_BLOCK": 2371,
+    "SPREAD_PASS": 4082,
+    "STOP_TARGET_VALID": 5940
+  },
+  "safety": {
+    "live": false,
+    "orders": 0,
+    "paper": 0
+  },
+  "status": "RESEARCH_ONLY"
+}

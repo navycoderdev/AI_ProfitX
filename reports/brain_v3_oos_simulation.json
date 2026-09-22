@@ -1,0 +1,177 @@
+{
+  "artifact_hash": "569af0c4c81339449a0cfcd788dc63e0a5f8af045dcddb088dc0ead402e7fb2b",
+  "breakeven": 0,
+  "confidence_policy": {
+    "threshold": 0.4,
+    "version": "confidence-policy-v3"
+  },
+  "cost_assumptions": {
+    "commission": 0.0,
+    "lots": {
+      "BTCUSD": 0.01,
+      "ETHUSD": 0.01,
+      "EURUSD": 0.01,
+      "GBPUSD": 0.01,
+      "USDJPY": 0.01,
+      "XAUUSD": 0.01
+    },
+    "max_drawdown_basis": "closed_trade_equity_starting_10000_usd",
+    "pnl": "symbol_contract_size_times_lots_with_profit_currency_conversion",
+    "slippage": "one_verified_tick_each_side",
+    "spread": "observed_entry_M5_spread_points"
+  },
+  "dataset_hash": "8e0d2fa19312a7b85134f72b8f3728a034b8dde1fb737bf867817c071e57932c",
+  "execution_model": "next_M5_open_to_label_horizon_close_one_position_per_symbol",
+  "gross_pnl_usd": -30.735300000000162,
+  "losses": 151,
+  "market_data_source": "MT5:ICMarketsSC-Demo",
+  "max_drawdown": 0.0059681024296227275,
+  "model_version": "Brain-v3",
+  "mt5_orders": 0,
+  "net_pnl_usd": -45.07020000000017,
+  "offline_only": true,
+  "per_symbol": {
+    "BTCUSD": {
+      "breakeven": 0,
+      "coverage_status": "AVAILABLE",
+      "gross_pnl_usd": 41.70699999999997,
+      "losses": 100,
+      "max_drawdown": 0.004290560416642661,
+      "net_pnl_usd": 30.220299999999973,
+      "prediction_count": 2500,
+      "prediction_counts": {
+        "LONG": 1338,
+        "NO_TRADE": 135,
+        "SHORT": 1027
+      },
+      "profit_factor": 1.1485664366089234,
+      "simulated_trade_count": 207,
+      "skipped_overlapping_signals": 2158,
+      "slippage_usd": 0.0414,
+      "transaction_costs_usd": 11.445300000000001,
+      "unfilled_no_entry_candle": 0,
+      "wins": 107
+    },
+    "ETHUSD": {
+      "breakeven": 0,
+      "coverage_status": "AVAILABLE",
+      "gross_pnl_usd": 3.8977000000000137,
+      "losses": 47,
+      "max_drawdown": 7.280999999984488e-05,
+      "net_pnl_usd": 1.3795000000000135,
+      "prediction_count": 2500,
+      "prediction_counts": {
+        "LONG": 440,
+        "NO_TRADE": 1849,
+        "SHORT": 211
+      },
+      "profit_factor": 1.3290556496433976,
+      "simulated_trade_count": 86,
+      "skipped_overlapping_signals": 565,
+      "slippage_usd": 0.0172,
+      "transaction_costs_usd": 2.501,
+      "unfilled_no_entry_candle": 0,
+      "wins": 39
+    },
+    "EURUSD": {
+      "breakeven": 0,
+      "coverage_status": "AVAILABLE",
+      "gross_pnl_usd": 0,
+      "losses": 0,
+      "max_drawdown": 0.0,
+      "net_pnl_usd": 0,
+      "prediction_count": 1671,
+      "prediction_counts": {
+        "LONG": 0,
+        "NO_TRADE": 1671,
+        "SHORT": 0
+      },
+      "profit_factor": null,
+      "simulated_trade_count": 0,
+      "skipped_overlapping_signals": 0,
+      "slippage_usd": 0,
+      "transaction_costs_usd": 0,
+      "unfilled_no_entry_candle": 0,
+      "wins": 0
+    },
+    "GBPUSD": {
+      "breakeven": 0,
+      "coverage_status": "AVAILABLE",
+      "gross_pnl_usd": 0,
+      "losses": 0,
+      "max_drawdown": 0.0,
+      "net_pnl_usd": 0,
+      "prediction_count": 1671,
+      "prediction_counts": {
+        "LONG": 0,
+        "NO_TRADE": 1671,
+        "SHORT": 0
+      },
+      "profit_factor": null,
+      "simulated_trade_count": 0,
+      "skipped_overlapping_signals": 0,
+      "slippage_usd": 0,
+      "transaction_costs_usd": 0,
+      "unfilled_no_entry_candle": 0,
+      "wins": 0
+    },
+    "USDJPY": {
+      "breakeven": 0,
+      "coverage_status": "AVAILABLE",
+      "gross_pnl_usd": 0,
+      "losses": 0,
+      "max_drawdown": 0.0,
+      "net_pnl_usd": 0,
+      "prediction_count": 1568,
+      "prediction_counts": {
+        "LONG": 0,
+        "NO_TRADE": 1568,
+        "SHORT": 0
+      },
+      "profit_factor": null,
+      "simulated_trade_count": 0,
+      "skipped_overlapping_signals": 0,
+      "slippage_usd": 0,
+      "transaction_costs_usd": 0,
+      "unfilled_no_entry_candle": 0,
+      "wins": 0
+    },
+    "XAUUSD": {
+      "breakeven": 0,
+      "coverage_status": "AVAILABLE",
+      "gross_pnl_usd": -76.34000000000015,
+      "losses": 4,
+      "max_drawdown": 0.007667000000000189,
+      "net_pnl_usd": -76.67000000000016,
+      "prediction_count": 1599,
+      "prediction_counts": {
+        "LONG": 35,
+        "NO_TRADE": 1564,
+        "SHORT": 0
+      },
+      "profit_factor": 0.0,
+      "simulated_trade_count": 4,
+      "skipped_overlapping_signals": 31,
+      "slippage_usd": 0.08,
+      "transaction_costs_usd": 0.25,
+      "unfilled_no_entry_candle": 0,
+      "wins": 0
+    }
+  },
+  "prediction_count": 11509,
+  "prediction_counts": {
+    "LONG": 1813,
+    "NO_TRADE": 8458,
+    "SHORT": 1238
+  },
+  "profit_factor": 0.8414556327499776,
+  "run_id": "358013b7-0937-4ea3-8977-9195b6e763e4",
+  "runtime_paper_trades": 0,
+  "simulated_trade_count": 297,
+  "skipped_overlapping_signals": 2754,
+  "slippage_usd": 0.1386,
+  "trade_scope": "OFFLINE_OOS_SIMULATION_TRADES",
+  "transaction_costs_usd": 14.1963,
+  "unfilled_no_entry_candle": 0,
+  "wins": 146
+}

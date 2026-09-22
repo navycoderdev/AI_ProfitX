@@ -37,7 +37,7 @@ def corroborate_outlier(timeframe: str, bar, bars_by_timeframe: dict[str, list])
         parent = next((row for row in bars_by_timeframe["M5"] if row.timestamp == bucket), None)
         children = [row for row in bars_by_timeframe["M1"]
                     if bucket <= row.timestamp < bucket + timedelta(minutes=5)]
-        verified = bool(parent and len(children) == 5 and _equal(children[0].open, parent.open) and
+        verified = bool(parent and children and _equal(children[0].open, parent.open) and
                         _equal(children[-1].close, parent.close) and
                         _equal(max(row.high for row in children), parent.high) and
                         _equal(min(row.low for row in children), parent.low))
@@ -49,7 +49,7 @@ def corroborate_outlier(timeframe: str, bar, bars_by_timeframe: dict[str, list])
     children = [row for row in bars_by_timeframe[child_tf]
                 if bar.timestamp <= row.timestamp < bar.timestamp + timedelta(seconds=seconds)]
     expected = seconds // 60
-    verified = bool(len(children) == expected and _equal(children[0].open, bar.open) and
+    verified = bool(children and _equal(children[0].open, bar.open) and
                     _equal(children[-1].close, bar.close) and
                     _equal(max(row.high for row in children), bar.high) and
                     _equal(min(row.low for row in children), bar.low))

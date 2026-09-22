@@ -59,7 +59,8 @@ class ResearchDatasetV1Builder:
 
     def build_and_freeze(self, symbols: tuple[str, ...] = ("EURUSD", "GBPUSD", "USDJPY"),
                          pre_freeze_gate: Callable[[list[dict]], dict] | None = None,
-                         window_start: datetime | None = None, window_end: datetime | None = None) -> dict:
+                         window_start: datetime | None = None, window_end: datetime | None = None,
+                         source: str | None = None) -> dict:
         definitions = self.register_features(); audit = dependency_audit(definitions)
         if audit["freeze_blocked"]: raise RuntimeError("Feature dependency metadata is incomplete; Dataset v1 cannot freeze.")
         manifest = self.governance.register_not_built(self.spec)
@@ -69,14 +70,14 @@ class ResearchDatasetV1Builder:
             raise RuntimeError("Incomplete Dataset v2 membership exists; inspect and clear that attempt before retrying.")
         candidates, excluded, snapshot_batch = [], [], []
         source_starts, source_ends = [], []
-        direct_masks = {(mask.symbol, mask.timeframe): self.governance.masks(mask.symbol, mask.timeframe)
-                        for symbol in symbols for mask in self.governance.masks(symbol)}
+        masks_by_symbol = {symbol: self.governance.masks(symbol) for symbol in symbols}
+        dependency = {item["timeframe"]: item["dependency"] for item in feature_definitions()}
         for symbol in symbols:
-            base = self.raw.bars_as_of(symbol, "M5", __import__("datetime").datetime.max.replace(tzinfo=__import__("datetime").timezone.utc))
+            base = self.raw.bars_as_of(symbol, "M5", __import__("datetime").datetime.max.replace(tzinfo=__import__("datetime").timezone.utc), source=source)
             if window_start or window_end:
                 base = [bar for bar in base if (window_start is None or bar.timestamp >= window_start) and
                         (window_end is None or bar.timestamp <= window_end)]
-            contexts = {tf: self.raw.bars_as_of(symbol, tf, __import__("datetime").datetime.max.replace(tzinfo=__import__("datetime").timezone.utc))
+            contexts = {tf: self.raw.bars_as_of(symbol, tf, __import__("datetime").datetime.max.replace(tzinfo=__import__("datetime").timezone.utc), source=source)
                         for tf in self.spec.context_timeframes}
             context_times = {tf: [item.timestamp for item in rows] for tf, rows in contexts.items()}
             if not base: continue
@@ -85,8 +86,17 @@ class ResearchDatasetV1Builder:
                 decision_at = bar.timestamp + timedelta(seconds=TIMEFRAME_SECONDS["M5"])
                 if index < WARMUP_BARS:
                     excluded.append("WARMUP"); continue
-                masks = direct_masks.get((symbol, "M5"), [])
-                if any(mask.start_time <= bar.timestamp < mask.end_time for mask in masks):
+                contaminated = False
+                for mask in masks_by_symbol[symbol]:
+                    if mask.timeframe not in dependency:
+                        continue
+                    meta = dependency[mask.timeframe]
+                    horizon = timedelta(seconds=TIMEFRAME_SECONDS[mask.timeframe] *
+                                        (meta["lookback"] + meta["warmup"] + 1))
+                    if decision_at - horizon < mask.end_time and decision_at >= mask.start_time:
+                        contaminated = True
+                        break
+                if contaminated:
                     excluded.append("QUARANTINED_INTERVAL"); continue
                 # The raw cutoff is exactly the M5 candle open timestamp; no subsequent/future M5 bar is supplied.
                 history = base[max(0, index - 99):index + 1]
@@ -102,10 +112,12 @@ class ResearchDatasetV1Builder:
                 required = ("return_1", "momentum_10", "volatility_20", "atr_14", "rsi_14", "macd", "adx_proxy_14", "spread_percentile")
                 if any(values.get(key) is None for key in required):
                     excluded.append("FEATURE_NULL_POLICY"); continue
-                candidates.append({"symbol": symbol, "decision_time": decision_at.isoformat(), "raw_data_cutoff": bar.timestamp.isoformat(), "values": values})
+                candidates.append({"symbol": symbol, "decision_time": decision_at.isoformat(), "raw_data_cutoff": bar.timestamp.isoformat(),
+                                   "values": values, **({"source": source} if source else {})})
                 snapshot_batch.append({"symbol": symbol, "timeframe": "M5", "decision_at": decision_at, "feature_version": FEATURE_VERSION,
                     "raw_data_cutoff": bar.timestamp, "values": values, "context": {"decision_semantics": self.spec.decision_semantics,
-                        "alignment_policy": self.spec.alignment_policy, "context_timeframes": list(self.spec.context_timeframes)}})
+                        "alignment_policy": self.spec.alignment_policy, "context_timeframes": list(self.spec.context_timeframes),
+                        **({"source": source} if source else {})}})
         if not candidates: raise RuntimeError("No usable Dataset v1 rows; dataset cannot freeze.")
         boundaries = self.split_boundaries(candidates)
         split_counts = Counter()
@@ -140,7 +152,7 @@ class ResearchDatasetV1Builder:
             raise RuntimeError("Feature leakage gate failed: a raw cutoff follows its decision timestamp.")
         gates = set(FREEZE_GATES)
         if not can_freeze(gates, False): raise RuntimeError("Mandatory Dataset v1 freeze gates did not pass.")
-        frozen = self.governance.freeze(manifest.dataset_id, source="MT5", symbols=list(symbols), source_start=min(source_starts),
+        frozen = self.governance.freeze(manifest.dataset_id, source=source or "MT5", symbols=list(symbols), source_start=min(source_starts),
             source_end=max(source_ends), counts=counts, reason_code_summary=dict(Counter(excluded)), content_hash=content_hash(candidates, self.spec))
         return {"dataset_id": frozen.dataset_id, "dataset_version": self.spec.version, "state": frozen.state,
             "content_hash": frozen.content_hash, "counts": counts,

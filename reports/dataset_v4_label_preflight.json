@@ -1,0 +1,143 @@
+{
+  "class_distribution": {
+    "BTCUSD": {
+      "OOS": {
+        "LONG": 1091,
+        "NO_TRADE": 435,
+        "SHORT": 974
+      },
+      "TRAIN": {
+        "LONG": 4768,
+        "NO_TRADE": 2317,
+        "SHORT": 4621
+      },
+      "VALIDATION": {
+        "LONG": 959,
+        "NO_TRADE": 548,
+        "SHORT": 992
+      }
+    },
+    "ETHUSD": {
+      "OOS": {
+        "LONG": 1131,
+        "NO_TRADE": 297,
+        "SHORT": 1072
+      },
+      "TRAIN": {
+        "LONG": 5069,
+        "NO_TRADE": 1827,
+        "SHORT": 4722
+      },
+      "VALIDATION": {
+        "LONG": 1099,
+        "NO_TRADE": 360,
+        "SHORT": 1040
+      }
+    },
+    "EURUSD": {
+      "OOS": {
+        "LONG": 180,
+        "NO_TRADE": 1235,
+        "SHORT": 256
+      },
+      "TRAIN": {
+        "LONG": 1095,
+        "NO_TRADE": 6424,
+        "SHORT": 992
+      },
+      "VALIDATION": {
+        "LONG": 146,
+        "NO_TRADE": 1400,
+        "SHORT": 192
+      }
+    },
+    "GBPUSD": {
+      "OOS": {
+        "LONG": 237,
+        "NO_TRADE": 1133,
+        "SHORT": 301
+      },
+      "TRAIN": {
+        "LONG": 1172,
+        "NO_TRADE": 6177,
+        "SHORT": 1162
+      },
+      "VALIDATION": {
+        "LONG": 233,
+        "NO_TRADE": 1265,
+        "SHORT": 240
+      }
+    },
+    "USDJPY": {
+      "OOS": {
+        "LONG": 511,
+        "NO_TRADE": 707,
+        "SHORT": 350
+      },
+      "TRAIN": {
+        "LONG": 1647,
+        "NO_TRADE": 5449,
+        "SHORT": 1415
+      },
+      "VALIDATION": {
+        "LONG": 489,
+        "NO_TRADE": 729,
+        "SHORT": 519
+      }
+    },
+    "XAUUSD": {
+      "OOS": {
+        "LONG": 649,
+        "NO_TRADE": 245,
+        "SHORT": 705
+      },
+      "TRAIN": {
+        "LONG": 3473,
+        "NO_TRADE": 1437,
+        "SHORT": 3253
+      },
+      "VALIDATION": {
+        "LONG": 538,
+        "NO_TRADE": 299,
+        "SHORT": 698
+      }
+    }
+  },
+  "exclusions": {
+    "LABEL_HORIZON_CROSSES_SPLIT|BTCUSD|TRAIN": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|BTCUSD|VALIDATION": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|ETHUSD|TRAIN": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|ETHUSD|VALIDATION": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|EURUSD|TRAIN": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|EURUSD|VALIDATION": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|GBPUSD|TRAIN": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|GBPUSD|VALIDATION": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|USDJPY|TRAIN": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|USDJPY|VALIDATION": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|XAUUSD|TRAIN": 12,
+    "LABEL_HORIZON_CROSSES_SPLIT|XAUUSD|VALIDATION": 12,
+    "LABEL_HORIZON_UNAVAILABLE|BTCUSD|OOS": 12,
+    "LABEL_HORIZON_UNAVAILABLE|ETHUSD|OOS": 12,
+    "LABEL_HORIZON_UNAVAILABLE|EURUSD|OOS": 12,
+    "LABEL_HORIZON_UNAVAILABLE|GBPUSD|OOS": 12,
+    "LABEL_HORIZON_UNAVAILABLE|USDJPY|OOS": 12,
+    "LABEL_HORIZON_UNAVAILABLE|XAUUSD|OOS": 12
+  },
+  "included_cross_split_labels": 0,
+  "label_policy": {
+    "cost_assumptions": {
+      "point_size": 1e-05,
+      "slippage_points_each_side": 2.0,
+      "spread_points": 1.0
+    },
+    "horizon_bars": 12,
+    "long_threshold": 0.0005,
+    "no_trade_zone": "(-0.00050, 0.00050)",
+    "price_reference": "M5_CLOSE",
+    "short_threshold": -0.0005,
+    "timeframe": "M5",
+    "version": "label-spec-v1"
+  },
+  "pathological_classes": [],
+  "usable_for_training": true
+}

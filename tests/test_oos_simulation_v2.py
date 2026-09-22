@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 
 from ai.oos_simulation_v2 import simulate_locked_oos_v2
+from ai.oos_simulation_v3 import simulate_locked_oos_v3
 from ai.types import ProposalAction
 from backtesting.symbol_economics import SymbolEconomics
 
@@ -27,3 +28,18 @@ def test_gold_contract_and_closed_session_unfilled_signal():
     assert result["gross_pnl_usd"] == 2.
     assert result["transaction_costs_usd"] == .6
     assert result["slippage_usd"] == .02
+
+
+def test_brain_v3_six_symbol_economics_are_required_and_reported():
+    model = FixedModel()
+    model.version = "Brain-v3"
+    at = datetime(2026, 9, 20, 12)
+    rows = [{"symbol": "BTCUSD", "split": "OOS", "features": {}, "timestamp": at,
+             "entry_open": 80000., "entry_spread_points": 500, "exit_close": 80100.,
+             "target_raw_data_cutoff": at + timedelta(hours=1)}]
+    contracts = {symbol: SymbolEconomics(symbol, 1., .01, .01, "USD", .01)
+        for symbol in ("EURUSD", "GBPUSD", "USDJPY", "XAUUSD", "BTCUSD", "ETHUSD")}
+    result = simulate_locked_oos_v3(model, rows, threshold=.4, contracts=contracts)
+    assert result["prediction_count"] == 1
+    assert result["per_symbol"]["BTCUSD"]["simulated_trade_count"] == 1
+    assert result["per_symbol"]["EURUSD"]["coverage_status"] == "NO_OOS_ROWS"

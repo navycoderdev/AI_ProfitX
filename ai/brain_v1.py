@@ -46,7 +46,10 @@ class BrainV1Dataset:
             joined = session.execute(select(DatasetRow, FeatureSnapshot).join(FeatureSnapshot,
                 FeatureSnapshot.snapshot_id == DatasetRow.feature_snapshot_id).where(DatasetRow.dataset_id == manifest.dataset_id)
                 .order_by(DatasetRow.decision_at)).all()
-            bars = list(session.scalars(select(RawMarketBar).where(RawMarketBar.timeframe == "M5").order_by(RawMarketBar.symbol, RawMarketBar.timestamp)))
+            bar_query = select(RawMarketBar).where(RawMarketBar.timeframe == "M5")
+            if manifest.source and ":" in manifest.source:
+                bar_query = bar_query.where(RawMarketBar.source == manifest.source)
+            bars = list(session.scalars(bar_query.order_by(RawMarketBar.symbol, RawMarketBar.timestamp)))
         market = {(bar.symbol, bar.timestamp): bar for bar in bars}; grouped = defaultdict(list)
         for member, snapshot in joined: grouped[member.symbol].append((member, snapshot))
         rows, exclusions, feature_names = [], Counter(), None

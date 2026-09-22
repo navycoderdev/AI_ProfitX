@@ -1,0 +1,1249 @@
+{
+  "classification_counts": {
+    "GENUINE_MARKET_MOVE": 1633,
+    "POSSIBLE_DATA_GAP": 114
+  },
+  "orders_submitted": 0,
+  "quality_gate": "PASS",
+  "source": "MT5:ICMarketsSC-Demo",
+  "symbols": {
+    "BTCUSD": {
+      "status": "PASS",
+      "timeframes": {
+        "H1": {
+          "bad_data_outliers": 0,
+          "count": 1461,
+          "duplicates": 0,
+          "end": "2026-09-21T19:00:00+00:00",
+          "gaps": 1,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-07-25T14:00:00+00:00",
+              "mask_id": "32981239-36ba-4698-9845-c571a1f263de",
+              "missing_candles": 4,
+              "start": "2026-07-25T10:00:00+00:00"
+            }
+          ],
+          "range_outliers": 4,
+          "start": "2026-07-22T19:00:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 1
+        },
+        "H4": {
+          "bad_data_outliers": 0,
+          "count": 366,
+          "duplicates": 0,
+          "end": "2026-09-21T16:00:00+00:00",
+          "gaps": 0,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [],
+          "range_outliers": 0,
+          "start": "2026-07-22T20:00:00+00:00",
+          "status": "PASS",
+          "unresolved_gaps": 0
+        },
+        "M1": {
+          "bad_data_outliers": 0,
+          "count": 86966,
+          "duplicates": 0,
+          "end": "2026-09-21T20:15:00+00:00",
+          "gaps": 80,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-07-24T00:12:00+00:00",
+              "mask_id": "af59f549-fc8d-4f8f-b41b-1240229ebd15",
+              "missing_candles": 1,
+              "start": "2026-07-24T00:11:00+00:00"
+            },
+            {
+              "end": "2026-07-24T08:15:00+00:00",
+              "mask_id": "70ec6f1c-cff2-4736-a09f-192973f8b2fd",
+              "missing_candles": 1,
+              "start": "2026-07-24T08:14:00+00:00"
+            },
+            {
+              "end": "2026-07-25T00:57:00+00:00",
+              "mask_id": "9ef3a921-1912-4a21-b9f5-d1df009e6e35",
+              "missing_candles": 62,
+              "start": "2026-07-24T23:55:00+00:00"
+            },
+            {
+              "end": "2026-07-25T14:30:00+00:00",
+              "mask_id": "29feac4c-dca3-4dbc-9457-6811e23e62ae",
+              "missing_candles": 299,
+              "start": "2026-07-25T09:31:00+00:00"
+            },
+            {
+              "end": "2026-07-25T16:03:00+00:00",
+              "mask_id": "2dd105c3-c73f-455d-a896-2abe990ac2ef",
+              "missing_candles": 12,
+              "start": "2026-07-25T15:51:00+00:00"
+            },
+            {
+              "end": "2026-07-28T00:12:00+00:00",
+              "mask_id": "ef1aecdc-a170-4207-8d73-b6dd66e14f63",
+              "missing_candles": 1,
+              "start": "2026-07-28T00:11:00+00:00"
+            },
+            {
+              "end": "2026-08-29T03:47:00+00:00",
+              "mask_id": "d9cc3ad6-e80c-4399-aa47-7b387dc6ce53",
+              "missing_candles": 1,
+              "start": "2026-08-29T03:46:00+00:00"
+            },
+            {
+              "end": "2026-08-29T17:37:00+00:00",
+              "mask_id": "3a29c154-d709-44c9-bbdf-eb8f318db8a4",
+              "missing_candles": 13,
+              "start": "2026-08-29T17:24:00+00:00"
+            },
+            {
+              "end": "2026-09-05T21:38:00+00:00",
+              "mask_id": "216f1e53-edb1-4965-860c-062b60999128",
+              "missing_candles": 1,
+              "start": "2026-09-05T21:37:00+00:00"
+            },
+            {
+              "end": "2026-09-09T00:12:00+00:00",
+              "mask_id": "7bfb2f63-d5d3-498a-85a9-4519905e7e39",
+              "missing_candles": 1,
+              "start": "2026-09-09T00:11:00+00:00"
+            },
+            {
+              "end": "2026-09-13T20:41:00+00:00",
+              "mask_id": "8b570f3d-99a2-446e-8186-da710714bde8",
+              "missing_candles": 1,
+              "start": "2026-09-13T20:40:00+00:00"
+            },
+            {
+              "end": "2026-09-15T00:12:00+00:00",
+              "mask_id": "24153099-8fef-450b-918a-a02aa066930c",
+              "missing_candles": 1,
+              "start": "2026-09-15T00:11:00+00:00"
+            },
+            {
+              "end": "2026-09-19T00:57:00+00:00",
+              "mask_id": "66e2286e-0082-491e-9d12-4f89d70f51ed",
+              "missing_candles": 62,
+              "start": "2026-09-18T23:55:00+00:00"
+            },
+            {
+              "end": "2026-09-19T01:19:00+00:00",
+              "mask_id": "aaa91628-e22a-4bfe-a6dc-e97bbb4c73dc",
+              "missing_candles": 7,
+              "start": "2026-09-19T01:12:00+00:00"
+            },
+            {
+              "end": "2026-09-19T01:58:00+00:00",
+              "mask_id": "a44a01e1-8aaa-42ff-8fc6-4aac220f19df",
+              "missing_candles": 7,
+              "start": "2026-09-19T01:51:00+00:00"
+            },
+            {
+              "end": "2026-09-19T15:27:00+00:00",
+              "mask_id": "6e498f04-6f9f-492a-a13f-11a730f9029e",
+              "missing_candles": 7,
+              "start": "2026-09-19T15:20:00+00:00"
+            },
+            {
+              "end": "2026-09-19T17:49:00+00:00",
+              "mask_id": "e5d69891-e6b4-4557-9cd3-8a000503b984",
+              "missing_candles": 5,
+              "start": "2026-09-19T17:44:00+00:00"
+            },
+            {
+              "end": "2026-09-20T03:34:00+00:00",
+              "mask_id": "2cb0b6e2-74fb-4d7e-9fd2-5a60061bd61f",
+              "missing_candles": 8,
+              "start": "2026-09-20T03:26:00+00:00"
+            }
+          ],
+          "range_outliers": 244,
+          "start": "2026-07-22T18:30:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 18
+        },
+        "M15": {
+          "bad_data_outliers": 0,
+          "count": 5817,
+          "duplicates": 0,
+          "end": "2026-09-21T20:00:00+00:00",
+          "gaps": 10,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-07-25T14:30:00+00:00",
+              "mask_id": "11b92776-c9f1-4200-a414-8b3a71b12d0d",
+              "missing_candles": 19,
+              "start": "2026-07-25T09:45:00+00:00"
+            }
+          ],
+          "range_outliers": 19,
+          "start": "2026-07-22T18:30:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 1
+        },
+        "M30": {
+          "bad_data_outliers": 0,
+          "count": 2913,
+          "duplicates": 0,
+          "end": "2026-09-21T19:30:00+00:00",
+          "gaps": 10,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-07-25T14:30:00+00:00",
+              "mask_id": "62508f73-2977-4fe7-8754-5995cc96993e",
+              "missing_candles": 9,
+              "start": "2026-07-25T10:00:00+00:00"
+            }
+          ],
+          "range_outliers": 11,
+          "start": "2026-07-22T18:30:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 1
+        },
+        "M5": {
+          "bad_data_outliers": 0,
+          "count": 17421,
+          "duplicates": 0,
+          "end": "2026-09-21T20:10:00+00:00",
+          "gaps": 16,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-07-25T14:30:00+00:00",
+              "mask_id": "fa953fd1-a9b4-4104-b1ed-038f5a9b8f81",
+              "missing_candles": 59,
+              "start": "2026-07-25T09:35:00+00:00"
+            },
+            {
+              "end": "2026-07-25T16:00:00+00:00",
+              "mask_id": "b86486c1-36ef-406e-ba88-b8760dc4ba1d",
+              "missing_candles": 1,
+              "start": "2026-07-25T15:55:00+00:00"
+            },
+            {
+              "end": "2026-08-29T17:35:00+00:00",
+              "mask_id": "68decade-460a-4a48-b829-f1b4649e5262",
+              "missing_candles": 2,
+              "start": "2026-08-29T17:25:00+00:00"
+            },
+            {
+              "end": "2026-09-19T15:25:00+00:00",
+              "mask_id": "cc6d13f9-561f-4ea8-94d8-12ab3a628213",
+              "missing_candles": 1,
+              "start": "2026-09-19T15:20:00+00:00"
+            }
+          ],
+          "range_outliers": 53,
+          "start": "2026-07-22T18:30:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 4
+        }
+      }
+    },
+    "ETHUSD": {
+      "status": "PASS",
+      "timeframes": {
+        "H1": {
+          "bad_data_outliers": 0,
+          "count": 1435,
+          "duplicates": 0,
+          "end": "2026-09-21T19:00:00+00:00",
+          "gaps": 1,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-07-25T14:00:00+00:00",
+              "mask_id": "b839c021-19f0-43ac-a251-b15b124aa85e",
+              "missing_candles": 4,
+              "start": "2026-07-25T10:00:00+00:00"
+            }
+          ],
+          "range_outliers": 5,
+          "start": "2026-07-23T21:00:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 1
+        },
+        "H4": {
+          "bad_data_outliers": 0,
+          "count": 359,
+          "duplicates": 0,
+          "end": "2026-09-21T16:00:00+00:00",
+          "gaps": 0,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [],
+          "range_outliers": 0,
+          "start": "2026-07-24T00:00:00+00:00",
+          "status": "PASS",
+          "unresolved_gaps": 0
+        },
+        "M1": {
+          "bad_data_outliers": 0,
+          "count": 85384,
+          "duplicates": 0,
+          "end": "2026-09-21T20:15:00+00:00",
+          "gaps": 115,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-07-24T00:12:00+00:00",
+              "mask_id": "23be04fc-e993-4c3f-811c-0a6e1a793cbb",
+              "missing_candles": 1,
+              "start": "2026-07-24T00:11:00+00:00"
+            },
+            {
+              "end": "2026-07-24T08:15:00+00:00",
+              "mask_id": "7f74b82d-f79a-499c-8b01-0f9ce2e3d7b7",
+              "missing_candles": 1,
+              "start": "2026-07-24T08:14:00+00:00"
+            },
+            {
+              "end": "2026-07-25T00:57:00+00:00",
+              "mask_id": "fdc53aa4-29e8-469b-8eb5-6466f25e8975",
+              "missing_candles": 62,
+              "start": "2026-07-24T23:55:00+00:00"
+            },
+            {
+              "end": "2026-07-25T14:30:00+00:00",
+              "mask_id": "f1df48af-fa08-411f-b2b0-611360a0bdb5",
+              "missing_candles": 299,
+              "start": "2026-07-25T09:31:00+00:00"
+            },
+            {
+              "end": "2026-07-25T16:03:00+00:00",
+              "mask_id": "a0d51bc7-4059-473c-9c2a-a6f7aac018b5",
+              "missing_candles": 13,
+              "start": "2026-07-25T15:50:00+00:00"
+            },
+            {
+              "end": "2026-07-26T05:45:00+00:00",
+              "mask_id": "05a2ac57-ed2e-43db-b8ed-82330fc45228",
+              "missing_candles": 1,
+              "start": "2026-07-26T05:44:00+00:00"
+            },
+            {
+              "end": "2026-07-28T00:12:00+00:00",
+              "mask_id": "bee16bd9-2a73-48ee-a5b1-b0eb91241c71",
+              "missing_candles": 1,
+              "start": "2026-07-28T00:11:00+00:00"
+            },
+            {
+              "end": "2026-08-01T14:11:00+00:00",
+              "mask_id": "6024e7ba-ef43-4571-882f-2a893d52a72f",
+              "missing_candles": 1,
+              "start": "2026-08-01T14:10:00+00:00"
+            },
+            {
+              "end": "2026-08-08T04:51:00+00:00",
+              "mask_id": "840b4648-1ddb-47fa-872d-5797b6ea7daf",
+              "missing_candles": 1,
+              "start": "2026-08-08T04:50:00+00:00"
+            },
+            {
+              "end": "2026-08-08T06:09:00+00:00",
+              "mask_id": "481c7bee-dd6b-48c0-a930-2fbfa942af37",
+              "missing_candles": 1,
+              "start": "2026-08-08T06:08:00+00:00"
+            },
+            {
+              "end": "2026-08-09T20:12:00+00:00",
+              "mask_id": "807f1820-7aea-4e39-bd51-ea58babfc48d",
+              "missing_candles": 1,
+              "start": "2026-08-09T20:11:00+00:00"
+            },
+            {
+              "end": "2026-08-09T20:57:00+00:00",
+              "mask_id": "8de49f95-ce82-4878-8d8b-2886edbcc50b",
+              "missing_candles": 1,
+              "start": "2026-08-09T20:56:00+00:00"
+            },
+            {
+              "end": "2026-08-15T08:20:00+00:00",
+              "mask_id": "0f3b5b9b-051f-46ea-a52e-ea9c8abc5eef",
+              "missing_candles": 1,
+              "start": "2026-08-15T08:19:00+00:00"
+            },
+            {
+              "end": "2026-08-15T09:33:00+00:00",
+              "mask_id": "dc344b25-98b1-4f10-8ac1-6707e0d4bfdb",
+              "missing_candles": 1,
+              "start": "2026-08-15T09:32:00+00:00"
+            },
+            {
+              "end": "2026-08-15T14:30:00+00:00",
+              "mask_id": "4af57d89-ba55-46a0-b22d-54c063de5cfa",
+              "missing_candles": 1,
+              "start": "2026-08-15T14:29:00+00:00"
+            },
+            {
+              "end": "2026-08-15T17:13:00+00:00",
+              "mask_id": "340f76fa-f447-4da0-a340-65135da1714b",
+              "missing_candles": 1,
+              "start": "2026-08-15T17:12:00+00:00"
+            },
+            {
+              "end": "2026-08-15T21:03:00+00:00",
+              "mask_id": "f17568f9-9942-4fdd-933e-159c636c7ecb",
+              "missing_candles": 2,
+              "start": "2026-08-15T21:01:00+00:00"
+            },
+            {
+              "end": "2026-08-15T22:15:00+00:00",
+              "mask_id": "486f9bb4-0176-45d7-a1da-a484c441ec7b",
+              "missing_candles": 1,
+              "start": "2026-08-15T22:14:00+00:00"
+            },
+            {
+              "end": "2026-08-15T23:20:00+00:00",
+              "mask_id": "ac2a649f-9cd2-41df-a28c-d886d70cfa2f",
+              "missing_candles": 1,
+              "start": "2026-08-15T23:19:00+00:00"
+            },
+            {
+              "end": "2026-08-16T00:33:00+00:00",
+              "mask_id": "893964ab-0e68-473b-8032-64efb43d886a",
+              "missing_candles": 1,
+              "start": "2026-08-16T00:32:00+00:00"
+            },
+            {
+              "end": "2026-08-16T01:10:00+00:00",
+              "mask_id": "9bce6a17-a5a3-4a38-afd3-6b8a21da2334",
+              "missing_candles": 1,
+              "start": "2026-08-16T01:09:00+00:00"
+            },
+            {
+              "end": "2026-08-16T01:14:00+00:00",
+              "mask_id": "9a99c685-7cf3-48aa-8704-65746dc18026",
+              "missing_candles": 1,
+              "start": "2026-08-16T01:13:00+00:00"
+            },
+            {
+              "end": "2026-08-16T01:28:00+00:00",
+              "mask_id": "d2cb39cf-0114-4616-ba00-1eee6f337e91",
+              "missing_candles": 1,
+              "start": "2026-08-16T01:27:00+00:00"
+            },
+            {
+              "end": "2026-08-16T06:21:00+00:00",
+              "mask_id": "73230c9a-32df-4f53-9091-94ee18b75b24",
+              "missing_candles": 1,
+              "start": "2026-08-16T06:20:00+00:00"
+            },
+            {
+              "end": "2026-08-16T06:40:00+00:00",
+              "mask_id": "f1f9cf18-c862-474a-8849-53d0b012188b",
+              "missing_candles": 1,
+              "start": "2026-08-16T06:39:00+00:00"
+            },
+            {
+              "end": "2026-08-16T06:50:00+00:00",
+              "mask_id": "e75b2f21-c447-4e88-af17-2231dcaea90d",
+              "missing_candles": 1,
+              "start": "2026-08-16T06:49:00+00:00"
+            },
+            {
+              "end": "2026-08-16T10:33:00+00:00",
+              "mask_id": "af928304-25c2-4df1-b404-91c17c36f228",
+              "missing_candles": 1,
+              "start": "2026-08-16T10:32:00+00:00"
+            },
+            {
+              "end": "2026-08-16T10:43:00+00:00",
+              "mask_id": "f081839d-e10d-4185-ab02-3ee89154688b",
+              "missing_candles": 2,
+              "start": "2026-08-16T10:41:00+00:00"
+            },
+            {
+              "end": "2026-08-16T10:50:00+00:00",
+              "mask_id": "f8bc90ee-534b-4d3d-a7d1-e4c92b7e2ad1",
+              "missing_candles": 1,
+              "start": "2026-08-16T10:49:00+00:00"
+            },
+            {
+              "end": "2026-08-16T11:02:00+00:00",
+              "mask_id": "8d91840a-76c0-4df3-84fc-797b55efeca8",
+              "missing_candles": 1,
+              "start": "2026-08-16T11:01:00+00:00"
+            },
+            {
+              "end": "2026-08-16T14:20:00+00:00",
+              "mask_id": "7779cac4-506d-471e-9962-a2fc4be4b5b2",
+              "missing_candles": 1,
+              "start": "2026-08-16T14:19:00+00:00"
+            },
+            {
+              "end": "2026-08-16T14:43:00+00:00",
+              "mask_id": "2d6fb4b1-21c4-4ab6-9d52-ecc31c8ea29c",
+              "missing_candles": 1,
+              "start": "2026-08-16T14:42:00+00:00"
+            },
+            {
+              "end": "2026-08-16T14:49:00+00:00",
+              "mask_id": "2e0d618a-3b97-4921-b5f2-0d399b7c988b",
+              "missing_candles": 1,
+              "start": "2026-08-16T14:48:00+00:00"
+            },
+            {
+              "end": "2026-08-16T15:03:00+00:00",
+              "mask_id": "97b283eb-b024-486f-bc60-b708eb00d7a1",
+              "missing_candles": 1,
+              "start": "2026-08-16T15:02:00+00:00"
+            },
+            {
+              "end": "2026-08-16T15:08:00+00:00",
+              "mask_id": "ad2a4bb8-8b27-41bd-b4a0-8b5651263451",
+              "missing_candles": 1,
+              "start": "2026-08-16T15:07:00+00:00"
+            },
+            {
+              "end": "2026-08-16T15:21:00+00:00",
+              "mask_id": "9dfc8f86-a784-4961-8ccf-abe4c594a774",
+              "missing_candles": 1,
+              "start": "2026-08-16T15:20:00+00:00"
+            },
+            {
+              "end": "2026-08-16T15:52:00+00:00",
+              "mask_id": "5fe9548c-7440-488b-b34a-e0114575165a",
+              "missing_candles": 1,
+              "start": "2026-08-16T15:51:00+00:00"
+            },
+            {
+              "end": "2026-08-16T16:04:00+00:00",
+              "mask_id": "e84b7134-a712-4549-919a-c5e5fcb6a65b",
+              "missing_candles": 1,
+              "start": "2026-08-16T16:03:00+00:00"
+            },
+            {
+              "end": "2026-08-16T16:43:00+00:00",
+              "mask_id": "f443d4b6-7b19-4098-849c-2517663fb495",
+              "missing_candles": 1,
+              "start": "2026-08-16T16:42:00+00:00"
+            },
+            {
+              "end": "2026-08-16T18:30:00+00:00",
+              "mask_id": "dc27a987-dab7-4879-8bb6-e01ff5015f11",
+              "missing_candles": 1,
+              "start": "2026-08-16T18:29:00+00:00"
+            },
+            {
+              "end": "2026-08-16T23:18:00+00:00",
+              "mask_id": "d2c7ce00-437c-4a0a-aa17-50f91915a11e",
+              "missing_candles": 1,
+              "start": "2026-08-16T23:17:00+00:00"
+            },
+            {
+              "end": "2026-08-29T03:47:00+00:00",
+              "mask_id": "643a5550-f5e4-4d70-a6cb-28c8a3054841",
+              "missing_candles": 1,
+              "start": "2026-08-29T03:46:00+00:00"
+            },
+            {
+              "end": "2026-08-29T17:37:00+00:00",
+              "mask_id": "5d978cfa-16d7-4c66-a038-555b156c193f",
+              "missing_candles": 13,
+              "start": "2026-08-29T17:24:00+00:00"
+            },
+            {
+              "end": "2026-09-05T21:38:00+00:00",
+              "mask_id": "28c55870-3783-4598-af20-e159bc8415de",
+              "missing_candles": 1,
+              "start": "2026-09-05T21:37:00+00:00"
+            },
+            {
+              "end": "2026-09-09T00:12:00+00:00",
+              "mask_id": "e56269b3-4be6-4037-bac2-d38bd143d38b",
+              "missing_candles": 1,
+              "start": "2026-09-09T00:11:00+00:00"
+            },
+            {
+              "end": "2026-09-13T20:41:00+00:00",
+              "mask_id": "54b1ef25-69f0-48e7-8c34-e4eba5f4fad1",
+              "missing_candles": 1,
+              "start": "2026-09-13T20:40:00+00:00"
+            },
+            {
+              "end": "2026-09-15T00:12:00+00:00",
+              "mask_id": "a3d8a1bd-220f-479e-93c2-3ef8b2b17af1",
+              "missing_candles": 1,
+              "start": "2026-09-15T00:11:00+00:00"
+            },
+            {
+              "end": "2026-09-19T00:57:00+00:00",
+              "mask_id": "033eff5d-e00c-493b-8f10-8e128974c638",
+              "missing_candles": 62,
+              "start": "2026-09-18T23:55:00+00:00"
+            },
+            {
+              "end": "2026-09-19T01:19:00+00:00",
+              "mask_id": "e5fa8899-87c1-43e9-829d-052b2735812b",
+              "missing_candles": 7,
+              "start": "2026-09-19T01:12:00+00:00"
+            },
+            {
+              "end": "2026-09-19T01:58:00+00:00",
+              "mask_id": "b714e320-e910-42ee-99f5-e5bfaf5b15a0",
+              "missing_candles": 7,
+              "start": "2026-09-19T01:51:00+00:00"
+            },
+            {
+              "end": "2026-09-19T15:27:00+00:00",
+              "mask_id": "6b34ce60-c51b-4c8e-a014-1ffbea4eef30",
+              "missing_candles": 7,
+              "start": "2026-09-19T15:20:00+00:00"
+            },
+            {
+              "end": "2026-09-19T17:49:00+00:00",
+              "mask_id": "bc0cbed2-c811-476c-b786-649b1ed3ec0f",
+              "missing_candles": 5,
+              "start": "2026-09-19T17:44:00+00:00"
+            },
+            {
+              "end": "2026-09-20T03:34:00+00:00",
+              "mask_id": "f0d94870-266f-400c-866d-c1789e1a48e5",
+              "missing_candles": 8,
+              "start": "2026-09-20T03:26:00+00:00"
+            }
+          ],
+          "range_outliers": 122,
+          "start": "2026-07-23T20:16:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 53
+        },
+        "M15": {
+          "bad_data_outliers": 0,
+          "count": 5713,
+          "duplicates": 0,
+          "end": "2026-09-21T20:00:00+00:00",
+          "gaps": 10,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-07-25T14:30:00+00:00",
+              "mask_id": "a93a8c17-ee0e-4c00-9a3d-305d65e54aae",
+              "missing_candles": 19,
+              "start": "2026-07-25T09:45:00+00:00"
+            }
+          ],
+          "range_outliers": 13,
+          "start": "2026-07-23T20:30:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 1
+        },
+        "M30": {
+          "bad_data_outliers": 0,
+          "count": 2861,
+          "duplicates": 0,
+          "end": "2026-09-21T19:30:00+00:00",
+          "gaps": 10,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-07-25T14:30:00+00:00",
+              "mask_id": "d9833e5f-a358-441f-a459-24d233ed0f91",
+              "missing_candles": 9,
+              "start": "2026-07-25T10:00:00+00:00"
+            }
+          ],
+          "range_outliers": 8,
+          "start": "2026-07-23T20:30:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 1
+        },
+        "M5": {
+          "bad_data_outliers": 0,
+          "count": 17111,
+          "duplicates": 0,
+          "end": "2026-09-21T20:10:00+00:00",
+          "gaps": 17,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-07-25T14:30:00+00:00",
+              "mask_id": "a3570f2c-d897-4e35-aa93-2069ac4a79dc",
+              "missing_candles": 59,
+              "start": "2026-07-25T09:35:00+00:00"
+            },
+            {
+              "end": "2026-07-25T16:00:00+00:00",
+              "mask_id": "e0cc82d4-fdef-43e4-94ae-f5aabbc147c3",
+              "missing_candles": 2,
+              "start": "2026-07-25T15:50:00+00:00"
+            },
+            {
+              "end": "2026-08-29T17:35:00+00:00",
+              "mask_id": "b01d9439-c036-411a-ae82-8d03cd9cf52b",
+              "missing_candles": 2,
+              "start": "2026-08-29T17:25:00+00:00"
+            },
+            {
+              "end": "2026-09-19T15:25:00+00:00",
+              "mask_id": "423405ff-9290-426f-b58e-ccca0bd2742a",
+              "missing_candles": 1,
+              "start": "2026-09-19T15:20:00+00:00"
+            }
+          ],
+          "range_outliers": 26,
+          "start": "2026-07-23T20:20:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 4
+        }
+      }
+    },
+    "EURUSD": {
+      "status": "PASS",
+      "timeframes": {
+        "H1": {
+          "bad_data_outliers": 0,
+          "count": 1007,
+          "duplicates": 0,
+          "end": "2026-09-21T19:00:00+00:00",
+          "gaps": 9,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [],
+          "range_outliers": 2,
+          "start": "2026-07-23T21:00:00+00:00",
+          "status": "PASS",
+          "unresolved_gaps": 0
+        },
+        "H4": {
+          "bad_data_outliers": 0,
+          "count": 251,
+          "duplicates": 0,
+          "end": "2026-09-21T16:00:00+00:00",
+          "gaps": 9,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [],
+          "range_outliers": 0,
+          "start": "2026-07-24T00:00:00+00:00",
+          "status": "PASS",
+          "unresolved_gaps": 0
+        },
+        "M1": {
+          "bad_data_outliers": 0,
+          "count": 60415,
+          "duplicates": 0,
+          "end": "2026-09-21T20:15:00+00:00",
+          "gaps": 47,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-07-24T00:12:00+00:00",
+              "mask_id": "c4fd05c7-fb1e-4e06-8f53-38313276b956",
+              "missing_candles": 1,
+              "start": "2026-07-24T00:11:00+00:00"
+            },
+            {
+              "end": "2026-07-24T08:15:00+00:00",
+              "mask_id": "ddcf70cb-1b24-40b4-a862-91625aa82231",
+              "missing_candles": 1,
+              "start": "2026-07-24T08:14:00+00:00"
+            },
+            {
+              "end": "2026-07-28T00:12:00+00:00",
+              "mask_id": "c07bcdfd-ec0e-4cab-847d-5142269fcf57",
+              "missing_candles": 1,
+              "start": "2026-07-28T00:11:00+00:00"
+            },
+            {
+              "end": "2026-09-09T00:12:00+00:00",
+              "mask_id": "a7db5baa-60e0-43e8-bb33-b36e4f4b1807",
+              "missing_candles": 1,
+              "start": "2026-09-09T00:11:00+00:00"
+            },
+            {
+              "end": "2026-09-15T00:12:00+00:00",
+              "mask_id": "f80ecc3a-d1b6-41c0-a312-dc7a4c4a73a9",
+              "missing_candles": 1,
+              "start": "2026-09-15T00:11:00+00:00"
+            }
+          ],
+          "range_outliers": 121,
+          "start": "2026-07-23T20:16:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 5
+        },
+        "M15": {
+          "bad_data_outliers": 0,
+          "count": 4031,
+          "duplicates": 0,
+          "end": "2026-09-21T20:00:00+00:00",
+          "gaps": 9,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [],
+          "range_outliers": 10,
+          "start": "2026-07-23T20:30:00+00:00",
+          "status": "PASS",
+          "unresolved_gaps": 0
+        },
+        "M30": {
+          "bad_data_outliers": 0,
+          "count": 2015,
+          "duplicates": 0,
+          "end": "2026-09-21T19:30:00+00:00",
+          "gaps": 9,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [],
+          "range_outliers": 6,
+          "start": "2026-07-23T20:30:00+00:00",
+          "status": "PASS",
+          "unresolved_gaps": 0
+        },
+        "M5": {
+          "bad_data_outliers": 0,
+          "count": 12095,
+          "duplicates": 0,
+          "end": "2026-09-21T20:10:00+00:00",
+          "gaps": 9,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [],
+          "range_outliers": 20,
+          "start": "2026-07-23T20:20:00+00:00",
+          "status": "PASS",
+          "unresolved_gaps": 0
+        }
+      }
+    },
+    "GBPUSD": {
+      "status": "PASS",
+      "timeframes": {
+        "H1": {
+          "bad_data_outliers": 0,
+          "count": 1007,
+          "duplicates": 0,
+          "end": "2026-09-21T19:00:00+00:00",
+          "gaps": 9,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [],
+          "range_outliers": 1,
+          "start": "2026-07-23T21:00:00+00:00",
+          "status": "PASS",
+          "unresolved_gaps": 0
+        },
+        "H4": {
+          "bad_data_outliers": 0,
+          "count": 251,
+          "duplicates": 0,
+          "end": "2026-09-21T16:00:00+00:00",
+          "gaps": 9,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [],
+          "range_outliers": 0,
+          "start": "2026-07-24T00:00:00+00:00",
+          "status": "PASS",
+          "unresolved_gaps": 0
+        },
+        "M1": {
+          "bad_data_outliers": 0,
+          "count": 60415,
+          "duplicates": 0,
+          "end": "2026-09-21T20:15:00+00:00",
+          "gaps": 47,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-07-24T00:12:00+00:00",
+              "mask_id": "d5ce9f1f-f389-420f-8a7f-d9b37c239d56",
+              "missing_candles": 1,
+              "start": "2026-07-24T00:11:00+00:00"
+            },
+            {
+              "end": "2026-07-24T08:15:00+00:00",
+              "mask_id": "386fe33b-64ed-4f7c-b235-1a44a59a7cb8",
+              "missing_candles": 1,
+              "start": "2026-07-24T08:14:00+00:00"
+            },
+            {
+              "end": "2026-07-28T00:12:00+00:00",
+              "mask_id": "a3a67d74-109a-4ca8-a612-d17d3d605055",
+              "missing_candles": 1,
+              "start": "2026-07-28T00:11:00+00:00"
+            },
+            {
+              "end": "2026-09-09T00:12:00+00:00",
+              "mask_id": "08d23ce6-10fc-4e8e-a336-a9cea54beea0",
+              "missing_candles": 1,
+              "start": "2026-09-09T00:11:00+00:00"
+            },
+            {
+              "end": "2026-09-15T00:12:00+00:00",
+              "mask_id": "1a6611e0-ff89-487e-a086-90dc520ec96a",
+              "missing_candles": 1,
+              "start": "2026-09-15T00:11:00+00:00"
+            }
+          ],
+          "range_outliers": 105,
+          "start": "2026-07-23T20:16:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 5
+        },
+        "M15": {
+          "bad_data_outliers": 0,
+          "count": 4031,
+          "duplicates": 0,
+          "end": "2026-09-21T20:00:00+00:00",
+          "gaps": 9,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [],
+          "range_outliers": 7,
+          "start": "2026-07-23T20:30:00+00:00",
+          "status": "PASS",
+          "unresolved_gaps": 0
+        },
+        "M30": {
+          "bad_data_outliers": 0,
+          "count": 2015,
+          "duplicates": 0,
+          "end": "2026-09-21T19:30:00+00:00",
+          "gaps": 9,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [],
+          "range_outliers": 4,
+          "start": "2026-07-23T20:30:00+00:00",
+          "status": "PASS",
+          "unresolved_gaps": 0
+        },
+        "M5": {
+          "bad_data_outliers": 0,
+          "count": 12095,
+          "duplicates": 0,
+          "end": "2026-09-21T20:10:00+00:00",
+          "gaps": 9,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [],
+          "range_outliers": 18,
+          "start": "2026-07-23T20:20:00+00:00",
+          "status": "PASS",
+          "unresolved_gaps": 0
+        }
+      }
+    },
+    "USDJPY": {
+      "status": "PASS",
+      "timeframes": {
+        "H1": {
+          "bad_data_outliers": 0,
+          "count": 1007,
+          "duplicates": 0,
+          "end": "2026-09-21T19:00:00+00:00",
+          "gaps": 9,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [],
+          "range_outliers": 13,
+          "start": "2026-07-23T21:00:00+00:00",
+          "status": "PASS",
+          "unresolved_gaps": 0
+        },
+        "H4": {
+          "bad_data_outliers": 0,
+          "count": 251,
+          "duplicates": 0,
+          "end": "2026-09-21T16:00:00+00:00",
+          "gaps": 9,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [],
+          "range_outliers": 2,
+          "start": "2026-07-24T00:00:00+00:00",
+          "status": "PASS",
+          "unresolved_gaps": 0
+        },
+        "M1": {
+          "bad_data_outliers": 0,
+          "count": 60399,
+          "duplicates": 0,
+          "end": "2026-09-21T20:15:00+00:00",
+          "gaps": 47,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-07-24T00:12:00+00:00",
+              "mask_id": "afabc574-a53c-42c7-9ecb-18da0a012ba0",
+              "missing_candles": 1,
+              "start": "2026-07-24T00:11:00+00:00"
+            },
+            {
+              "end": "2026-07-24T08:15:00+00:00",
+              "mask_id": "ad2413f1-c86e-4d59-b3e3-cc04f3d54cae",
+              "missing_candles": 1,
+              "start": "2026-07-24T08:14:00+00:00"
+            },
+            {
+              "end": "2026-07-28T00:12:00+00:00",
+              "mask_id": "549cba7e-6013-4cf1-bad2-8f6ed467df3b",
+              "missing_candles": 1,
+              "start": "2026-07-28T00:11:00+00:00"
+            },
+            {
+              "end": "2026-09-09T00:12:00+00:00",
+              "mask_id": "c134f842-2972-4e99-9118-0bf07ae23829",
+              "missing_candles": 1,
+              "start": "2026-09-09T00:11:00+00:00"
+            },
+            {
+              "end": "2026-09-14T00:16:00+00:00",
+              "mask_id": "ce751fef-4539-4b36-9a44-b016d86c4fe7",
+              "missing_candles": 2899,
+              "start": "2026-09-11T23:57:00+00:00"
+            },
+            {
+              "end": "2026-09-15T00:12:00+00:00",
+              "mask_id": "3249f1d3-747e-4869-83ab-dfdf4c801328",
+              "missing_candles": 1,
+              "start": "2026-09-15T00:11:00+00:00"
+            }
+          ],
+          "range_outliers": 564,
+          "start": "2026-07-23T20:16:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 6
+        },
+        "M15": {
+          "bad_data_outliers": 0,
+          "count": 4030,
+          "duplicates": 0,
+          "end": "2026-09-21T20:00:00+00:00",
+          "gaps": 9,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-09-14T00:15:00+00:00",
+              "mask_id": "803c9efa-8931-4adf-a4aa-013bb6fee521",
+              "missing_candles": 193,
+              "start": "2026-09-12T00:00:00+00:00"
+            }
+          ],
+          "range_outliers": 39,
+          "start": "2026-07-23T20:30:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 1
+        },
+        "M30": {
+          "bad_data_outliers": 0,
+          "count": 2015,
+          "duplicates": 0,
+          "end": "2026-09-21T19:30:00+00:00",
+          "gaps": 9,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [],
+          "range_outliers": 20,
+          "start": "2026-07-23T20:30:00+00:00",
+          "status": "PASS",
+          "unresolved_gaps": 0
+        },
+        "M5": {
+          "bad_data_outliers": 0,
+          "count": 12092,
+          "duplicates": 0,
+          "end": "2026-09-21T20:10:00+00:00",
+          "gaps": 9,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-09-14T00:15:00+00:00",
+              "mask_id": "315057d2-fad7-4ab3-84c6-f6131e841e2b",
+              "missing_candles": 579,
+              "start": "2026-09-12T00:00:00+00:00"
+            }
+          ],
+          "range_outliers": 104,
+          "start": "2026-07-23T20:20:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 1
+        }
+      }
+    },
+    "XAUUSD": {
+      "status": "PASS",
+      "timeframes": {
+        "H1": {
+          "bad_data_outliers": 0,
+          "count": 963,
+          "duplicates": 0,
+          "end": "2026-09-21T19:00:00+00:00",
+          "gaps": 42,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-09-08T01:00:00+00:00",
+              "mask_id": "99d640b8-ed66-42d2-bcf7-da92c5d70f4d",
+              "missing_candles": 3,
+              "start": "2026-09-07T22:00:00+00:00"
+            }
+          ],
+          "range_outliers": 0,
+          "start": "2026-07-23T21:00:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 1
+        },
+        "H4": {
+          "bad_data_outliers": 0,
+          "count": 251,
+          "duplicates": 0,
+          "end": "2026-09-21T16:00:00+00:00",
+          "gaps": 9,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [],
+          "range_outliers": 0,
+          "start": "2026-07-24T00:00:00+00:00",
+          "status": "PASS",
+          "unresolved_gaps": 0
+        },
+        "M1": {
+          "bad_data_outliers": 0,
+          "count": 57726,
+          "duplicates": 0,
+          "end": "2026-09-21T20:15:00+00:00",
+          "gaps": 43,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-07-24T08:15:00+00:00",
+              "mask_id": "8abf24fb-7a81-4e4a-b0cb-13bd91e485d1",
+              "missing_candles": 1,
+              "start": "2026-07-24T08:14:00+00:00"
+            },
+            {
+              "end": "2026-09-08T01:02:00+00:00",
+              "mask_id": "01cb5600-88bd-493e-9cdd-b7a415eab400",
+              "missing_candles": 212,
+              "start": "2026-09-07T21:30:00+00:00"
+            },
+            {
+              "end": "2026-09-09T01:02:00+00:00",
+              "mask_id": "e9244ffa-4a92-4215-bc18-19227c723052",
+              "missing_candles": 63,
+              "start": "2026-09-08T23:59:00+00:00"
+            },
+            {
+              "end": "2026-09-10T01:02:00+00:00",
+              "mask_id": "8d01c8e2-8a09-4764-9178-413e001d3324",
+              "missing_candles": 63,
+              "start": "2026-09-09T23:59:00+00:00"
+            },
+            {
+              "end": "2026-09-15T01:02:00+00:00",
+              "mask_id": "885b092c-25da-4168-b6d7-783f540b100b",
+              "missing_candles": 63,
+              "start": "2026-09-14T23:59:00+00:00"
+            },
+            {
+              "end": "2026-09-16T01:02:00+00:00",
+              "mask_id": "e636c278-c647-4c92-ac33-2b6e9b29c978",
+              "missing_candles": 63,
+              "start": "2026-09-15T23:59:00+00:00"
+            },
+            {
+              "end": "2026-09-17T01:02:00+00:00",
+              "mask_id": "d767ee33-f083-430e-b8dd-2d7e3683d0e7",
+              "missing_candles": 63,
+              "start": "2026-09-16T23:59:00+00:00"
+            }
+          ],
+          "range_outliers": 70,
+          "start": "2026-07-23T20:16:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 7
+        },
+        "M15": {
+          "bad_data_outliers": 0,
+          "count": 3853,
+          "duplicates": 0,
+          "end": "2026-09-21T20:00:00+00:00",
+          "gaps": 42,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-09-08T01:00:00+00:00",
+              "mask_id": "ae308ac6-97d5-432a-b73a-a4749478ba8f",
+              "missing_candles": 14,
+              "start": "2026-09-07T21:30:00+00:00"
+            }
+          ],
+          "range_outliers": 6,
+          "start": "2026-07-23T20:30:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 1
+        },
+        "M30": {
+          "bad_data_outliers": 0,
+          "count": 1926,
+          "duplicates": 0,
+          "end": "2026-09-21T19:30:00+00:00",
+          "gaps": 42,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-09-08T01:00:00+00:00",
+              "mask_id": "15f55f83-cc17-408a-87f1-3ecc237393c0",
+              "missing_candles": 7,
+              "start": "2026-09-07T21:30:00+00:00"
+            }
+          ],
+          "range_outliers": 3,
+          "start": "2026-07-23T20:30:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 1
+        },
+        "M5": {
+          "bad_data_outliers": 0,
+          "count": 11561,
+          "duplicates": 0,
+          "end": "2026-09-21T20:10:00+00:00",
+          "gaps": 42,
+          "invalid_ohlc": 0,
+          "out_of_order": 0,
+          "quarantine_masks": [
+            {
+              "end": "2026-09-08T01:00:00+00:00",
+              "mask_id": "79f45c65-0eea-4776-866d-3e6a97cde04e",
+              "missing_candles": 42,
+              "start": "2026-09-07T21:30:00+00:00"
+            }
+          ],
+          "range_outliers": 13,
+          "start": "2026-07-23T20:20:00+00:00",
+          "status": "PASS_WITH_QUARANTINE",
+          "unresolved_gaps": 1
+        }
+      }
+    }
+  }
+}

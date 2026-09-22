@@ -1,0 +1,291 @@
+{
+  "broker_server": "ICMarketsSC-Demo",
+  "orders_submitted": 0,
+  "requested_end": "2026-09-21T20:16:00+00:00",
+  "requested_start": "2026-07-23T20:16:00+00:00",
+  "source": "MT5:ICMarketsSC-Demo",
+  "symbols": {
+    "BTCUSD": {
+      "broker_symbol": "BTCUSD",
+      "timeframes": {
+        "H1": {
+          "duplicates_skipped": 1409,
+          "first": "2026-07-23T21:00:00+00:00",
+          "inserted": 26,
+          "last": "2026-09-21T19:00:00+00:00",
+          "received": 1435
+        },
+        "H4": {
+          "duplicates_skipped": 352,
+          "first": "2026-07-24T00:00:00+00:00",
+          "inserted": 7,
+          "last": "2026-09-21T16:00:00+00:00",
+          "received": 359
+        },
+        "M1": {
+          "duplicates_skipped": 83876,
+          "first": "2026-07-23T20:16:00+00:00",
+          "inserted": 1545,
+          "last": "2026-09-21T20:15:00+00:00",
+          "received": 85421
+        },
+        "M15": {
+          "duplicates_skipped": 5610,
+          "first": "2026-07-23T20:30:00+00:00",
+          "inserted": 103,
+          "last": "2026-09-21T20:00:00+00:00",
+          "received": 5713
+        },
+        "M30": {
+          "duplicates_skipped": 2810,
+          "first": "2026-07-23T20:30:00+00:00",
+          "inserted": 51,
+          "last": "2026-09-21T19:30:00+00:00",
+          "received": 2861
+        },
+        "M5": {
+          "duplicates_skipped": 16802,
+          "first": "2026-07-23T20:20:00+00:00",
+          "inserted": 309,
+          "last": "2026-09-21T20:10:00+00:00",
+          "received": 17111
+        }
+      }
+    },
+    "ETHUSD": {
+      "broker_symbol": "ETHUSD",
+      "timeframes": {
+        "H1": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T21:00:00+00:00",
+          "inserted": 1435,
+          "last": "2026-09-21T19:00:00+00:00",
+          "received": 1435
+        },
+        "H4": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-24T00:00:00+00:00",
+          "inserted": 359,
+          "last": "2026-09-21T16:00:00+00:00",
+          "received": 359
+        },
+        "M1": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:16:00+00:00",
+          "inserted": 85384,
+          "last": "2026-09-21T20:15:00+00:00",
+          "received": 85384
+        },
+        "M15": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:30:00+00:00",
+          "inserted": 5713,
+          "last": "2026-09-21T20:00:00+00:00",
+          "received": 5713
+        },
+        "M30": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:30:00+00:00",
+          "inserted": 2861,
+          "last": "2026-09-21T19:30:00+00:00",
+          "received": 2861
+        },
+        "M5": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:20:00+00:00",
+          "inserted": 17111,
+          "last": "2026-09-21T20:10:00+00:00",
+          "received": 17111
+        }
+      }
+    },
+    "EURUSD": {
+      "broker_symbol": "EURUSD",
+      "timeframes": {
+        "H1": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T21:00:00+00:00",
+          "inserted": 1007,
+          "last": "2026-09-21T19:00:00+00:00",
+          "received": 1007
+        },
+        "H4": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-24T00:00:00+00:00",
+          "inserted": 251,
+          "last": "2026-09-21T16:00:00+00:00",
+          "received": 251
+        },
+        "M1": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:16:00+00:00",
+          "inserted": 60415,
+          "last": "2026-09-21T20:15:00+00:00",
+          "received": 60415
+        },
+        "M15": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:30:00+00:00",
+          "inserted": 4031,
+          "last": "2026-09-21T20:00:00+00:00",
+          "received": 4031
+        },
+        "M30": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:30:00+00:00",
+          "inserted": 2015,
+          "last": "2026-09-21T19:30:00+00:00",
+          "received": 2015
+        },
+        "M5": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:20:00+00:00",
+          "inserted": 12095,
+          "last": "2026-09-21T20:10:00+00:00",
+          "received": 12095
+        }
+      }
+    },
+    "GBPUSD": {
+      "broker_symbol": "GBPUSD",
+      "timeframes": {
+        "H1": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T21:00:00+00:00",
+          "inserted": 1007,
+          "last": "2026-09-21T19:00:00+00:00",
+          "received": 1007
+        },
+        "H4": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-24T00:00:00+00:00",
+          "inserted": 251,
+          "last": "2026-09-21T16:00:00+00:00",
+          "received": 251
+        },
+        "M1": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:16:00+00:00",
+          "inserted": 60415,
+          "last": "2026-09-21T20:15:00+00:00",
+          "received": 60415
+        },
+        "M15": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:30:00+00:00",
+          "inserted": 4031,
+          "last": "2026-09-21T20:00:00+00:00",
+          "received": 4031
+        },
+        "M30": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:30:00+00:00",
+          "inserted": 2015,
+          "last": "2026-09-21T19:30:00+00:00",
+          "received": 2015
+        },
+        "M5": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:20:00+00:00",
+          "inserted": 12095,
+          "last": "2026-09-21T20:10:00+00:00",
+          "received": 12095
+        }
+      }
+    },
+    "USDJPY": {
+      "broker_symbol": "USDJPY",
+      "timeframes": {
+        "H1": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T21:00:00+00:00",
+          "inserted": 1007,
+          "last": "2026-09-21T19:00:00+00:00",
+          "received": 1007
+        },
+        "H4": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-24T00:00:00+00:00",
+          "inserted": 251,
+          "last": "2026-09-21T16:00:00+00:00",
+          "received": 251
+        },
+        "M1": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:16:00+00:00",
+          "inserted": 60399,
+          "last": "2026-09-21T20:15:00+00:00",
+          "received": 60399
+        },
+        "M15": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:30:00+00:00",
+          "inserted": 4030,
+          "last": "2026-09-21T20:00:00+00:00",
+          "received": 4030
+        },
+        "M30": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:30:00+00:00",
+          "inserted": 2015,
+          "last": "2026-09-21T19:30:00+00:00",
+          "received": 2015
+        },
+        "M5": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:20:00+00:00",
+          "inserted": 12092,
+          "last": "2026-09-21T20:10:00+00:00",
+          "received": 12092
+        }
+      }
+    },
+    "XAUUSD": {
+      "broker_symbol": "XAUUSD",
+      "timeframes": {
+        "H1": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T21:00:00+00:00",
+          "inserted": 963,
+          "last": "2026-09-21T19:00:00+00:00",
+          "received": 963
+        },
+        "H4": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-24T00:00:00+00:00",
+          "inserted": 251,
+          "last": "2026-09-21T16:00:00+00:00",
+          "received": 251
+        },
+        "M1": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:16:00+00:00",
+          "inserted": 57726,
+          "last": "2026-09-21T20:15:00+00:00",
+          "received": 57726
+        },
+        "M15": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:30:00+00:00",
+          "inserted": 3853,
+          "last": "2026-09-21T20:00:00+00:00",
+          "received": 3853
+        },
+        "M30": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:30:00+00:00",
+          "inserted": 1926,
+          "last": "2026-09-21T19:30:00+00:00",
+          "received": 1926
+        },
+        "M5": {
+          "duplicates_skipped": 0,
+          "first": "2026-07-23T20:20:00+00:00",
+          "inserted": 11561,
+          "last": "2026-09-21T20:10:00+00:00",
+          "received": 11561
+        }
+      }
+    }
+  }
+}

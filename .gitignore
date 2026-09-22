@@ -28,7 +28,17 @@ reports/*
 !reports/ic_btcusd_quality.json
 !reports/ic_btcusd_feature_label_audit.json
 !reports/ic_btcusd_quality_review.json
+!reports/ic_universe_ingestion.json
+!reports/ic_universe_quality.json
+!reports/dataset_v4_label_preflight.json
+!reports/dataset_v4_freeze.json
+!reports/ic_contract_economics.json
+!reports/brain_v3_evaluation.json
+!reports/brain_v3_oos_simulation.json
+!reports/brain_v3_btc_shadow.json
+!reports/brain_v3_btc_shadow_evidence.json
 models/artifacts/*
 !models/artifacts/Brain-v1.json
 !models/artifacts/Brain-v2.json
+!models/artifacts/Brain-v3.json
 doc/mt5.txt

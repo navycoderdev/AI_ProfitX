@@ -1,0 +1,32 @@
+{
+  "artifact_hash": "569af0c4c81339449a0cfcd788dc63e0a5f8af045dcddb088dc0ead402e7fb2b",
+  "dataset_hash": "8e0d2fa19312a7b85134f72b8f3728a034b8dde1fb737bf867817c071e57932c",
+  "decision_counts": {
+    "LONG": 5,
+    "SHORT": 32
+  },
+  "evidence_generated_at": "2026-09-22T04:10:15.320106+00:00",
+  "first_decision_at": "2026-09-21T21:15:00",
+  "last_decision_at": "2026-09-22T00:15:00",
+  "lineage_complete": true,
+  "live_permission": false,
+  "model_status": "CANDIDATE",
+  "model_version": "Brain-v3",
+  "orders_submitted": 0,
+  "outcomes": {
+    "pending": 12,
+    "resolved": 25
+  },
+  "risk_counts": {
+    "BLOCK": 37
+  },
+  "risk_reason_codes": {
+    "INVALID_STOP": 37,
+    "MAX_SPREAD": 37
+  },
+  "runtime_boundary": "2026-09-21T21:10:01.127915+00:00",
+  "runtime_paper_trades": 0,
+  "source": "MT5:ICMarketsSC-Demo",
+  "symbol": "BTCUSD",
+  "total_decisions": 37
+}
